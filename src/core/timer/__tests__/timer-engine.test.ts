@@ -208,5 +208,19 @@ describe('TimerEngine', () => {
 
       engine.destroy();
     });
+
+    it('updates config and refreshes idle snapshot immediately', () => {
+      let currentTime = 100000;
+      const mockClock = () => currentTime;
+      const engine = new TimerEngine({ focusDurationMs: 25 * 60 * 1000 }, mockClock);
+
+      expect(engine.getSnapshot().remainingMs).toBe(25 * 60 * 1000);
+
+      const updatedSnapshot = engine.updateConfig({ focusDurationMs: 45 * 60 * 1000 });
+      expect(updatedSnapshot.remainingMs).toBe(45 * 60 * 1000);
+      expect(updatedSnapshot.totalDurationMs).toBe(45 * 60 * 1000);
+
+      engine.destroy();
+    });
   });
 });

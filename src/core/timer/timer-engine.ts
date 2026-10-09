@@ -128,6 +128,16 @@ export class TimerEngine {
     return snapshot;
   }
 
+  public updateConfig(updates: Partial<TimerConfig>): TimerSnapshot {
+    this.stateMachine.updateConfig(updates);
+    if (this.stateMachine.getState() === 'idle') {
+      this.targetDurationMs = this.stateMachine.getPhaseDurationMs();
+    }
+    const snapshot = this.getSnapshot();
+    this.emitStateChange(snapshot);
+    return snapshot;
+  }
+
   public tick(forcedNow?: number): TimerSnapshot {
     const now = forcedNow ?? this.clock();
     const snapshot = this.getSnapshot(now);

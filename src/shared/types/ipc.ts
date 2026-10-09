@@ -1,4 +1,5 @@
 import type { PhaseCompleteEvent, TimerPhase, TimerSnapshot } from '../../core/timer/types';
+import type { UserSettings } from './settings';
 
 export interface IPCChannels {
   // Timer Invocation Channels (Renderer -> Main)
@@ -31,6 +32,13 @@ export interface IPCChannels {
     totalFocusMinutes: number;
     totalCompletedSessions: number;
   }>;
+
+  // Settings Controls
+  'settings:get': () => Promise<UserSettings>;
+  'settings:update': (settings: Partial<UserSettings>) => Promise<UserSettings>;
+
+  // Global Hotkey
+  'hotkey:register': (accelerator: string) => Promise<{ success: boolean; accelerator: string }>;
 }
 
 export interface FocusDeckAPI {
@@ -62,8 +70,11 @@ export interface FocusDeckAPI {
     totalCompletedSessions: number;
   }>;
 
-  minimizeWindow: () => Promise<void>;
+  getSettings: () => Promise<UserSettings>;
+  updateSettings: (settings: Partial<UserSettings>) => Promise<UserSettings>;
+  registerHotkey: (accelerator: string) => Promise<{ success: boolean; accelerator: string }>;
 
+  minimizeWindow: () => Promise<void>;
   closeToTray: () => Promise<void>;
   toggleWindowVisibility: () => Promise<void>;
   getAppVersion: () => Promise<string>;

@@ -199,5 +199,14 @@ describe('TimerStateMachine', () => {
       expect(machine.getPhaseDurationMs('short_break')).toBe(300000);
       expect(machine.getPhaseDurationMs('long_break')).toBe(900000);
     });
+
+    it('dynamically updates config via updateConfig', () => {
+      const machine = new TimerStateMachine();
+      expect(machine.getPhaseDurationMs('focus')).toBe(25 * 60 * 1000);
+
+      machine.updateConfig({ focusDurationMs: 50 * 60 * 1000, longBreakInterval: 6 });
+      expect(machine.getPhaseDurationMs('focus')).toBe(50 * 60 * 1000);
+      expect(machine.getConfig().longBreakInterval).toBe(6);
+    });
   });
 });

@@ -1,10 +1,11 @@
-import { Minus, X } from 'lucide-react';
+import { Minus, X, Settings as SettingsIcon } from 'lucide-react';
 
 interface HeaderProps {
   appName?: string;
+  onOpenSettings?: () => void;
 }
 
-export function Header({ appName = 'FocusDeck' }: HeaderProps) {
+export function Header({ appName = 'FocusDeck', onOpenSettings }: HeaderProps) {
   const handleMinimize = () => {
     window.focusDeckAPI?.minimizeWindow();
   };
@@ -25,6 +26,16 @@ export function Header({ appName = 'FocusDeck' }: HeaderProps) {
       </div>
 
       <div className="window-controls">
+        {onOpenSettings && (
+          <button
+            className="window-btn"
+            onClick={onOpenSettings}
+            title="Preferences & Settings"
+            aria-label="Preferences"
+          >
+            <SettingsIcon size={14} />
+          </button>
+        )}
         <button
           className="window-btn"
           onClick={handleMinimize}

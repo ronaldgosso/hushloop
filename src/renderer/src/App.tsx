@@ -1,15 +1,35 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useCallback } from 'react';
 import { ShieldAlert, X } from 'lucide-react';
 import { Header } from './components/Header';
 import { TimerGauge } from './components/TimerGauge';
 import { ControlDock } from './components/ControlDock';
 import { TelemetryCard } from './components/TelemetryCard';
+import { SettingsModal } from './components/SettingsModal';
 import { useTimer } from './hooks/useTimer';
 import { useSoundscape } from './hooks/useSoundscape';
+import { DEFAULT_USER_SETTINGS, type UserSettings } from '@shared/types/settings';
 
 export default function App() {
   const { snapshot, lastCompletedPhase, start, pause, resume, reset, skip } = useTimer();
   const [recoveryNotice, setRecoveryNotice] = useState<string | null>(null);
+  const [isSettingsOpen, setIsSettingsOpen] = useState(false);
+  const [settings, setSettings] = useState<UserSettings>(DEFAULT_USER_SETTINGS);
+
+  // Load User Preferences on launch
+  useEffect(() => {
+    const api = window.focusDeckAPI;
+    if (api?.getSettings) {
+      api.getSettings().then(setSettings);
+    }
+  }, []);
+
+  const handleSaveSettings = useCallback(async (updates: Partial<UserSettings>) => {
+    const api = window.focusDeckAPI;
+    if (api?.updateSettings) {
+      const updated = await api.updateSettings(updates);
+      setSettings(updated);
+    }
+  }, []);
 
   // Soundscape audio engine hook
   const { soundscape, setSoundscape, volume, setVolume, isPlaying } = useSoundscape(
@@ -60,7 +80,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <Header appName="FocusDeck" />
+      <Header appName="FocusDeck" onOpenSettings={() => setIsSettingsOpen(true)} />
 
       {recoveryNotice && (
         <div className="recovery-banner">
@@ -100,6 +120,13 @@ export default function App() {
         onResume={resume}
         onReset={reset}
         onSkip={skip}
+      />
+
+      <SettingsModal
+        isOpen={isSettingsOpen}
+        onClose={() => setIsSettingsOpen(false)}
+        settings={settings}
+        onSave={handleSaveSettings}
       />
     </div>
   );

@@ -5,7 +5,10 @@ import { TrayManager } from './tray';
 import { WindowsSilencer, CrashRecoveryLedger } from './silencer';
 import { NotificationManager } from './notifications';
 import { StatsStore } from './storage/stats-store';
+import { SettingsStore } from './storage/settings-store';
+import { GlobalHotkeyManager } from './hotkeys';
 import type { TimerPhase } from '../shared/types';
+import type { UserSettings } from '../shared/types/settings';
 
 let mainWindow: BrowserWindow | null = null;
 let trayManager: TrayManager | null = null;
@@ -13,10 +16,24 @@ let timerEngine: TimerEngine | null = null;
 let silencer: WindowsSilencer | null = null;
 let recoveryLedger: CrashRecoveryLedger | null = null;
 let statsStore: StatsStore | null = null;
+let settingsStore: SettingsStore | null = null;
+let hotkeyManager: GlobalHotkeyManager | null = null;
 let pendingRecoveredVolume: number | null = null;
 let isQuitting = false;
 
-async function initSilencerAndRecovery(): Promise<void> {
+function handleGlobalHotkeyTrigger(): void {
+  if (!timerEngine) return;
+  const current = timerEngine.getSnapshot();
+  if (current.state === 'running') {
+    timerEngine.pause();
+  } else if (current.state === 'paused') {
+    timerEngine.resume();
+  } else {
+    timerEngine.start('focus');
+  }
+}
+
+async function initSubsystems(): Promise<UserSettings> {
   const ledgerPath = path.join(app.getPath('userData'), 'silencer-session.json');
   recoveryLedger = new CrashRecoveryLedger(ledgerPath);
   silencer = new WindowsSilencer(undefined, recoveryLedger);
@@ -24,6 +41,14 @@ async function initSilencerAndRecovery(): Promise<void> {
   const statsPath = path.join(app.getPath('userData'), 'stats.json');
   statsStore = new StatsStore(statsPath);
   await statsStore.load();
+
+  const settingsPath = path.join(app.getPath('userData'), 'settings.json');
+  settingsStore = new SettingsStore(settingsPath);
+  const settings = await settingsStore.load();
+
+  // Initialize Global Hotkey
+  hotkeyManager = new GlobalHotkeyManager();
+  hotkeyManager.register(settings.globalHotkey, handleGlobalHotkeyTrigger);
 
   // Check for crash recovery from an unexpected prior termination
   const recoveryResult = await recoveryLedger.recoverIfNeeded(silencer);
@@ -33,9 +58,11 @@ async function initSilencerAndRecovery(): Promise<void> {
       `[FocusDeck] Startup crash recovery: restored system audio to ${pendingRecoveredVolume}%`,
     );
   }
+
+  return settings;
 }
 
-function createWindow(): void {
+function createWindow(settings: UserSettings): void {
   mainWindow = new BrowserWindow({
     width: 980,
     height: 720,
@@ -75,12 +102,14 @@ function createWindow(): void {
     mainWindow = null;
   });
 
-  // Initialize Timer Engine
+  // Initialize Timer Engine with user settings
   timerEngine = new TimerEngine({
-    focusDurationMs: 25 * 60 * 1000,
-    shortBreakDurationMs: 5 * 60 * 1000,
-    longBreakDurationMs: 15 * 60 * 1000,
-    longBreakInterval: 4,
+    focusDurationMs: settings.focusDurationMinutes * 60 * 1000,
+    shortBreakDurationMs: settings.shortBreakDurationMinutes * 60 * 1000,
+    longBreakDurationMs: settings.longBreakDurationMinutes * 60 * 1000,
+    longBreakInterval: settings.longBreakInterval,
+    autoStartBreaks: settings.autoStartBreaks,
+    autoStartFocus: settings.autoStartFocus,
   });
 
   // Initialize Tray
@@ -101,8 +130,9 @@ function createWindow(): void {
     trayManager?.update(snapshot);
 
     // Active Silencing logic:
-    // Silence when in active running focus session; restore on breaks, pause, or reset.
-    if (silencer) {
+    // Respects user setting for system silencing
+    const currentSettings = settingsStore?.getSettings();
+    if (silencer && currentSettings?.systemSilencingEnabled) {
       if (snapshot.state === 'running' && snapshot.phase === 'focus') {
         await silencer.silence(0); // Duck/mute system distractions
       } else {
@@ -118,7 +148,8 @@ function createWindow(): void {
     // 2. Persist session stats
     if (statsStore) {
       if (event.completedPhase === 'focus') {
-        await statsStore.recordFocus(25);
+        const cur = settingsStore?.getSettings();
+        await statsStore.recordFocus(cur?.focusDurationMinutes ?? 25);
       } else {
         await statsStore.recordBreak(event.completedPhase === 'long_break');
       }
@@ -188,6 +219,46 @@ function createWindow(): void {
     return statsStore.getSummary();
   });
 
+  // Settings IPC Handlers
+  ipcMain.handle('settings:get', async () => {
+    return settingsStore?.getSettings();
+  });
+
+  ipcMain.handle('settings:update', async (_event, updates: Partial<UserSettings>) => {
+    if (!settingsStore) throw new Error('Settings store not ready');
+    const updated = await settingsStore.updateSettings(updates);
+
+    // If timer engine is loaded, update durations dynamically
+    if (timerEngine) {
+      timerEngine.updateConfig({
+        focusDurationMs: updated.focusDurationMinutes * 60 * 1000,
+        shortBreakDurationMs: updated.shortBreakDurationMinutes * 60 * 1000,
+        longBreakDurationMs: updated.longBreakDurationMinutes * 60 * 1000,
+        longBreakInterval: updated.longBreakInterval,
+        autoStartBreaks: updated.autoStartBreaks,
+        autoStartFocus: updated.autoStartFocus,
+      });
+    }
+
+    // If global hotkey was updated, re-register immediately
+    if (updates.globalHotkey && hotkeyManager) {
+      hotkeyManager.register(updated.globalHotkey, handleGlobalHotkeyTrigger);
+    }
+
+    return updated;
+  });
+
+  ipcMain.handle('hotkey:register', async (_event, accelerator: string) => {
+    if (!hotkeyManager || !settingsStore) {
+      return { success: false, accelerator };
+    }
+    const success = hotkeyManager.register(accelerator, handleGlobalHotkeyTrigger);
+    if (success) {
+      await settingsStore.updateSettings({ globalHotkey: accelerator });
+    }
+    return { success, accelerator: hotkeyManager.getCurrentAccelerator() ?? accelerator };
+  });
+
   ipcMain.handle('window:minimize', () => {
     mainWindow?.minimize();
   });
@@ -213,15 +284,13 @@ function createWindow(): void {
 }
 
 app.whenReady().then(async () => {
-  await initSilencerAndRecovery();
-  createWindow();
+  const settings = await initSubsystems();
+  createWindow(settings);
 
   app.on('activate', () => {
     if (mainWindow) {
       mainWindow.show();
       mainWindow.focus();
-    } else {
-      createWindow();
     }
   });
 });
@@ -232,6 +301,7 @@ app.on('before-quit', async () => {
   if (silencer) {
     await silencer.restore();
   }
+  hotkeyManager?.destroy();
   timerEngine?.destroy();
   trayManager?.destroy();
 });
