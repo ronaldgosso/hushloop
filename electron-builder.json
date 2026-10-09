@@ -2,11 +2,14 @@
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
   "appId": "com.hushloop.app",
   "productName": "HushLoop",
+  "copyright": "Copyright © 2026 Ronald Gosso",
   "directories": {
     "output": "release"
   },
   "files": ["dist/**/*", "dist-electron/**/*"],
   "win": {
+    "publisherName": "Ronald Gosso",
+    "legalTrademarks": "HushLoop by Ronald Gosso",
     "signAndEditExecutable": false,
     "forceCodeSigning": false,
     "target": [
