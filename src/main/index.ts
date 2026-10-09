@@ -1,5 +1,6 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
+import { fileURLToPath } from 'url';
 import { TimerEngine } from '../core/timer/timer-engine';
 import { TrayManager } from './tray';
 import { WindowsSilencer, CrashRecoveryLedger } from './silencer';
@@ -9,6 +10,9 @@ import { SettingsStore } from './storage/settings-store';
 import { GlobalHotkeyManager } from './hotkeys';
 import type { TimerPhase } from '../shared/types';
 import type { UserSettings } from '../shared/types/settings';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 let mainWindow: BrowserWindow | null = null;
 let trayManager: TrayManager | null = null;
@@ -80,6 +84,10 @@ function createWindow(settings: UserSettings): void {
     },
   });
 
+  mainWindow.webContents.on('did-fail-load', (_event, errorCode, errorDescription) => {
+    console.error(`[HushLoop] Failed to load URL: ${errorCode} - ${errorDescription}`);
+  });
+
   mainWindow.once('ready-to-show', () => {
     mainWindow?.show();
 
@@ -89,6 +97,13 @@ function createWindow(settings: UserSettings): void {
       pendingRecoveredVolume = null;
     }
   });
+
+  // Fallback: Ensure window shows even if ready-to-show is delayed by graphics driver
+  setTimeout(() => {
+    if (mainWindow && !mainWindow.isDestroyed() && !mainWindow.isVisible()) {
+      mainWindow.show();
+    }
+  }, 2000);
 
   // Intercept window close to minimize to tray instead of exiting
   mainWindow.on('close', event => {
@@ -283,17 +298,32 @@ function createWindow(settings: UserSettings): void {
   }
 }
 
-app.whenReady().then(async () => {
-  const settings = await initSubsystems();
-  createWindow(settings);
+const gotSingleInstanceLock = app.requestSingleInstanceLock();
 
-  app.on('activate', () => {
+if (!gotSingleInstanceLock) {
+  app.quit();
+} else {
+  app.on('second-instance', () => {
+    // If user tries to open a second instance, focus and restore existing window
     if (mainWindow) {
-      mainWindow.show();
+      if (mainWindow.isMinimized()) mainWindow.restore();
+      if (!mainWindow.isVisible()) mainWindow.show();
       mainWindow.focus();
     }
   });
-});
+
+  app.whenReady().then(async () => {
+    const settings = await initSubsystems();
+    createWindow(settings);
+
+    app.on('activate', () => {
+      if (mainWindow) {
+        mainWindow.show();
+        mainWindow.focus();
+      }
+    });
+  });
+}
 
 app.on('before-quit', async () => {
   isQuitting = true;
