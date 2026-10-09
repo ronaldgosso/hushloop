@@ -5,14 +5,17 @@
   "directories": {
     "output": "release"
   },
-  "files": [
-    "dist/**/*",
-    "dist-electron/**/*"
-  ],
+  "files": ["dist/**/*", "dist-electron/**/*"],
   "win": {
+    "signAndEditExecutable": false,
+    "forceCodeSigning": false,
     "target": [
       {
         "target": "nsis",
+        "arch": ["x64"]
+      },
+      {
+        "target": "dir",
         "arch": ["x64"]
       }
     ]
