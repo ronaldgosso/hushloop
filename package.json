@@ -2,6 +2,7 @@
   "name": "focusdeck",
   "version": "0.1.0",
   "description": "Active Pomodoro desktop timer for Windows 11 with ambient music and distraction silencing",
+  "author": "Ronald Gosso",
   "main": "dist-electron/main/index.js",
   "private": true,
   "type": "module",
