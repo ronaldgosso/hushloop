@@ -14,7 +14,12 @@
     "format": "prettier --write \"src/**/*.{ts,tsx,css,json,html}\"",
     "test": "vitest run",
     "test:watch": "vitest",
-    "test:coverage": "vitest run --coverage"
+    "test:coverage": "vitest run --coverage",
+    "package:exe": "npm run build:renderer && electron-builder --win nsis",
+    "package:msi": "npm run build:renderer && electron-builder --win msi",
+    "package:portable": "npm run build:renderer && electron-builder --win portable",
+    "package:dir": "npm run build:renderer && electron-builder --win dir",
+    "package:all": "npm run build:renderer && electron-builder --win nsis msi portable"
   },
   "dependencies": {
     "lucide-react": "^1.16.0",

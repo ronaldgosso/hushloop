@@ -123,17 +123,55 @@ npm run lint
 npm run format
 ```
 
-### Building the Windows 11 Release Installer
+### Packaging Windows Release Artifacts (EXE & MSI)
+
+FocusDeck supports multiple Windows distribution targets:
+
+#### 1. Windows NSIS Setup Installer (`.exe`)
+
+Builds a standard Windows installer with desktop and Start Menu shortcuts:
 
 ```powershell
-# Compile TypeScript and Vite bundles
-npm run build:renderer
-
-# Build the complete NSIS Windows installer
-npm run build
+npm run package:exe
 ```
 
-The output installer is generated in `release/FocusDeck Setup 0.1.0.exe`.
+Output: `release/FocusDeck Setup 0.1.0.exe` (~84 MB)
+
+#### 2. Windows MSI Enterprise Installer (`.msi`)
+
+Builds a Windows Installer package via WiX Toolset, ideal for enterprise mass-deployment via Group Policy (GPO) or Microsoft Intune:
+
+```powershell
+npm run package:msi
+```
+
+Output: `release/FocusDeck 0.1.0.msi` (~95 MB)
+
+#### 3. Portable Standalone Application (`.exe`)
+
+Builds a single self-contained executable that runs immediately without installation:
+
+```powershell
+npm run package:portable
+```
+
+Output: `release/FocusDeck 0.1.0.exe` (~75 MB)
+
+#### 4. Unpacked Development Directory (`.exe`)
+
+Builds an unpacked directory for immediate smoke testing without archiving:
+
+```powershell
+npm run package:dir
+```
+
+Output: `release/win-unpacked/FocusDeck.exe`
+
+#### 5. Build All Formats Simultaneously
+
+```powershell
+npm run package:all
+```
 
 ---
 
