@@ -30,37 +30,7 @@ FocusDeck's visual language is inspired by the **Dentale EHR Healthcare Desktop 
 
 FocusDeck is engineered with strict process isolation and unidirectional data flow:
 
-```
-┌────────────────────────────────────────────────────────┐
-│               ELECTRON MAIN PROCESS                    │
-│                                                        │
-│  ┌──────────────────┐        ┌──────────────────────┐  │
-│  │   TimerEngine    │───────▶│    WindowsSilencer   │  │
-│  │ (State Machine)  │        │   (winmm.dll Duck)   │  │
-│  └────────┬─────────┘        └──────────┬───────────┘  │
-│           │                             │              │
-│           ▼                             ▼              │
-│  ┌──────────────────┐        ┌──────────────────────┐  │
-│  │   TrayManager    │        │ CrashRecoveryLedger  │  │
-│  │  (Win11 Menu)    │        │ (silencer-session)   │  │
-│  └──────────────────┘        └──────────────────────┘  │
-└───────────┬────────────────────────────────────────────┘
-            │ IPC via Context-Isolated Preload Bridge
-            ▼
-┌────────────────────────────────────────────────────────┐
-│             RENDERER PROCESS (REACT 18)                │
-│                                                        │
-│  ┌──────────────┐  ┌──────────────┐  ┌──────────────┐  │
-│  │  TimerGauge  │  │ ControlDock  │  │  Telemetry   │  │
-│  └──────────────┘  └──────────────┘  └──────────────┘  │
-│  ┌──────────────────────────────────────────────────┐  │
-│  │           SoundscapeEngine (Web Audio)           │  │
-│  │    Alpha Waves (432Hz) • Rain Ambience • Chime   │  │
-│  └──────────────────────────────────────────────────┘  │
-└────────────────────────────────────────────────────────┘
-```
-
-![Architecture Process Model](docs/images/architecture_process_model.jpg)
+![System Architecture](docs/images/system_architecture_diagram.jpg)
 
 ---
 
