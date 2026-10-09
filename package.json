@@ -1,6 +1,6 @@
 {
   "name": "hushloop",
-  "version": "1.1.1",
+  "version": "1.1.2",
   "description": "Active Pomodoro desktop timer for Windows 11 with ambient music and distraction silencing",
   "author": "Ronald Gosso",
   "main": "dist-electron/main/index.js",

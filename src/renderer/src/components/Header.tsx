@@ -47,8 +47,8 @@ export function Header({ appName = 'HushLoop', onOpenSettings }: HeaderProps) {
         <button
           className="window-btn window-btn-close"
           onClick={handleCloseToTray}
-          title="Close to Tray"
-          aria-label="Close to Tray"
+          title="Close"
+          aria-label="Close"
         >
           <X size={14} />
         </button>

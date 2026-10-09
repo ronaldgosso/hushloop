@@ -7,7 +7,12 @@
     "output": "release"
   },
   "files": ["dist/**/*", "dist-electron/**/*"],
+  "asarUnpack": [
+    "**/favicon.ico",
+    "**/favicon.svg"
+  ],
   "win": {
+    "icon": "build/icon.ico",
     "publisherName": "Ronald Gosso",
     "legalTrademarks": "HushLoop by Ronald Gosso",
     "signAndEditExecutable": false,
@@ -32,8 +37,11 @@
     ]
   },
   "nsis": {
-    "oneClick": false,
-    "allowToChangeInstallationDirectory": true,
+    "oneClick": true,
+    "perMachine": false,
+    "allowToChangeInstallationDirectory": false,
+    "deleteAppDataOnUninstall": false,
+    "runAfterFinish": true,
     "createDesktopShortcut": true,
     "createStartMenuShortcut": true,
     "shortcutName": "HushLoop"

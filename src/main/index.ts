@@ -1,4 +1,5 @@
 import { app, BrowserWindow, ipcMain } from 'electron';
+import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
 import { TimerEngine } from '../core/timer/timer-engine';
@@ -9,7 +10,7 @@ import { StatsStore } from './storage/stats-store';
 import { SettingsStore } from './storage/settings-store';
 import { GlobalHotkeyManager } from './hotkeys';
 import type { TimerPhase } from '../shared/types';
-import type { UserSettings } from '../shared/types/settings';
+import { DEFAULT_USER_SETTINGS, type UserSettings } from '../shared/types/settings';
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -67,15 +68,31 @@ async function initSubsystems(): Promise<UserSettings> {
 }
 
 function createWindow(settings: UserSettings): void {
+  const candidateIconPaths = [
+    path.join(__dirname, '../../dist/favicon.ico'),
+    path.join(__dirname, '../../src/renderer/public/favicon.ico'),
+    path.join(process.resourcesPath, 'dist/favicon.ico'),
+    path.join(process.resourcesPath, 'favicon.ico'),
+  ];
+  let appIcon: string | undefined;
+  for (const p of candidateIconPaths) {
+    if (fs.existsSync(p)) {
+      appIcon = p;
+      break;
+    }
+  }
+
   mainWindow = new BrowserWindow({
     width: 980,
     height: 720,
     minWidth: 840,
     minHeight: 640,
+    title: 'HushLoop',
     backgroundColor: '#0d1117',
-    show: false,
+    show: true,
     frame: false, // Custom frameless glassmorphic header
     autoHideMenuBar: true,
+    icon: appIcon,
     webPreferences: {
       preload: path.join(__dirname, '../preload/index.cjs'),
       contextIsolation: true,
@@ -90,6 +107,7 @@ function createWindow(settings: UserSettings): void {
 
   mainWindow.once('ready-to-show', () => {
     mainWindow?.show();
+    mainWindow?.focus();
 
     // If crash recovery occurred, alert the renderer UI
     if (pendingRecoveredVolume !== null && mainWindow && !mainWindow.isDestroyed()) {
@@ -98,18 +116,21 @@ function createWindow(settings: UserSettings): void {
     }
   });
 
-  // Fallback: Ensure window shows even if ready-to-show is delayed by graphics driver
+  // Fallback: Ensure window shows and focuses even if driver delays ready-to-show
   setTimeout(() => {
-    if (mainWindow && !mainWindow.isDestroyed() && !mainWindow.isVisible()) {
-      mainWindow.show();
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      if (!mainWindow.isVisible()) {
+        mainWindow.show();
+      }
+      mainWindow.focus();
     }
-  }, 2000);
+  }, 1000);
 
-  // Intercept window close to minimize to tray instead of exiting
-  mainWindow.on('close', event => {
+  // Handle window close: quit cleanly to release locks, restore audio, and avoid zombie processes
+  mainWindow.on('close', () => {
     if (!isQuitting) {
-      event.preventDefault();
-      mainWindow?.hide();
+      isQuitting = true;
+      app.quit();
     }
   });
 
@@ -279,7 +300,8 @@ function createWindow(settings: UserSettings): void {
   });
 
   ipcMain.handle('window:close-to-tray', () => {
-    mainWindow?.hide();
+    isQuitting = true;
+    app.quit();
   });
 
   ipcMain.handle('window:toggle-visibility', () => {
@@ -304,16 +326,24 @@ if (!gotSingleInstanceLock) {
   app.quit();
 } else {
   app.on('second-instance', () => {
-    // If user tries to open a second instance, focus and restore existing window
-    if (mainWindow) {
+    // If user tries to open a second instance, focus, unminimize, and bring window to front
+    if (mainWindow && !mainWindow.isDestroyed()) {
       if (mainWindow.isMinimized()) mainWindow.restore();
       if (!mainWindow.isVisible()) mainWindow.show();
+      mainWindow.setAlwaysOnTop(true);
       mainWindow.focus();
+      mainWindow.setAlwaysOnTop(false);
     }
   });
 
   app.whenReady().then(async () => {
-    const settings = await initSubsystems();
+    let settings: UserSettings;
+    try {
+      settings = await initSubsystems();
+    } catch (err) {
+      console.warn('[HushLoop] Subsystem initialization encountered non-fatal error:', err);
+      settings = { ...DEFAULT_USER_SETTINGS };
+    }
     createWindow(settings);
 
     app.on('activate', () => {
@@ -322,6 +352,8 @@ if (!gotSingleInstanceLock) {
         mainWindow.focus();
       }
     });
+  }).catch(err => {
+    console.error('[HushLoop] Fatal error during app ready:', err);
   });
 }
 
@@ -337,8 +369,10 @@ app.on('before-quit', async () => {
 });
 
 app.on('window-all-closed', () => {
-  // Kept alive in tray unless quitting explicitly
-  if (process.platform !== 'darwin' && isQuitting) {
-    app.quit();
+  // Kept alive in tray unless quitting explicitly or tray unavailable
+  if (process.platform !== 'darwin') {
+    if (isQuitting || !trayManager?.hasTray()) {
+      app.quit();
+    }
   }
 });
