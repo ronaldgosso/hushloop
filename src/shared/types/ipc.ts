@@ -13,6 +13,24 @@ export interface IPCChannels {
   'window:minimize': () => Promise<void>;
   'window:close-to-tray': () => Promise<void>;
   'window:toggle-visibility': () => Promise<void>;
+
+  // Silencer Controls
+  'silencer:status': () => Promise<{ isSilenced: boolean; currentVolume: number }>;
+  'silencer:toggle': (enable: boolean) => Promise<{ success: boolean; isSilenced: boolean }>;
+
+  // Local Daily Stats
+  'stats:get-summary': () => Promise<{
+    today: {
+      date: string;
+      focusMinutes: number;
+      completedFocusSessions: number;
+      completedShortBreaks: number;
+      completedLongBreaks: number;
+    };
+    streakDays: number;
+    totalFocusMinutes: number;
+    totalCompletedSessions: number;
+  }>;
 }
 
 export interface FocusDeckAPI {
@@ -26,8 +44,26 @@ export interface FocusDeckAPI {
   onTimerTick: (callback: (snapshot: TimerSnapshot) => void) => () => void;
   onStateChange: (callback: (snapshot: TimerSnapshot) => void) => () => void;
   onPhaseComplete: (callback: (event: PhaseCompleteEvent) => void) => () => void;
+  onCrashRecovery: (callback: (recoveredVolume: number) => void) => () => void;
+
+  getSilencerStatus: () => Promise<{ isSilenced: boolean; currentVolume: number }>;
+  toggleSilencer: (enable: boolean) => Promise<{ success: boolean; isSilenced: boolean }>;
+
+  getStatsSummary: () => Promise<{
+    today: {
+      date: string;
+      focusMinutes: number;
+      completedFocusSessions: number;
+      completedShortBreaks: number;
+      completedLongBreaks: number;
+    };
+    streakDays: number;
+    totalFocusMinutes: number;
+    totalCompletedSessions: number;
+  }>;
 
   minimizeWindow: () => Promise<void>;
+
   closeToTray: () => Promise<void>;
   toggleWindowVisibility: () => Promise<void>;
   getAppVersion: () => Promise<string>;

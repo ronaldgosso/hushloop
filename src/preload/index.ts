@@ -44,6 +44,20 @@ const api: FocusDeckAPI = {
   closeToTray: () => ipcRenderer.invoke('window:close-to-tray'),
   toggleWindowVisibility: () => ipcRenderer.invoke('window:toggle-visibility'),
   getAppVersion: () => ipcRenderer.invoke('app:version'),
+
+  onCrashRecovery: (callback: (recoveredVolume: number) => void) => {
+    const handler = (_event: Electron.IpcRendererEvent, recoveredVolume: number) => {
+      callback(recoveredVolume);
+    };
+    ipcRenderer.on('silencer:crash-recovered', handler);
+    return () => {
+      ipcRenderer.removeListener('silencer:crash-recovered', handler);
+    };
+  },
+
+  getSilencerStatus: () => ipcRenderer.invoke('silencer:status'),
+  toggleSilencer: (enable: boolean) => ipcRenderer.invoke('silencer:toggle', enable),
+  getStatsSummary: () => ipcRenderer.invoke('stats:get-summary'),
 };
 
 contextBridge.exposeInMainWorld('focusDeckAPI', api);
