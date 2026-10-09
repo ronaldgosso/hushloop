@@ -61,7 +61,7 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
         <div className="modal-header">
           <div className="modal-title-wrap">
             <Sliders size={18} color="#00F2FE" />
-            <h2 className="modal-title">FocusDeck Preferences</h2>
+            <h2 className="modal-title">HushLoop Preferences</h2>
           </div>
           <button className="modal-close-btn" onClick={onClose} aria-label="Close Settings">
             <X size={18} />

@@ -14,11 +14,13 @@ export class TrayManager {
   }
 
   private createTrayIcon(): Electron.NativeImage {
-    // 16x16 brand mark data URL: electric cyan Sonic Shutter logo on transparent background
+    // 16x16 brand mark data URL: electric cyan Acoustic Loop logo on transparent background
     const svgIcon = `
       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256">
-        <rect x="46" y="48" width="32" height="160" rx="16" fill="#00F2FE"/>
-        <path d="M 106 64 C 106 50 122 41 134 48 L 202 88 C 214 95 214 113 202 120 L 134 160 C 122 167 106 158 106 144 Z" fill="#00F2FE" transform="matrix(1 0 0 1.5 0 -48)"/>
+        <path fill-rule="evenodd" d="M 128 32 C 74.98 32 32 74.98 32 128 C 32 181.02 74.98 224 128 224 C 181.02 224 224 181.02 224 128 C 224 74.98 181.02 32 128 32 Z M 128 60 C 165.55 60 196 90.45 196 128 C 196 165.55 165.55 196 128 196 C 90.45 196 60 165.55 60 128 C 60 90.45 90.45 60 128 60 Z" fill="#00F2FE"/>
+        <rect x="96" y="96" width="18" height="64" rx="9" fill="#00F2FE"/>
+        <rect x="122" y="80" width="18" height="96" rx="9" fill="#00F2FE"/>
+        <rect x="148" y="104" width="18" height="48" rx="9" fill="#00F2FE"/>
       </svg>
     `.trim();
 
@@ -31,7 +33,7 @@ export class TrayManager {
     const icon = this.createTrayIcon();
     this.tray = new Tray(icon);
 
-    this.tray.setToolTip('FocusDeck - Ready to Focus');
+    this.tray.setToolTip('HushLoop - Ready to Focus');
 
     this.tray.on('click', () => {
       this.toggleWindow();
@@ -46,11 +48,11 @@ export class TrayManager {
     const formattedTime = this.formatDuration(snapshot.remainingMs);
     const phaseLabel = this.getPhaseLabel(snapshot.phase);
 
-    let tooltip = 'FocusDeck - Ready to Focus';
+    let tooltip = 'HushLoop - Ready to Focus';
     if (snapshot.state === 'running') {
-      tooltip = `FocusDeck - ${phaseLabel} (${formattedTime} remaining)`;
+      tooltip = `HushLoop - ${phaseLabel} (${formattedTime} remaining)`;
     } else if (snapshot.state === 'paused') {
-      tooltip = `FocusDeck - Paused (${formattedTime} remaining)`;
+      tooltip = `HushLoop - Paused (${formattedTime} remaining)`;
     }
 
     this.tray.setToolTip(tooltip);
@@ -67,7 +69,7 @@ export class TrayManager {
 
     const contextMenu = Menu.buildFromTemplate([
       {
-        label: `FocusDeck • ${phaseLabel} (${formattedTime})`,
+        label: `HushLoop • ${phaseLabel} (${formattedTime})`,
         enabled: false,
       },
       { type: 'separator' },
@@ -103,14 +105,14 @@ export class TrayManager {
       },
       { type: 'separator' },
       {
-        label: isWindowVisible ? 'Hide to Tray' : 'Open FocusDeck',
+        label: isWindowVisible ? 'Hide to Tray' : 'Open HushLoop',
         click: () => {
           this.toggleWindow();
         },
       },
       { type: 'separator' },
       {
-        label: 'Quit FocusDeck',
+        label: 'Quit HushLoop',
         click: () => {
           app.quit();
         },

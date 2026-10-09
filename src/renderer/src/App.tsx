@@ -80,7 +80,7 @@ export default function App() {
 
   return (
     <div className="app-shell">
-      <Header appName="FocusDeck" onOpenSettings={() => setIsSettingsOpen(true)} />
+      <Header appName="HushLoop" onOpenSettings={() => setIsSettingsOpen(true)} />
 
       {recoveryNotice && (
         <div className="recovery-banner">

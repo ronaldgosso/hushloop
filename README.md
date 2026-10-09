@@ -1,6 +1,6 @@
 <div align="center">
-  <img src="docs/images/focusdeck_app_icon.png" alt="FocusDeck Logo" width="128" height="128" />
-  <h1>FocusDeck</h1>
+  <img src="docs/images/hushloop_app_icon.png" alt="HushLoop Logo" width="128" height="128" />
+  <h1>HushLoop</h1>
   <p><strong>Active Pomodoro Desktop Timer for Windows 11</strong></p>
   <p><i>Automated Distraction Silencing • Procedural Web Audio Soundscapes • Native Tray & Global Hotkeys</i></p>
 
@@ -16,9 +16,22 @@
 
 ---
 
+## 🎨 Brand Identity: The Acoustic Loop
+
+<div align="center">
+  <img src="docs/images/hushloop_logo.svg" alt="HushLoop Official Logo Lockup" width="480" />
+</div>
+
+HushLoop's brand mark embodies **The Acoustic Loop**:
+- **Outer Unbroken Focus Ring**: Represents continuous, uninterrupted focus flow and cyclical Pomodoro intervals.
+- **Central Sound-Damping Bar Array**: Three vertical acoustic pills that visually attenuate sound vibrations down to absolute calm and hush.
+- **Electric Cyan Glow (`#00F2FE`)**: Signals active silence mode, high cognitive clarity, and Windows 11 Fluent dark synergy.
+
+---
+
 ## 📸 Visual Identity & Architecture
 
-FocusDeck's visual language is inspired by the **Dentale EHR Healthcare Desktop App** design aesthetic:
+HushLoop's visual language is inspired by the **Dentale EHR Healthcare Desktop App** design aesthetic:
 
 - **Futuristic Dark Glassmorphism**: Surface panels (`rgba(22, 27, 34, 0.72)`) over deep space obsidian (`#0D1117`) with 16px backdrop blur.
 - **Electric Cyan Progress Indicator**: Vibrant glowing arc (`#00F2FE` and `#4EEDDE`) visualizing focus progress.
@@ -26,7 +39,7 @@ FocusDeck's visual language is inspired by the **Dentale EHR Healthcare Desktop 
 - **Floating Pill Dock**: Ergonomic bottom floating dock with instant audio and session controls.
 - **Frameless Window Bar**: Custom drag region with Windows 11 status pulse indicator and window controls.
 
-![FocusDeck Design Mockup](docs/images/focusdeck_design_mockup.jpg)
+![HushLoop Design Mockup](docs/images/focusdeck_design_mockup.jpg)
 
 ---
 
@@ -142,7 +155,7 @@ You can download ready-to-run Windows 11 binaries directly from GitHub:
 
 ### Packaging Windows Release Artifacts (EXE & MSI)
 
-FocusDeck supports multiple Windows distribution targets:
+HushLoop supports multiple Windows distribution targets:
 
 #### 1. Windows NSIS Setup Installer (`.exe`)
 
@@ -152,7 +165,7 @@ Builds a standard Windows installer with desktop and Start Menu shortcuts:
 npm run package:exe
 ```
 
-Output: `release/FocusDeck Setup 0.1.0.exe` (~84 MB)
+Output: `release/HushLoop Setup 1.0.0.exe` (~84 MB)
 
 #### 2. Windows MSI Enterprise Installer (`.msi`)
 
@@ -162,7 +175,7 @@ Builds a Windows Installer package via WiX Toolset, ideal for enterprise mass-de
 npm run package:msi
 ```
 
-Output: `release/FocusDeck 0.1.0.msi` (~95 MB)
+Output: `release/HushLoop 1.0.0.msi` (~94 MB)
 
 #### 3. Portable Standalone Application (`.exe`)
 
@@ -172,7 +185,7 @@ Builds a single self-contained executable that runs immediately without installa
 npm run package:portable
 ```
 
-Output: `release/FocusDeck 0.1.0.exe` (~75 MB)
+Output: `release/HushLoop 1.0.0.exe` (~84 MB)
 
 #### 4. Unpacked Development Directory (`.exe`)
 
@@ -182,7 +195,7 @@ Builds an unpacked directory for immediate smoke testing without archiving:
 npm run package:dir
 ```
 
-Output: `release/win-unpacked/FocusDeck.exe`
+Output: `release/win-unpacked/HushLoop.exe`
 
 #### 5. Build All Formats Simultaneously
 

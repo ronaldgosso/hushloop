@@ -5,7 +5,7 @@ interface HeaderProps {
   onOpenSettings?: () => void;
 }
 
-export function Header({ appName = 'FocusDeck', onOpenSettings }: HeaderProps) {
+export function Header({ appName = 'HushLoop', onOpenSettings }: HeaderProps) {
   const handleMinimize = () => {
     window.focusDeckAPI?.minimizeWindow();
   };
