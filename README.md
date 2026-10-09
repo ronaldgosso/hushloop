@@ -1,4 +1,8 @@
-# FocusDeck 🎯
+<div align="center">
+  <img src="docs/images/focusdeck_app_icon.png" alt="FocusDeck Logo" width="128" height="128" />
+  <h1>FocusDeck</h1>
+  <p><strong>Active Pomodoro Desktop Timer for Windows 11</strong></p>
+  <p><i>Automated Distraction Silencing • Procedural Web Audio Soundscapes • Native Tray & Global Hotkeys</i></p>
 
 [![Build & Test](https://github.com/ronaldgosso/hushloop/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/ronaldgosso/hushloop/actions/workflows/build-and-test.yml)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg?logo=typescript)](https://www.typescriptlang.org/)
@@ -8,7 +12,7 @@
 [![Vitest](https://img.shields.io/badge/Vitest-Coverage_99.8%25-green.svg?logo=vitest)](https://vitest.dev/)
 [![Platform](https://img.shields.io/badge/Platform-Windows_11-0078D4.svg?logo=windows-11)](https://microsoft.com/windows)
 
-> **Active Pomodoro desktop timer for Windows 11** that actively enforces deep concentration by ducking distraction audio, synthesizing ambient focus soundscapes, and maintaining seamless tray and hotkey control.
+</div>
 
 ---
 
