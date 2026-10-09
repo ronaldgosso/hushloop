@@ -1,22 +1,49 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import type { TimerSnapshot } from '../shared/types';
-
-export interface FocusDeckAPI {
-  getAppVersion: () => Promise<string>;
-  onTimerTick: (callback: (snapshot: TimerSnapshot) => void) => () => void;
-}
+import type { FocusDeckAPI } from '../shared/types/ipc';
+import type { PhaseCompleteEvent, TimerPhase, TimerSnapshot } from '../shared/types';
 
 const api: FocusDeckAPI = {
-  getAppVersion: () => ipcRenderer.invoke('app:version'),
+  startTimer: (phase?: TimerPhase) => ipcRenderer.invoke('timer:start', phase),
+  pauseTimer: () => ipcRenderer.invoke('timer:pause'),
+  resumeTimer: () => ipcRenderer.invoke('timer:resume'),
+  resetTimer: () => ipcRenderer.invoke('timer:reset'),
+  skipTimer: () => ipcRenderer.invoke('timer:skip'),
+  getSnapshot: () => ipcRenderer.invoke('timer:get-snapshot'),
+
   onTimerTick: (callback: (snapshot: TimerSnapshot) => void) => {
-    const subscription = (_event: Electron.IpcRendererEvent, snapshot: TimerSnapshot) => {
+    const handler = (_event: Electron.IpcRendererEvent, snapshot: TimerSnapshot) => {
       callback(snapshot);
     };
-    ipcRenderer.on('timer:tick', subscription);
+    ipcRenderer.on('timer:tick', handler);
     return () => {
-      ipcRenderer.removeListener('timer:tick', subscription);
+      ipcRenderer.removeListener('timer:tick', handler);
     };
   },
+
+  onStateChange: (callback: (snapshot: TimerSnapshot) => void) => {
+    const handler = (_event: Electron.IpcRendererEvent, snapshot: TimerSnapshot) => {
+      callback(snapshot);
+    };
+    ipcRenderer.on('timer:state-change', handler);
+    return () => {
+      ipcRenderer.removeListener('timer:state-change', handler);
+    };
+  },
+
+  onPhaseComplete: (callback: (event: PhaseCompleteEvent) => void) => {
+    const handler = (_event: Electron.IpcRendererEvent, eventData: PhaseCompleteEvent) => {
+      callback(eventData);
+    };
+    ipcRenderer.on('timer:phase-complete', handler);
+    return () => {
+      ipcRenderer.removeListener('timer:phase-complete', handler);
+    };
+  },
+
+  minimizeWindow: () => ipcRenderer.invoke('window:minimize'),
+  closeToTray: () => ipcRenderer.invoke('window:close-to-tray'),
+  toggleWindowVisibility: () => ipcRenderer.invoke('window:toggle-visibility'),
+  getAppVersion: () => ipcRenderer.invoke('app:version'),
 };
 
 contextBridge.exposeInMainWorld('focusDeckAPI', api);
