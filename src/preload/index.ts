@@ -58,6 +58,11 @@ const api: FocusDeckAPI = {
   getSilencerStatus: () => ipcRenderer.invoke('silencer:status'),
   toggleSilencer: (enable: boolean) => ipcRenderer.invoke('silencer:toggle', enable),
   getStatsSummary: () => ipcRenderer.invoke('stats:get-summary'),
+
+  getSettings: () => ipcRenderer.invoke('settings:get'),
+  updateSettings: (settings: Partial<import('../shared/types/settings').UserSettings>) =>
+    ipcRenderer.invoke('settings:update', settings),
+  registerHotkey: (accelerator: string) => ipcRenderer.invoke('hotkey:register', accelerator),
 };
 
 contextBridge.exposeInMainWorld('focusDeckAPI', api);

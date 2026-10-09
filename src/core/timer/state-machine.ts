@@ -11,10 +11,14 @@ export class TimerStateMachine {
   private currentState: TimerState = 'idle';
   private currentPhase: TimerPhase = 'focus';
   private completedFocusSessions = 0;
-  private readonly config: TimerConfig;
+  private config: TimerConfig;
 
   constructor(config: Partial<TimerConfig> = {}) {
     this.config = { ...DEFAULT_TIMER_CONFIG, ...config };
+  }
+
+  public updateConfig(updates: Partial<TimerConfig>): void {
+    this.config = { ...this.config, ...updates };
   }
 
   public getState(): TimerState {
