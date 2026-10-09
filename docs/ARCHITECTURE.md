@@ -8,37 +8,8 @@ FocusDeck is an Electron desktop application designed for Windows 11 that combin
 
 Electron runs two distinct environments. Keeping them isolated is essential for security and stability:
 
-```
-┌────────────────────────────────────────────────────────────────────────┐
-│                          MAIN PROCESS (Node.js)                         │
-│  - Window Management (BrowserWindow)                                   │
-│  - System Tray (Tray, Menu)                                            │
-│  - Global Shortcuts (globalShortcut)                                   │
-│  - System Silencer (Native Audio/Notification controls)                │
-│  - Crash Recovery Ledger (silencer-state.json)                         │
-│  - Local Data Storage (JSON / SQLite stats & settings)                 │
-│  - App Lifecycle & Power Monitor (sleep/wake events)                   │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │ IPC (invoke/handle & send/on)
-                                    ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│                        PRELOAD SCRIPT (Bridge)                         │
-│  - Runs before DOM loads in an isolated context                       │
-│  - Strictly exposes safe APIs via contextBridge.exposeInMainWorld      │
-│  - Zero raw ipcRenderer exposed to renderer                            │
-│  - Runtime validation of arguments                                     │
-└───────────────────────────────────┬────────────────────────────────────┘
-                                    │ window.focusDeckAPI
-                                    ▼
-┌────────────────────────────────────────────────────────────────────────┐
-│                        RENDERER PROCESS (Chromium)                     │
-│  - React 18+ / 19 UI with Tailwind / Vanilla CSS                       │
-│  - Pure presentation & user interactions                               │
-│  - Timer state subscriber & display                                    │
-│  - Audio Player (HTML5 Web Audio for ambient focus loops)              │
-│  - Settings & Analytics Dashboard views                                │
-└────────────────────────────────────────────────────────────────────────┘
-```
+![FocusDeck Process Architecture Diagram](images/architecture_process_model.jpg)
+
 
 ### Why this boundary exists
 - **Security**: The Renderer process runs web content. Even though our app doesn't load external URLs, web views can be vulnerable to Cross-Site Scripting (XSS). If `nodeIntegration` were enabled or if raw IPC were exposed, an attacker could execute arbitrary PowerShell commands on the user's Windows machine.

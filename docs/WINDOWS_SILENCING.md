@@ -61,28 +61,5 @@ Rather than faking DND support or using fragile registry hacks that break on Win
 
 To guarantee the user is never left with an unexpectedly muted system after a crash:
 
-```
-[Start Session]
-       │
-       ▼
-[Read System Audio State (e.g., Muted: false, Vol: 45%)]
-       │
-       ▼
-[Atomic Write to silencer-session.json]
-       │
-       ▼
-[Apply Silencer (Mute / Duck)]
-       │
-       ├── Normal Flow ────────► [Session End / Pause] ──► [Restore Audio] ──► [Delete silencer-session.json]
-       │
-       └── Crash / Force-Quit ─► [App Restart]
-                                      │
-                                      ▼
-                                 [Detect orphaned silencer-session.json]
-                                      │
-                                      ▼
-                                 [Auto-Restore Audio to 45%]
-                                      │
-                                      ▼
-                                 [Notify User: "Restored sound after unexpected exit"]
-```
+![FocusDeck System Silencing and Crash Recovery Protocol](images/crash_recovery_flowchart.jpg)
+
