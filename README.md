@@ -127,6 +127,19 @@ npm run lint
 npm run format
 ```
 
+## 📥 Download Pre-Built Releases
+
+You can download ready-to-run Windows 11 binaries directly from GitHub:
+👉 **[Download Latest HushLoop Release](https://github.com/ronaldgosso/hushloop/releases/latest)**
+
+| Package Format                    | Filename                       | Best For                                                                      |
+| --------------------------------- | ------------------------------ | ----------------------------------------------------------------------------- |
+| **Setup Installer (`.exe`)**      | `HushLoop Setup <version>.exe` | Standard Windows installation with desktop & Start Menu shortcuts.            |
+| **Enterprise Installer (`.msi`)** | `HushLoop <version>.msi`       | System administrators deploying via Active Directory GPO or Microsoft Intune. |
+| **Portable App (`.exe`)**         | `HushLoop <version>.exe`       | Instant execution without installation (run from thumb drive or any folder).  |
+
+---
+
 ### Packaging Windows Release Artifacts (EXE & MSI)
 
 FocusDeck supports multiple Windows distribution targets:
@@ -176,6 +189,28 @@ Output: `release/win-unpacked/FocusDeck.exe`
 ```powershell
 npm run package:all
 ```
+
+---
+
+### 🏷️ Publishing a Versioned GitHub Release
+
+To release a new version with automated `.exe` and `.msi` builds attached:
+
+```powershell
+# 1. Update version in package.json (e.g. 0.1.0)
+npm version 0.1.0 --no-git-tag-version
+
+# 2. Create and push a version git tag
+git tag -a v0.1.0 -m "Release v0.1.0"
+git push origin v0.1.0
+```
+
+GitHub Actions automatically runs the [Release Windows Executable](.github/workflows/release.yml) workflow:
+
+1. Runs tests and linters on `windows-latest`.
+2. Packages NSIS `.exe`, WiX `.msi`, and Portable `.exe`.
+3. Creates a new GitHub Release tagged `v0.1.0`.
+4. Attaches all installer binaries for users to download.
 
 ---
 

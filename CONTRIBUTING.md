@@ -114,10 +114,14 @@ npm run build:renderer
 npm run package:exe   # Builds NSIS setup .exe
 npm run package:msi   # Builds WiX enterprise .msi
 npm run package:portable # Builds standalone .exe
+
+# 7. Release via GitHub Actions
+git tag -a v0.1.0 -m "Release v0.1.0"
+git push origin v0.1.0
 ```
 
 ---
 
 ## 📄 License
 
-By contributing to FocusDeck, you agree that your contributions will be licensed under the project's [MIT License](LICENSE).
+By contributing to HushLoop, you agree that your contributions will be licensed under the project's [MIT License](LICENSE).

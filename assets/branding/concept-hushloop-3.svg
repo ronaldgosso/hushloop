@@ -1,0 +1,5 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256">
+  <title>HushLoop — H-L Monogram Loop</title>
+  <!-- Left tall stem of 'h' (Hush) connected through a circular arch into an 'L' foot (Loop) -->
+  <path fill-rule="evenodd" d="M 64 48 C 64 37 73 28 84 28 C 95 28 104 37 104 48 L 104 104 C 114 92 129 84 146 84 C 178 84 204 110 204 142 L 204 184 C 204 195 195 204 184 204 L 104 204 C 82 204 64 186 64 164 L 64 48 Z M 104 146 L 104 164 C 104 168 107 172 112 172 L 164 172 L 164 142 C 164 132 156 124 146 124 C 136 124 128 132 128 142 L 128 146 L 104 146 Z" fill="#000000"/>
+</svg>

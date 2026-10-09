@@ -1,0 +1,76 @@
+name: Release Windows Executable
+
+on:
+  push:
+    tags:
+      - 'v*'
+  workflow_dispatch:
+    inputs:
+      draft:
+        description: 'Create a draft release (unpublished)'
+        required: false
+        type: boolean
+        default: false
+      prerelease:
+        description: 'Mark as pre-release (beta/preview)'
+        required: false
+        type: boolean
+        default: false
+
+permissions:
+  contents: write
+
+jobs:
+  build-and-release:
+    name: Build & Publish Release (${{ matrix.os }})
+    runs-on: windows-latest
+
+    steps:
+      - name: Checkout Repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Setup Node.js Runtime
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: 'npm'
+
+      - name: Install Project Dependencies
+        run: npm ci
+
+      - name: Run ESLint Verification
+        run: npm run lint
+
+      - name: Run Vitest Unit Tests
+        run: npm test
+
+      - name: Compile TypeScript & Vite Bundles
+        run: npm run build:renderer
+
+      - name: Package Windows Artifacts (NSIS, MSI, Portable)
+        run: npx electron-builder --win nsis msi portable
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Inspect Built Release Artifacts
+        shell: pwsh
+        run: |
+          Write-Host "Generated release artifacts:"
+          Get-ChildItem -Path release -File | Select-Object Name, Length, LastWriteTime | Format-Table -AutoSize
+
+      - name: Publish GitHub Release
+        uses: softprops/action-gh-release@v2
+        with:
+          name: 'Release ${{ github.ref_name }}'
+          draft: ${{ inputs.draft || false }}
+          prerelease: ${{ inputs.prerelease || false }}
+          generate_release_notes: true
+          files: |
+            release/*.exe
+            release/*.msi
+            release/*.blockmap
+            release/latest.yml
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}

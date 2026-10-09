@@ -1,7 +1,7 @@
 {
   "$schema": "https://raw.githubusercontent.com/electron-userland/electron-builder/master/packages/app-builder-lib/scheme.json",
-  "appId": "com.focusdeck.app",
-  "productName": "FocusDeck",
+  "appId": "com.hushloop.app",
+  "productName": "HushLoop",
   "directories": {
     "output": "release"
   },
@@ -33,12 +33,12 @@
     "allowToChangeInstallationDirectory": true,
     "createDesktopShortcut": true,
     "createStartMenuShortcut": true,
-    "shortcutName": "FocusDeck"
+    "shortcutName": "HushLoop"
   },
   "msi": {
     "oneClick": false,
     "perMachine": false,
     "runAfterFinish": true,
-    "shortcutName": "FocusDeck"
+    "shortcutName": "HushLoop"
   }
 }
