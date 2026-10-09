@@ -77,7 +77,7 @@ function createWindow(settings: UserSettings): void {
     frame: false, // Custom frameless glassmorphic header
     autoHideMenuBar: true,
     webPreferences: {
-      preload: path.join(__dirname, '../preload/index.js'),
+      preload: path.join(__dirname, '../preload/index.cjs'),
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,

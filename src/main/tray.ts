@@ -14,32 +14,30 @@ export class TrayManager {
   }
 
   private createTrayIcon(): Electron.NativeImage {
-    // 16x16 brand mark data URL: electric cyan Acoustic Loop logo on transparent background
-    const svgIcon = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256">
-        <path fill-rule="evenodd" d="M 128 32 C 74.98 32 32 74.98 32 128 C 32 181.02 74.98 224 128 224 C 181.02 224 224 181.02 224 128 C 224 74.98 181.02 32 128 32 Z M 128 60 C 165.55 60 196 90.45 196 128 C 196 165.55 165.55 196 128 196 C 90.45 196 60 165.55 60 128 C 60 90.45 90.45 60 128 60 Z" fill="#00F2FE"/>
-        <rect x="96" y="96" width="18" height="64" rx="9" fill="#00F2FE"/>
-        <rect x="122" y="80" width="18" height="96" rx="9" fill="#00F2FE"/>
-        <rect x="148" y="104" width="18" height="48" rx="9" fill="#00F2FE"/>
-      </svg>
-    `.trim();
+    // 16x16 raster PNG base64: electric cyan Acoustic Loop icon
+    // Using PNG data URL guarantees Windows CreateIconIndirect produces a valid HICON
+    const pngBase64 =
+      'data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABiElEQVR4nIzTyyvEURQH8DPMzEosrCxkMdQgeeSdpNSElZQNZWEtCxv5I6wIGxsrJewYsRF5JDJ5Td52dnbyiPH9ds8vp9/8lFufmd+5c+/93XvumbBktwLogkqo0L4LSEESXu3gkG9yP8xCoQS3ZxiG9aAFRmDKxCtwps9V0KfPGRiARbtAK+xqvAOjcOp7ez1MQxO8Qy1ccUIupKEUjnRARie1QC+MaxwWlwvmZhs6uEA3rMEHlMM9xCAONTABeWYndXDsHS0HHwkNkjqZbRLmzaQeuIEInMCh9ie4QJEGj2bCA7yZuFiPGNE4rd9xnulTA7vN/7YoF3jSoMH8wCR+m5hHuxOXfbY2b6c8wpYGvOtmfZ4RVxde29QjfInLWUz7N7gDXgevphoWxF3drXqBfLMQ8+Ull4k88AqpEfbE1cQlDEp2IbXrC0rEXTnnpGwps8bn5DfT57APUXGVWqb9vJ0hWGLg/zOxeFiunRLcVmFMzJWH/hjIOmcJM7FMHItnGa79A38AAAD//1W2+FcAAAAGSURBVAMAfa1OFxO+OlAAAAAASUVORK5CYII=';
 
-    const dataUrl = `data:image/svg+xml;base64,${Buffer.from(svgIcon).toString('base64')}`;
-    const image = nativeImage.createFromDataURL(dataUrl);
+    const image = nativeImage.createFromDataURL(pngBase64);
     return image.resize({ width: 16, height: 16 });
   }
 
   private initTray(): void {
-    const icon = this.createTrayIcon();
-    this.tray = new Tray(icon);
+    try {
+      const icon = this.createTrayIcon();
+      this.tray = new Tray(icon);
 
-    this.tray.setToolTip('HushLoop - Ready to Focus');
+      this.tray.setToolTip('HushLoop - Ready to Focus');
 
-    this.tray.on('click', () => {
-      this.toggleWindow();
-    });
+      this.tray.on('click', () => {
+        this.toggleWindow();
+      });
 
-    this.updateContextMenu(this.timerEngine.getSnapshot());
+      this.updateContextMenu(this.timerEngine.getSnapshot());
+    } catch (err) {
+      console.warn('[HushLoop] Failed to initialize system tray:', err);
+    }
   }
 
   public update(snapshot: TimerSnapshot): void {

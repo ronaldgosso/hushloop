@@ -31,9 +31,18 @@ export default defineConfig({
         },
         vite: {
           build: {
+            lib: {
+              entry: path.resolve(__dirname, 'src/preload/index.ts'),
+              formats: ['cjs'],
+              fileName: () => 'index.cjs',
+            },
             outDir: path.resolve(__dirname, 'dist-electron/preload'),
             rollupOptions: {
               external: ['electron'],
+              output: {
+                format: 'cjs',
+                entryFileNames: '[name].cjs',
+              },
             },
           },
         },
