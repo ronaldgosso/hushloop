@@ -3,6 +3,8 @@ import path from 'path';
 import { TimerEngine } from '../core/timer/timer-engine';
 import { TrayManager } from './tray';
 import { WindowsSilencer, CrashRecoveryLedger } from './silencer';
+import { NotificationManager } from './notifications';
+import { StatsStore } from './storage/stats-store';
 import type { TimerPhase } from '../shared/types';
 
 let mainWindow: BrowserWindow | null = null;
@@ -10,6 +12,7 @@ let trayManager: TrayManager | null = null;
 let timerEngine: TimerEngine | null = null;
 let silencer: WindowsSilencer | null = null;
 let recoveryLedger: CrashRecoveryLedger | null = null;
+let statsStore: StatsStore | null = null;
 let pendingRecoveredVolume: number | null = null;
 let isQuitting = false;
 
@@ -17,6 +20,10 @@ async function initSilencerAndRecovery(): Promise<void> {
   const ledgerPath = path.join(app.getPath('userData'), 'silencer-session.json');
   recoveryLedger = new CrashRecoveryLedger(ledgerPath);
   silencer = new WindowsSilencer(undefined, recoveryLedger);
+
+  const statsPath = path.join(app.getPath('userData'), 'stats.json');
+  statsStore = new StatsStore(statsPath);
+  await statsStore.load();
 
   // Check for crash recovery from an unexpected prior termination
   const recoveryResult = await recoveryLedger.recoverIfNeeded(silencer);
@@ -104,7 +111,20 @@ function createWindow(): void {
     }
   });
 
-  timerEngine.onPhaseComplete(event => {
+  timerEngine.onPhaseComplete(async event => {
+    // 1. Notify Windows 11 Desktop
+    NotificationManager.showPhaseCompleteNotification(event.completedPhase, event.nextPhase);
+
+    // 2. Persist session stats
+    if (statsStore) {
+      if (event.completedPhase === 'focus') {
+        await statsStore.recordFocus(25);
+      } else {
+        await statsStore.recordBreak(event.completedPhase === 'long_break');
+      }
+    }
+
+    // 3. Inform renderer
     if (mainWindow && !mainWindow.isDestroyed()) {
       mainWindow.webContents.send('timer:phase-complete', event);
     }
@@ -147,6 +167,25 @@ function createWindow(): void {
     if (!silencer) return { success: false, isSilenced: false };
     const res = enable ? await silencer.silence(0) : await silencer.restore();
     return { success: res.success, isSilenced: silencer.isSilenced() };
+  });
+
+  // Stats IPC Handlers
+  ipcMain.handle('stats:get-summary', async () => {
+    if (!statsStore) {
+      return {
+        today: {
+          date: new Date().toISOString().split('T')[0],
+          focusMinutes: 0,
+          completedFocusSessions: 0,
+          completedShortBreaks: 0,
+          completedLongBreaks: 0,
+        },
+        streakDays: 0,
+        totalFocusMinutes: 0,
+        totalCompletedSessions: 0,
+      };
+    }
+    return statsStore.getSummary();
   });
 
   ipcMain.handle('window:minimize', () => {

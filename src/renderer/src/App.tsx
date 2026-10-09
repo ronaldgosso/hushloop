@@ -5,18 +5,25 @@ import { TimerGauge } from './components/TimerGauge';
 import { ControlDock } from './components/ControlDock';
 import { TelemetryCard } from './components/TelemetryCard';
 import { useTimer } from './hooks/useTimer';
+import { useSoundscape } from './hooks/useSoundscape';
 
 export default function App() {
-  const { snapshot, start, pause, resume, reset, skip } = useTimer();
+  const { snapshot, lastCompletedPhase, start, pause, resume, reset, skip } = useTimer();
   const [recoveryNotice, setRecoveryNotice] = useState<string | null>(null);
+
+  // Soundscape audio engine hook
+  const { soundscape, setSoundscape, volume, setVolume, isPlaying } = useSoundscape(
+    snapshot,
+    lastCompletedPhase,
+  );
 
   // Crash recovery listener
   useEffect(() => {
     const api = window.focusDeckAPI;
     if (!api?.onCrashRecovery) return;
 
-    const unsub = api.onCrashRecovery(volume => {
-      setRecoveryNotice(`Crash Recovery Active: Original system volume restored to ${volume}%.`);
+    const unsub = api.onCrashRecovery(vol => {
+      setRecoveryNotice(`Crash Recovery Active: Original system volume restored to ${vol}%.`);
     });
 
     return () => unsub();
@@ -25,7 +32,6 @@ export default function App() {
   // Keyboard shortcut listener within UI
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      // Ignore if focus is in an input field
       if (['INPUT', 'TEXTAREA'].includes((e.target as HTMLElement)?.tagName)) {
         return;
       }
@@ -84,6 +90,11 @@ export default function App() {
 
       <ControlDock
         snapshot={snapshot}
+        soundscape={soundscape}
+        volume={volume}
+        isPlaying={isPlaying}
+        onSelectSoundscape={setSoundscape}
+        onVolumeChange={setVolume}
         onStart={() => start()}
         onPause={pause}
         onResume={resume}

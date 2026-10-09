@@ -618,13 +618,154 @@ body {
   background: rgba(255, 255, 255, 0.04);
 }
 
-.dock-btn-icon:hover {
-  background: rgba(255, 255, 255, 0.08);
-  color: var(--text-primary);
+.dock-btn-icon:hover,
+.dock-btn-icon-active {
+  background: rgba(0, 242, 254, 0.15);
+  color: var(--color-cyan-glow);
+  border: 1px solid rgba(0, 242, 254, 0.3);
 }
 
 .dock-btn-tag {
   font-size: 11px;
   font-weight: 600;
   letter-spacing: 0.04em;
+}
+
+/* Soundscape Popover Menu */
+.audio-popover {
+  position: absolute;
+  bottom: 84px;
+  width: 270px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 60;
+  animation: popoverFadeIn 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+@keyframes popoverFadeIn {
+  from {
+    transform: translateY(8px) scale(0.96);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0) scale(1);
+    opacity: 1;
+  }
+}
+
+.popover-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.popover-title {
+  font-size: 12px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-primary);
+}
+
+.popover-status {
+  font-size: 11px;
+  font-weight: 600;
+  color: var(--color-cyan-mint);
+}
+
+.soundscape-list {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+.soundscape-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 12px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid transparent;
+  color: var(--text-secondary);
+  font-size: 12px;
+  font-weight: 500;
+}
+
+.soundscape-item:hover {
+  background: rgba(255, 255, 255, 0.08);
+  color: var(--text-primary);
+}
+
+.soundscape-active {
+  background: rgba(0, 242, 254, 0.1);
+  border-color: rgba(0, 242, 254, 0.3);
+  color: var(--color-cyan-glow);
+  font-weight: 600;
+}
+
+.soundscape-left {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.popover-volume-section {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding-top: 6px;
+  border-top: 1px solid var(--border-subtle);
+}
+
+.volume-label-row {
+  display: flex;
+  justify-content: space-between;
+  font-size: 11px;
+}
+
+.vol-title {
+  color: var(--text-secondary);
+}
+
+.vol-value {
+  color: var(--text-primary);
+  font-weight: 600;
+}
+
+.volume-slider {
+  width: 100%;
+  accent-color: var(--color-cyan-glow);
+  height: 4px;
+  cursor: pointer;
+}
+
+/* Telemetry Stats Grid */
+.telemetry-stats-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 8px;
+}
+
+.stat-pill {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 10px;
+  border-radius: 10px;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-subtle);
+}
+
+.stat-pill-label {
+  font-size: 11px;
+  color: var(--text-muted);
+}
+
+.stat-pill-val {
+  font-size: 11px;
+  font-weight: 700;
+  color: var(--text-primary);
 }
