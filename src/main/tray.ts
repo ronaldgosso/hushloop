@@ -14,11 +14,11 @@ export class TrayManager {
   }
 
   private createTrayIcon(): Electron.NativeImage {
-    // 16x16 icon data URL: a sleek cyan target dot on transparent background
+    // 16x16 brand mark data URL: electric cyan Sonic Shutter logo on transparent background
     const svgIcon = `
-      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16">
-        <circle cx="8" cy="8" r="7" fill="none" stroke="#00F2FE" stroke-width="2"/>
-        <circle cx="8" cy="8" r="3" fill="#00F2FE"/>
+      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 256 256">
+        <rect x="46" y="48" width="32" height="160" rx="16" fill="#00F2FE"/>
+        <path d="M 106 64 C 106 50 122 41 134 48 L 202 88 C 214 95 214 113 202 120 L 134 160 C 122 167 106 158 106 144 Z" fill="#00F2FE" transform="matrix(1 0 0 1.5 0 -48)"/>
       </svg>
     `.trim();
 

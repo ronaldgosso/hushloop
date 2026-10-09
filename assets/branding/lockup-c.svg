@@ -1,0 +1,12 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 256" width="800" height="256">
+  <title>FocusDeck Concept C Lockup</title>
+  <!-- Symbol scaled and placed at x=40, y=16 (224x224) -->
+  <g transform="matrix(0.875 0 0 0.875 40 16)">
+    <!-- Symmetrical 270-degree Focus Gauge Arc -->
+  <path fill-rule="evenodd" d="M 58 198 C 19 159 19 97 58 58 C 97 19 159 19 198 58 C 204 64 204 74 198 80 C 192 86 182 86 176 80 C 147 51 99 51 80 80 C 51 109 51 147 80 176 C 86 182 86 192 80 198 C 74 204 64 204 58 198 Z" fill="#000000"/>
+  <!-- Equilateral triangle (height 68, width 60, clean 30 deg slope) -->
+  <path d="M 115 94 C 115 85 125 79 133 83 L 175 107 C 183 111 183 123 175 127 L 133 151 C 125 155 115 149 115 140 Z" fill="#000000"/>
+  </g>
+  <!-- Wordmark 'FocusDeck' with modern geometric styling -->
+  <text x="272" y="148" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="82" font-weight="800" letter-spacing="-0.03em" fill="#000000">Focus<tspan font-weight="300" fill="#444444">Deck</tspan></text>
+</svg>

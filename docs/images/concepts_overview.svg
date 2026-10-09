@@ -1,0 +1,96 @@
+<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="1600" height="984" viewBox="0 0 1600 984"><defs><filter id="grey"><feColorMatrix type="saturate" values="0"/></filter></defs><rect width="1600" height="984" fill="#f7f7f4"/><text x="60" y="78" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="40" font-weight="700" fill="#161616">FocusDeck — Brand Identity Concepts</text><text x="60" y="116" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="20" fill="#6b6b6b">Concepts for review — pick a direction (or tell me what you like in each).</text><rect x="60" y="150" width="474.667" height="774" rx="18" fill="#fff" stroke="#161616" stroke-width="2"/><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="90" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck  The Sonic Shutter</title>
+  <!-- Left Pillar (Silence / Active Shield) -->
+  <rect x="46" y="48" width="32" height="160" rx="16" fill="#000000"/>
+  <!-- Right Forward Flow Wedge -->
+  <path d="M 106 64 C 106 50 122 41 134 48 L 202 88 C 214 95 214 113 202 120 L 134 160 C 122 167 106 158 106 144 Z" fill="#000000" transform="matrix(1 0 0 1.5 0 -48)"/>
+</svg></g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 256" x="90" y="514" width="414.667" height="120" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck Concept B Lockup</title>
+  <!-- Symbol scaled and placed at x=40, y=16 (224x224) -->
+  <g transform="matrix(0.875 0 0 0.875 40 16)">
+    <!-- Left Pillar (Silence / Active Shield) -->
+  <rect x="46" y="48" width="32" height="160" rx="16" fill="#000000"/>
+  <!-- Right Forward Flow Wedge -->
+  <path d="M 106 64 C 106 50 122 41 134 48 L 202 88 C 214 95 214 113 202 120 L 134 160 C 122 167 106 158 106 144 Z" fill="#000000" transform="matrix(1 0 0 1.5 0 -48)"/>
+  </g>
+  <!-- Wordmark 'FocusDeck' with modern geometric styling -->
+  <text x="272" y="148" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="82" font-weight="800" letter-spacing="-0.03em" fill="#000000">Focus<tspan font-weight="300" fill="#444444">Deck</tspan></text>
+</svg></g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="90" y="660" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck  The Sonic Shutter</title>
+  <!-- Left Pillar (Silence / Active Shield) -->
+  <rect x="46" y="48" width="32" height="160" rx="16" fill="#000000"/>
+  <!-- Right Forward Flow Wedge -->
+  <path d="M 106 64 C 106 50 122 41 134 48 L 202 88 C 214 95 214 113 202 120 L 134 160 C 122 167 106 158 106 144 Z" fill="#000000" transform="matrix(1 0 0 1.5 0 -48)"/>
+</svg></g><text x="122" y="744" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="180" y="692" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck  The Sonic Shutter</title>
+  <!-- Left Pillar (Silence / Active Shield) -->
+  <rect x="46" y="48" width="32" height="160" rx="16" fill="#000000"/>
+  <!-- Right Forward Flow Wedge -->
+  <path d="M 106 64 C 106 50 122 41 134 48 L 202 88 C 214 95 214 113 202 120 L 134 160 C 122 167 106 158 106 144 Z" fill="#000000" transform="matrix(1 0 0 1.5 0 -48)"/>
+</svg></g><text x="196" y="744" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="238" y="708" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck  The Sonic Shutter</title>
+  <!-- Left Pillar (Silence / Active Shield) -->
+  <rect x="46" y="48" width="32" height="160" rx="16" fill="#000000"/>
+  <!-- Right Forward Flow Wedge -->
+  <path d="M 106 64 C 106 50 122 41 134 48 L 202 88 C 214 95 214 113 202 120 L 134 160 C 122 167 106 158 106 144 Z" fill="#000000" transform="matrix(1 0 0 1.5 0 -48)"/>
+</svg></g><text x="246" y="744" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="90.0" y="780" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">A · The Sonic Shutter</text><text x="90.0" y="808" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="15" font-weight="700" fill="#161616" letter-spacing="1.5">RECOMMENDED</text><text x="90.0" y="842" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">Active silencing meets forward flow: mute</text><text x="90.0" y="868" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">the world, play the flow.</text><rect x="562.667" y="150" width="474.667" height="774" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="592.667" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck  The Chrono Deck</title>
+  <!-- Symmetrical 270-degree Focus Gauge Arc -->
+  <path fill-rule="evenodd" d="M 58 198 C 19 159 19 97 58 58 C 97 19 159 19 198 58 C 204 64 204 74 198 80 C 192 86 182 86 176 80 C 147 51 99 51 80 80 C 51 109 51 147 80 176 C 86 182 86 192 80 198 C 74 204 64 204 58 198 Z" fill="#000000"/>
+  <!-- Equilateral triangle (height 68, width 60, clean 30 deg slope) -->
+  <path d="M 115 94 C 115 85 125 79 133 83 L 175 107 C 183 111 183 123 175 127 L 133 151 C 125 155 115 149 115 140 Z" fill="#000000"/>
+</svg></g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 256" x="592.667" y="514" width="414.667" height="120" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck Concept C Lockup</title>
+  <!-- Symbol scaled and placed at x=40, y=16 (224x224) -->
+  <g transform="matrix(0.875 0 0 0.875 40 16)">
+    <!-- Symmetrical 270-degree Focus Gauge Arc -->
+  <path fill-rule="evenodd" d="M 58 198 C 19 159 19 97 58 58 C 97 19 159 19 198 58 C 204 64 204 74 198 80 C 192 86 182 86 176 80 C 147 51 99 51 80 80 C 51 109 51 147 80 176 C 86 182 86 192 80 198 C 74 204 64 204 58 198 Z" fill="#000000"/>
+  <!-- Equilateral triangle (height 68, width 60, clean 30 deg slope) -->
+  <path d="M 115 94 C 115 85 125 79 133 83 L 175 107 C 183 111 183 123 175 127 L 133 151 C 125 155 115 149 115 140 Z" fill="#000000"/>
+  </g>
+  <!-- Wordmark 'FocusDeck' with modern geometric styling -->
+  <text x="272" y="148" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="82" font-weight="800" letter-spacing="-0.03em" fill="#000000">Focus<tspan font-weight="300" fill="#444444">Deck</tspan></text>
+</svg></g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="592.667" y="660" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck  The Chrono Deck</title>
+  <!-- Symmetrical 270-degree Focus Gauge Arc -->
+  <path fill-rule="evenodd" d="M 58 198 C 19 159 19 97 58 58 C 97 19 159 19 198 58 C 204 64 204 74 198 80 C 192 86 182 86 176 80 C 147 51 99 51 80 80 C 51 109 51 147 80 176 C 86 182 86 192 80 198 C 74 204 64 204 58 198 Z" fill="#000000"/>
+  <!-- Equilateral triangle (height 68, width 60, clean 30 deg slope) -->
+  <path d="M 115 94 C 115 85 125 79 133 83 L 175 107 C 183 111 183 123 175 127 L 133 151 C 125 155 115 149 115 140 Z" fill="#000000"/>
+</svg></g><text x="624.667" y="744" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="682.667" y="692" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck  The Chrono Deck</title>
+  <!-- Symmetrical 270-degree Focus Gauge Arc -->
+  <path fill-rule="evenodd" d="M 58 198 C 19 159 19 97 58 58 C 97 19 159 19 198 58 C 204 64 204 74 198 80 C 192 86 182 86 176 80 C 147 51 99 51 80 80 C 51 109 51 147 80 176 C 86 182 86 192 80 198 C 74 204 64 204 58 198 Z" fill="#000000"/>
+  <!-- Equilateral triangle (height 68, width 60, clean 30 deg slope) -->
+  <path d="M 115 94 C 115 85 125 79 133 83 L 175 107 C 183 111 183 123 175 127 L 133 151 C 125 155 115 149 115 140 Z" fill="#000000"/>
+</svg></g><text x="698.667" y="744" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="740.667" y="708" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck  The Chrono Deck</title>
+  <!-- Symmetrical 270-degree Focus Gauge Arc -->
+  <path fill-rule="evenodd" d="M 58 198 C 19 159 19 97 58 58 C 97 19 159 19 198 58 C 204 64 204 74 198 80 C 192 86 182 86 176 80 C 147 51 99 51 80 80 C 51 109 51 147 80 176 C 86 182 86 192 80 198 C 74 204 64 204 58 198 Z" fill="#000000"/>
+  <!-- Equilateral triangle (height 68, width 60, clean 30 deg slope) -->
+  <path d="M 115 94 C 115 85 125 79 133 83 L 175 107 C 183 111 183 123 175 127 L 133 151 C 125 155 115 149 115 140 Z" fill="#000000"/>
+</svg></g><text x="748.667" y="744" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="592.6666666666667" y="780" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">B · The Chrono Deck</text><text x="592.6666666666667" y="814" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">270-degree Pomodoro gauge embracing the</text><text x="592.6666666666667" y="840" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">central media core.</text><rect x="1065.33" y="150" width="474.667" height="774" rx="18" fill="#fff" stroke="#e4e4e0" stroke-width="1"/><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="1095.33" y="190" width="414.667" height="300" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck  The Focus Aperture</title>
+  <path fill-rule="evenodd" d="M 128 28 C 72.772 28 28 72.772 28 128 C 28 183.228 72.772 228 128 228 C 183.228 228 228 183.228 228 128 C 228 102.391 218.361 79.034 202.492 61.353 C 196.538 54.717 186.425 54.195 179.789 60.149 C 173.153 66.103 172.631 76.216 178.585 82.852 C 190.627 96.269 198 111.282 198 128 C 198 166.66 166.66 198 128 198 C 89.34 198 58 166.66 58 128 C 58 89.34 89.34 58 128 58 C 146.732 58 163.766 65.378 176.326 77.425 C 182.68 83.518 192.793 83.221 198.886 76.867 C 204.979 70.513 204.682 60.4 198.328 54.307 C 179.358 36.113 154.912 28 128 28 Z" fill="#000000"/>
+  <circle cx="128" cy="128" r="30" fill="#000000"/>
+</svg></g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 256" x="1095.33" y="514" width="414.667" height="120" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck Concept A Lockup</title>
+  <!-- Symbol scaled and placed at x=40, y=16 (224x224) -->
+  <g transform="matrix(0.875 0 0 0.875 40 16)">
+    <path fill-rule="evenodd" d="M 128 28 C 72.772 28 28 72.772 28 128 C 28 183.228 72.772 228 128 228 C 183.228 228 228 183.228 228 128 C 228 102.391 218.361 79.034 202.492 61.353 C 196.538 54.717 186.425 54.195 179.789 60.149 C 173.153 66.103 172.631 76.216 178.585 82.852 C 190.627 96.269 198 111.282 198 128 C 198 166.66 166.66 198 128 198 C 89.34 198 58 166.66 58 128 C 58 89.34 89.34 58 128 58 C 146.732 58 163.766 65.378 176.326 77.425 C 182.68 83.518 192.793 83.221 198.886 76.867 C 204.979 70.513 204.682 60.4 198.328 54.307 C 179.358 36.113 154.912 28 128 28 Z" fill="#000000"/>
+  <circle cx="128" cy="128" r="30" fill="#000000"/>
+  </g>
+  <!-- Wordmark 'FocusDeck' with modern geometric styling -->
+  <text x="272" y="148" font-family="-apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, 'Helvetica Neue', Arial, sans-serif" font-size="82" font-weight="800" letter-spacing="-0.03em" fill="#000000">Focus<tspan font-weight="300" fill="#444444">Deck</tspan></text>
+</svg></g><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="1095.33" y="660" width="64" height="64" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck  The Focus Aperture</title>
+  <path fill-rule="evenodd" d="M 128 28 C 72.772 28 28 72.772 28 128 C 28 183.228 72.772 228 128 228 C 183.228 228 228 183.228 228 128 C 228 102.391 218.361 79.034 202.492 61.353 C 196.538 54.717 186.425 54.195 179.789 60.149 C 173.153 66.103 172.631 76.216 178.585 82.852 C 190.627 96.269 198 111.282 198 128 C 198 166.66 166.66 198 128 198 C 89.34 198 58 166.66 58 128 C 58 89.34 89.34 58 128 58 C 146.732 58 163.766 65.378 176.326 77.425 C 182.68 83.518 192.793 83.221 198.886 76.867 C 204.979 70.513 204.682 60.4 198.328 54.307 C 179.358 36.113 154.912 28 128 28 Z" fill="#000000"/>
+  <circle cx="128" cy="128" r="30" fill="#000000"/>
+</svg></g><text x="1127.33" y="744" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">64px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="1185.33" y="692" width="32" height="32" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck  The Focus Aperture</title>
+  <path fill-rule="evenodd" d="M 128 28 C 72.772 28 28 72.772 28 128 C 28 183.228 72.772 228 128 228 C 183.228 228 228 183.228 228 128 C 228 102.391 218.361 79.034 202.492 61.353 C 196.538 54.717 186.425 54.195 179.789 60.149 C 173.153 66.103 172.631 76.216 178.585 82.852 C 190.627 96.269 198 111.282 198 128 C 198 166.66 166.66 198 128 198 C 89.34 198 58 166.66 58 128 C 58 89.34 89.34 58 128 58 C 146.732 58 163.766 65.378 176.326 77.425 C 182.68 83.518 192.793 83.221 198.886 76.867 C 204.979 70.513 204.682 60.4 198.328 54.307 C 179.358 36.113 154.912 28 128 28 Z" fill="#000000"/>
+  <circle cx="128" cy="128" r="30" fill="#000000"/>
+</svg></g><text x="1201.33" y="744" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">32px</text><g filter="url(#grey)"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" x="1243.33" y="708" width="16" height="16" preserveAspectRatio="xMidYMid meet">
+  <title>FocusDeck  The Focus Aperture</title>
+  <path fill-rule="evenodd" d="M 128 28 C 72.772 28 28 72.772 28 128 C 28 183.228 72.772 228 128 228 C 183.228 228 228 183.228 228 128 C 228 102.391 218.361 79.034 202.492 61.353 C 196.538 54.717 186.425 54.195 179.789 60.149 C 173.153 66.103 172.631 76.216 178.585 82.852 C 190.627 96.269 198 111.282 198 128 C 198 166.66 166.66 198 128 198 C 89.34 198 58 166.66 58 128 C 58 89.34 89.34 58 128 58 C 146.732 58 163.766 65.378 176.326 77.425 C 182.68 83.518 192.793 83.221 198.886 76.867 C 204.979 70.513 204.682 60.4 198.328 54.307 C 179.358 36.113 154.912 28 128 28 Z" fill="#000000"/>
+  <circle cx="128" cy="128" r="30" fill="#000000"/>
+</svg></g><text x="1251.33" y="744" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="12" fill="#8a8a8a" text-anchor="middle">16px</text><text x="1095.3333333333335" y="780" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="26" font-weight="700" fill="#161616">C · The Focus Aperture</text><text x="1095.3333333333335" y="814" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">Concentric focal ring: continuous</text><text x="1095.3333333333335" y="840" font-family="system-ui,-apple-system,'Segoe UI',Helvetica,Arial,sans-serif" font-size="19" fill="#555">concentration cycle.</text></svg>

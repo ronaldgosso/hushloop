@@ -110,8 +110,10 @@ npm run format
 # 5. Verify production Vite & TypeScript builds
 npm run build:renderer
 
-# 6. Verify Windows packaging
-npx electron-builder --win nsis
+# 6. Verify Windows packaging (EXE & MSI)
+npm run package:exe   # Builds NSIS setup .exe
+npm run package:msi   # Builds WiX enterprise .msi
+npm run package:portable # Builds standalone .exe
 ```
 
 ---

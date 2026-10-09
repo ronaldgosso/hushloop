@@ -1,0 +1,7 @@
+<svg fill="#00f2fe" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="256" height="256"><title>FocusDeck</title>
+  
+  <!-- Left Pillar (Silence / Active Shield) -->
+  <rect x="46" y="48" width="32" height="160" rx="16" fill="#00f2fe"/>
+  <!-- Right Forward Flow Wedge -->
+  <path d="M 106 64 C 106 50 122 41 134 48 L 202 88 C 214 95 214 113 202 120 L 134 160 C 122 167 106 158 106 144 Z" fill="#00f2fe" transform="matrix(1 0 0 1.5 0 -48)"/>
+</svg>
