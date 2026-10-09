@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { ShieldAlert, X } from 'lucide-react';
 import { Header } from './components/Header';
 import { TimerGauge } from './components/TimerGauge';
 import { ControlDock } from './components/ControlDock';
@@ -7,6 +8,19 @@ import { useTimer } from './hooks/useTimer';
 
 export default function App() {
   const { snapshot, start, pause, resume, reset, skip } = useTimer();
+  const [recoveryNotice, setRecoveryNotice] = useState<string | null>(null);
+
+  // Crash recovery listener
+  useEffect(() => {
+    const api = window.focusDeckAPI;
+    if (!api?.onCrashRecovery) return;
+
+    const unsub = api.onCrashRecovery(volume => {
+      setRecoveryNotice(`Crash Recovery Active: Original system volume restored to ${volume}%.`);
+    });
+
+    return () => unsub();
+  }, []);
 
   // Keyboard shortcut listener within UI
   useEffect(() => {
@@ -41,6 +55,22 @@ export default function App() {
   return (
     <div className="app-shell">
       <Header appName="FocusDeck" />
+
+      {recoveryNotice && (
+        <div className="recovery-banner">
+          <div className="recovery-content">
+            <ShieldAlert size={16} color="#00F2FE" />
+            <span>{recoveryNotice}</span>
+          </div>
+          <button
+            className="recovery-close-btn"
+            onClick={() => setRecoveryNotice(null)}
+            aria-label="Dismiss recovery notification"
+          >
+            <X size={14} />
+          </button>
+        </div>
+      )}
 
       <main className="app-main-content">
         <section className="timer-section">

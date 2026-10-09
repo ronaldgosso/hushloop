@@ -2,12 +2,31 @@ import { app, BrowserWindow, ipcMain } from 'electron';
 import path from 'path';
 import { TimerEngine } from '../core/timer/timer-engine';
 import { TrayManager } from './tray';
+import { WindowsSilencer, CrashRecoveryLedger } from './silencer';
 import type { TimerPhase } from '../shared/types';
 
 let mainWindow: BrowserWindow | null = null;
 let trayManager: TrayManager | null = null;
 let timerEngine: TimerEngine | null = null;
+let silencer: WindowsSilencer | null = null;
+let recoveryLedger: CrashRecoveryLedger | null = null;
+let pendingRecoveredVolume: number | null = null;
 let isQuitting = false;
+
+async function initSilencerAndRecovery(): Promise<void> {
+  const ledgerPath = path.join(app.getPath('userData'), 'silencer-session.json');
+  recoveryLedger = new CrashRecoveryLedger(ledgerPath);
+  silencer = new WindowsSilencer(undefined, recoveryLedger);
+
+  // Check for crash recovery from an unexpected prior termination
+  const recoveryResult = await recoveryLedger.recoverIfNeeded(silencer);
+  if (recoveryResult.recovered && recoveryResult.snapshot) {
+    pendingRecoveredVolume = recoveryResult.snapshot.volumePercent;
+    console.info(
+      `[FocusDeck] Startup crash recovery: restored system audio to ${pendingRecoveredVolume}%`,
+    );
+  }
+}
 
 function createWindow(): void {
   mainWindow = new BrowserWindow({
@@ -29,6 +48,12 @@ function createWindow(): void {
 
   mainWindow.once('ready-to-show', () => {
     mainWindow?.show();
+
+    // If crash recovery occurred, alert the renderer UI
+    if (pendingRecoveredVolume !== null && mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.webContents.send('silencer:crash-recovered', pendingRecoveredVolume);
+      pendingRecoveredVolume = null;
+    }
   });
 
   // Intercept window close to minimize to tray instead of exiting
@@ -54,7 +79,7 @@ function createWindow(): void {
   // Initialize Tray
   trayManager = new TrayManager(mainWindow, timerEngine);
 
-  // Broadcast timer events to renderer and update tray
+  // Broadcast timer events to renderer, manage silencer, and update tray
   timerEngine.onTick(snapshot => {
     if (mainWindow && !mainWindow.isDestroyed()) {
       mainWindow.webContents.send('timer:tick', snapshot);
@@ -62,11 +87,21 @@ function createWindow(): void {
     trayManager?.update(snapshot);
   });
 
-  timerEngine.onStateChange(snapshot => {
+  timerEngine.onStateChange(async snapshot => {
     if (mainWindow && !mainWindow.isDestroyed()) {
       mainWindow.webContents.send('timer:state-change', snapshot);
     }
     trayManager?.update(snapshot);
+
+    // Active Silencing logic:
+    // Silence when in active running focus session; restore on breaks, pause, or reset.
+    if (silencer) {
+      if (snapshot.state === 'running' && snapshot.phase === 'focus') {
+        await silencer.silence(0); // Duck/mute system distractions
+      } else {
+        await silencer.restore(); // Restore original system audio
+      }
+    }
   });
 
   timerEngine.onPhaseComplete(event => {
@@ -100,6 +135,20 @@ function createWindow(): void {
     return timerEngine?.getSnapshot();
   });
 
+  // Silencer IPC Handlers
+  ipcMain.handle('silencer:status', async () => {
+    return {
+      isSilenced: silencer?.isSilenced() ?? false,
+      currentVolume: (await silencer?.getCurrentVolume()) ?? 100,
+    };
+  });
+
+  ipcMain.handle('silencer:toggle', async (_event, enable: boolean) => {
+    if (!silencer) return { success: false, isSilenced: false };
+    const res = enable ? await silencer.silence(0) : await silencer.restore();
+    return { success: res.success, isSilenced: silencer.isSilenced() };
+  });
+
   ipcMain.handle('window:minimize', () => {
     mainWindow?.minimize();
   });
@@ -124,7 +173,8 @@ function createWindow(): void {
   }
 }
 
-app.whenReady().then(() => {
+app.whenReady().then(async () => {
+  await initSilencerAndRecovery();
   createWindow();
 
   app.on('activate', () => {
@@ -137,8 +187,12 @@ app.whenReady().then(() => {
   });
 });
 
-app.on('before-quit', () => {
+app.on('before-quit', async () => {
   isQuitting = true;
+  // Always restore original system volume before application exits
+  if (silencer) {
+    await silencer.restore();
+  }
   timerEngine?.destroy();
   trayManager?.destroy();
 });

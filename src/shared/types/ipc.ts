@@ -13,6 +13,10 @@ export interface IPCChannels {
   'window:minimize': () => Promise<void>;
   'window:close-to-tray': () => Promise<void>;
   'window:toggle-visibility': () => Promise<void>;
+
+  // Silencer Controls
+  'silencer:status': () => Promise<{ isSilenced: boolean; currentVolume: number }>;
+  'silencer:toggle': (enable: boolean) => Promise<{ success: boolean; isSilenced: boolean }>;
 }
 
 export interface FocusDeckAPI {
@@ -26,6 +30,10 @@ export interface FocusDeckAPI {
   onTimerTick: (callback: (snapshot: TimerSnapshot) => void) => () => void;
   onStateChange: (callback: (snapshot: TimerSnapshot) => void) => () => void;
   onPhaseComplete: (callback: (event: PhaseCompleteEvent) => void) => () => void;
+  onCrashRecovery: (callback: (recoveredVolume: number) => void) => () => void;
+
+  getSilencerStatus: () => Promise<{ isSilenced: boolean; currentVolume: number }>;
+  toggleSilencer: (enable: boolean) => Promise<{ success: boolean; isSilenced: boolean }>;
 
   minimizeWindow: () => Promise<void>;
   closeToTray: () => Promise<void>;
