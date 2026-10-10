@@ -90,6 +90,7 @@ function createWindow(settings: UserSettings): void {
     title: 'HushLoop',
     backgroundColor: '#0d1117',
     show: true,
+    center: true,
     frame: false, // Custom frameless glassmorphic header
     autoHideMenuBar: true,
     icon: appIcon,

@@ -37,9 +37,9 @@
     ]
   },
   "nsis": {
-    "oneClick": true,
+    "oneClick": false,
     "perMachine": false,
-    "allowToChangeInstallationDirectory": false,
+    "allowToChangeInstallationDirectory": true,
     "deleteAppDataOnUninstall": false,
     "runAfterFinish": true,
     "createDesktopShortcut": true,
