@@ -20,7 +20,9 @@ process.on('uncaughtException', (err) => {
   try {
     const logPath = path.join(app.getPath('userData'), 'crash.log');
     fs.appendFileSync(logPath, `[${new Date().toISOString()}] Uncaught: ${err.stack || err}\n`);
-  } catch {}
+  } catch (logErr) {
+    console.error('[HushLoop] Failed to write crash log:', logErr);
+  }
 });
 
 process.on('unhandledRejection', (reason) => {
@@ -28,7 +30,9 @@ process.on('unhandledRejection', (reason) => {
   try {
     const logPath = path.join(app.getPath('userData'), 'crash.log');
     fs.appendFileSync(logPath, `[${new Date().toISOString()}] Rejection: ${reason}\n`);
-  } catch {}
+  } catch (logErr) {
+    console.error('[HushLoop] Failed to write rejection log:', logErr);
+  }
 });
 
 let mainWindow: BrowserWindow | null = null;
@@ -146,7 +150,7 @@ function createWindow(settings: UserSettings): void {
   });
 
   mainWindow.webContents.on('console-message', (_event, level, message, line, sourceId) => {
-    console.log(`[Renderer:L${level}] (${sourceId}:${line}) ${message}`);
+    console.info(`[Renderer:L${level}] (${sourceId}:${line}) ${message}`);
   });
 
   mainWindow.once('ready-to-show', () => {
