@@ -1,4 +1,5 @@
 import { Minus, X, Settings as SettingsIcon } from 'lucide-react';
+import { ShinyText } from './effects/ShinyText';
 
 interface HeaderProps {
   appName?: string;
@@ -21,7 +22,7 @@ export function Header({ appName = 'HushLoop', onOpenSettings }: HeaderProps) {
           <div className="status-dot-core" />
           <div className="status-dot-pulse" />
         </div>
-        <span className="app-title">{appName}</span>
+        <ShinyText text={appName.toUpperCase()} speed={5} className="app-title-shiny" />
         <span className="app-badge">Windows 11 Edition</span>
       </div>
 
@@ -47,8 +48,8 @@ export function Header({ appName = 'HushLoop', onOpenSettings }: HeaderProps) {
         <button
           className="window-btn window-btn-close"
           onClick={handleCloseToTray}
-          title="Close"
-          aria-label="Close"
+          title="Close to Tray"
+          aria-label="Close to Tray"
         >
           <X size={14} />
         </button>

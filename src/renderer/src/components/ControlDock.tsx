@@ -13,6 +13,8 @@ import {
 } from 'lucide-react';
 import type { TimerSnapshot } from '@shared/types';
 import type { SoundscapeType } from '../audio/soundscape-engine';
+import { ClickSpark } from './effects/ClickSpark';
+import { SpotlightCard } from './effects/SpotlightCard';
 
 interface ControlDockProps {
   snapshot: TimerSnapshot;
@@ -66,12 +68,18 @@ export function ControlDock({
 
   return (
     <nav className="dock-container" aria-label="Timer Controls">
-      {/* Soundscape Popover Menu */}
+      {/* Soundscape Popover Menu with SpotlightCard */}
       {showAudioPopover && (
-        <div className="audio-popover glass-panel">
+        <SpotlightCard
+          className="audio-popover glass-panel"
+          spotlightColor="rgba(0, 242, 254, 0.22)"
+        >
           <div className="popover-header">
             <span className="popover-title">Focus Soundscapes</span>
-            <span className="popover-status">{isPlaying ? 'Playing' : 'Standby'}</span>
+            <div className="popover-status-badge">
+              <span className={`status-pill-dot ${isPlaying ? 'dot-active' : ''}`} />
+              <span className="popover-status">{isPlaying ? 'Active Audio' : 'Standby'}</span>
+            </div>
           </div>
 
           <div className="soundscape-list">
@@ -98,74 +106,95 @@ export function ControlDock({
 
           <div className="popover-volume-section">
             <div className="volume-label-row">
-              <span className="vol-title">Volume</span>
-              <span className="vol-value">{volume}%</span>
+              <span className="volume-label">Master Ambient Volume</span>
+              <span className="volume-percent">{Math.round(volume * 100)}%</span>
             </div>
             <input
               type="range"
               min="0"
-              max="100"
+              max="1"
+              step="0.01"
               value={volume}
-              onChange={e => onVolumeChange(Number(e.target.value))}
+              onChange={e => onVolumeChange(parseFloat(e.target.value))}
               className="volume-slider"
-              aria-label="Soundscape Volume"
+              aria-label="Soundscape Volume Slider"
             />
           </div>
-        </div>
+        </SpotlightCard>
       )}
 
-      <div className="pill-dock dock-inner">
-        {/* Reset Action */}
-        <button
-          className="dock-btn dock-btn-secondary"
-          onClick={onReset}
-          title="Reset Session (R)"
-          aria-label="Reset Timer"
-          disabled={snapshot.state === 'idle' && snapshot.remainingMs === snapshot.totalDurationMs}
-        >
-          <RotateCcw size={18} />
-        </button>
+      {/* Floating Glassmorphic Dock Pill with ClickSpark */}
+      <div className="dock-pill glass-panel">
+        {/* Reset Button */}
+        <ClickSpark sparkColor="#8B949E" sparkCount={6}>
+          <button
+            className="dock-btn dock-btn-subtle"
+            onClick={onReset}
+            title="Reset Timer (R)"
+            aria-label="Reset Timer"
+          >
+            <RotateCcw size={18} />
+          </button>
+        </ClickSpark>
 
-        {/* Primary Play / Pause Toggle Button */}
-        <button
-          className={`dock-btn dock-btn-primary ${isBreak ? 'dock-btn-break' : 'dock-btn-focus'}`}
-          onClick={handleToggle}
-          title={isRunning ? 'Pause (Space)' : isPaused ? 'Resume (Space)' : 'Start (Space)'}
-          aria-label={isRunning ? 'Pause Timer' : 'Start Timer'}
-        >
-          {isRunning ? <Pause size={24} /> : <Play size={24} style={{ marginLeft: '3px' }} />}
-        </button>
+        {/* Primary Play/Pause Button with Pulsing Specular Halo */}
+        <ClickSpark sparkColor={isBreak ? '#FF4B72' : '#00F2FE'} sparkCount={14}>
+          <button
+            className={`dock-btn dock-btn-primary ${
+              isBreak ? 'dock-primary-break' : 'dock-primary-focus'
+            } ${isRunning ? 'dock-running' : ''}`}
+            onClick={handleToggle}
+            title={isRunning ? 'Pause Timer (Space)' : 'Start Timer (Space)'}
+            aria-label={isRunning ? 'Pause' : 'Start'}
+          >
+            <div className="btn-specular-glow" />
+            {isRunning ? (
+              <Pause size={22} fill="currentColor" />
+            ) : (
+              <Play size={22} fill="currentColor" style={{ marginLeft: 3 }} />
+            )}
+          </button>
+        </ClickSpark>
 
-        {/* Skip to Next Phase */}
-        <button
-          className="dock-btn dock-btn-secondary"
-          onClick={onSkip}
-          title="Skip Phase (S)"
-          aria-label="Skip to Next Phase"
-        >
-          <SkipForward size={18} />
-        </button>
+        {/* Skip Phase Button */}
+        <ClickSpark sparkColor="#4EEDDE" sparkCount={8}>
+          <button
+            className="dock-btn dock-btn-subtle"
+            onClick={onSkip}
+            title="Skip to Next Phase (S)"
+            aria-label="Skip to Next Phase"
+          >
+            <SkipForward size={18} />
+          </button>
+        </ClickSpark>
 
-        <div className="dock-divider" />
+        <div className="dock-separator" />
 
-        {/* Soundscape Quick Indicator & Popover Trigger */}
-        <button
-          className={`dock-btn dock-btn-icon ${showAudioPopover ? 'dock-btn-icon-active' : ''}`}
-          onClick={() => setShowAudioPopover(!showAudioPopover)}
-          title="Soundscapes & Ambient Music"
-          aria-label="Toggle Soundscapes Menu"
-        >
-          {soundscape === 'off' ? <VolumeX size={18} /> : <Volume2 size={18} />}
-          <span className="dock-btn-tag">
-            {soundscape === 'alpha_waves'
-              ? 'Alpha'
-              : soundscape === 'rain'
-                ? 'Rain'
-                : soundscape === 'white_noise'
-                  ? 'Noise'
-                  : 'Off'}
-          </span>
-        </button>
+        {/* Soundscape Trigger Button with Animated Equalizer Waveform */}
+        <ClickSpark sparkColor="#00F2FE" sparkCount={8}>
+          <button
+            className={`dock-btn dock-btn-audio ${soundscape !== 'off' ? 'dock-audio-active' : ''}`}
+            onClick={() => setShowAudioPopover(!showAudioPopover)}
+            title="Ambient Focus Soundscapes"
+            aria-label="Toggle Soundscapes Menu"
+          >
+            {soundscape === 'off' ? (
+              <VolumeX size={18} />
+            ) : (
+              <div className="equalizer-icon-wrapper">
+                {isPlaying ? (
+                  <div className="animated-equalizer" aria-hidden="true">
+                    <span className="eq-bar eq-bar-1" />
+                    <span className="eq-bar eq-bar-2" />
+                    <span className="eq-bar eq-bar-3" />
+                  </div>
+                ) : (
+                  <Volume2 size={18} />
+                )}
+              </div>
+            )}
+          </button>
+        </ClickSpark>
       </div>
     </nav>
   );

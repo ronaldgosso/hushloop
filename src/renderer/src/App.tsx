@@ -5,6 +5,7 @@ import { TimerGauge } from './components/TimerGauge';
 import { ControlDock } from './components/ControlDock';
 import { TelemetryCard } from './components/TelemetryCard';
 import { SettingsModal } from './components/SettingsModal';
+import { AuroraBackground } from './components/effects/AuroraBackground';
 import { useTimer } from './hooks/useTimer';
 import { useSoundscape } from './hooks/useSoundscape';
 import { DEFAULT_USER_SETTINGS, type UserSettings } from '@shared/types/settings';
@@ -49,6 +50,16 @@ export default function App() {
     return () => unsub();
   }, []);
 
+  const handleToggleTimer = useCallback(() => {
+    if (snapshot.state === 'running') {
+      pause();
+    } else if (snapshot.state === 'paused') {
+      resume();
+    } else {
+      start();
+    }
+  }, [snapshot.state, pause, resume, start]);
+
   // Keyboard shortcut listener within UI
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
@@ -58,13 +69,7 @@ export default function App() {
 
       if (e.code === 'Space') {
         e.preventDefault();
-        if (snapshot.state === 'running') {
-          pause();
-        } else if (snapshot.state === 'paused') {
-          resume();
-        } else {
-          start();
-        }
+        handleToggleTimer();
       } else if (e.code === 'KeyR') {
         e.preventDefault();
         reset();
@@ -76,10 +81,13 @@ export default function App() {
 
     window.addEventListener('keydown', handleKeyDown);
     return () => window.removeEventListener('keydown', handleKeyDown);
-  }, [snapshot.state, pause, resume, start, reset, skip]);
+  }, [handleToggleTimer, reset, skip]);
 
   return (
     <div className="app-shell">
+      {/* Living React Bits Ambient Aurora & Particle Background */}
+      <AuroraBackground phase={snapshot.phase} state={snapshot.state} />
+
       <Header appName="HushLoop" onOpenSettings={() => setIsSettingsOpen(true)} />
 
       {recoveryNotice && (
@@ -100,7 +108,7 @@ export default function App() {
 
       <main className="app-main-content">
         <section className="timer-section">
-          <TimerGauge snapshot={snapshot} />
+          <TimerGauge snapshot={snapshot} onTogglePlay={handleToggleTimer} />
         </section>
 
         <section className="telemetry-section-wrapper">

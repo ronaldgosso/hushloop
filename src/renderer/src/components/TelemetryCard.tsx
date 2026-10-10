@@ -1,6 +1,9 @@
 import { useEffect, useState } from 'react';
-import { Shield, Sparkles, Flame, Clock } from 'lucide-react';
+import { Flame, Clock, CheckCircle2, ShieldCheck } from 'lucide-react';
 import type { TimerSnapshot } from '@shared/types';
+import { SpotlightCard } from './effects/SpotlightCard';
+import { CountUp } from './effects/CountUp';
+import { ShinyText } from './effects/ShinyText';
 
 interface StatsSummary {
   today: {
@@ -40,14 +43,20 @@ export function TelemetryCard({ snapshot }: TelemetryCardProps) {
   const streakDays = stats?.streakDays ?? (todaySessions > 0 ? 1 : 0);
 
   return (
-    <aside className="telemetry-card glass-panel" aria-label="Session Telemetry">
+    <SpotlightCard
+      className="telemetry-card glass-panel"
+      contentClassName="telemetry-content-flow"
+      spotlightColor="rgba(0, 242, 254, 0.15)"
+      aria-label="Session Telemetry"
+    >
       <div className="telemetry-header">
-        <div className="telemetry-icon-wrap">
-          <Sparkles size={16} color="#00F2FE" />
-        </div>
         <div className="telemetry-title-group">
-          <h3 className="telemetry-title">Cycle Telemetry</h3>
-          <span className="telemetry-subtitle">Pomodoro Block 1</span>
+          <ShinyText text="CYCLE TELEMETRY" speed={4} className="telemetry-title" />
+          <span className="telemetry-subtitle">Pomodoro Block 1 • Windows 11</span>
+        </div>
+        <div className="telemetry-badge-active">
+          <span className="telemetry-badge-dot" />
+          <span>BLOCK {cycleSessionNumber}/4</span>
         </div>
       </div>
 
@@ -55,7 +64,9 @@ export function TelemetryCard({ snapshot }: TelemetryCardProps) {
       <div className="telemetry-section">
         <div className="telemetry-row">
           <span className="telemetry-label">Active Block</span>
-          <span className="telemetry-value">{cycleSessionNumber} / 4</span>
+          <span className="telemetry-value">
+            <span className="telemetry-cyan">{cycleSessionNumber}</span> / 4
+          </span>
         </div>
 
         <div className="telemetry-steps">
@@ -80,7 +91,7 @@ export function TelemetryCard({ snapshot }: TelemetryCardProps) {
 
       <div className="telemetry-divider" />
 
-      {/* Daily Progress Gauge */}
+      {/* Session Progress Gauge */}
       <div className="telemetry-section">
         <div className="telemetry-row">
           <span className="telemetry-label">Session Progress</span>
@@ -97,39 +108,49 @@ export function TelemetryCard({ snapshot }: TelemetryCardProps) {
 
       <div className="telemetry-divider" />
 
-      {/* Daily Stats Grid */}
+      {/* Daily Stats Grid with CountUp */}
       <div className="telemetry-stats-grid">
-        <div className="stat-pill">
-          <Flame size={14} color="#FF6584" />
-          <span className="stat-pill-label">Streak:</span>
-          <span className="stat-pill-val">
-            {streakDays} {streakDays === 1 ? 'day' : 'days'}
-          </span>
+        <div className="stat-box">
+          <div className="stat-top">
+            <Clock size={13} className="stat-icon-cyan" />
+            <span className="stat-label">Focus Time</span>
+          </div>
+          <div className="stat-number">
+            <CountUp to={todayMinutes} duration={0.6} suffix="m" />
+          </div>
         </div>
-        <div className="stat-pill">
-          <Clock size={14} color="#00F2FE" />
-          <span className="stat-pill-label">Focused:</span>
-          <span className="stat-pill-val">{todayMinutes}m</span>
+
+        <div className="stat-box">
+          <div className="stat-top">
+            <CheckCircle2 size={13} className="stat-icon-mint" />
+            <span className="stat-label">Completed</span>
+          </div>
+          <div className="stat-number">
+            <CountUp to={todaySessions} duration={0.6} />
+          </div>
+        </div>
+
+        <div className="stat-box">
+          <div className="stat-top">
+            <Flame size={13} className="stat-icon-coral" />
+            <span className="stat-label">Day Streak</span>
+          </div>
+          <div className="stat-number stat-streak">
+            <CountUp to={streakDays} duration={0.6} suffix="d" />
+          </div>
         </div>
       </div>
 
-      {/* Windows 11 Silencing Telemetry */}
-      <div className="silencer-telemetry-badge">
-        <Shield size={14} className="silencer-badge-icon" />
-        <div className="silencer-badge-text">
-          <span className="silencer-status-title">Windows 11 Silencer</span>
-          <span className="silencer-status-sub">
-            {snapshot.state === 'running' && snapshot.phase === 'focus'
-              ? 'Distractions Ducked'
-              : 'Standby / Restored'}
-          </span>
+      {/* Background Distraction Shield Status */}
+      <div className="telemetry-footer-shield">
+        <div className="shield-icon-badge">
+          <ShieldCheck size={14} color="#4EEDDE" />
+        </div>
+        <div className="shield-text-group">
+          <span className="shield-text-title">Audio Silencing Guard</span>
+          <span className="shield-text-status">Active • Windows 11 Ducking</span>
         </div>
       </div>
-
-      <div className="telemetry-stats-footer">
-        <span className="footer-stat-label">Total Completed Today:</span>
-        <span className="footer-stat-number">{todaySessions}</span>
-      </div>
-    </aside>
+    </SpotlightCard>
   );
 }
