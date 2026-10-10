@@ -165,7 +165,7 @@ Builds a standard Windows installer with desktop and Start Menu shortcuts:
 npm run package:exe
 ```
 
-Output: `release/HushLoop-Setup-1.2.0.exe` (~84 MB)
+Output: `release/HushLoop-Setup-1.1.3.exe` (~84 MB)
 
 #### 2. Windows MSI Enterprise Installer (`.msi`)
 
@@ -175,7 +175,7 @@ Builds a Windows Installer package via WiX Toolset, ideal for enterprise mass-de
 npm run package:msi
 ```
 
-Output: `release/HushLoop-1.2.0.msi` (~94 MB)
+Output: `release/HushLoop-1.1.3.msi` (~94 MB)
 
 #### 3. Portable Standalone Application (`.exe`)
 
@@ -185,7 +185,7 @@ Builds a single self-contained executable that runs immediately without installa
 npm run package:portable
 ```
 
-Output: `release/HushLoop-Portable-1.2.0.exe` (~84 MB)
+Output: `release/HushLoop-Portable-1.1.3.exe` (~84 MB)
 
 #### 4. Unpacked Development Directory (`.exe`)
 
