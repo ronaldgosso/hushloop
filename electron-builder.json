@@ -9,7 +9,8 @@
   "files": ["dist/**/*", "dist-electron/**/*"],
   "asarUnpack": [
     "**/favicon.ico",
-    "**/favicon.svg"
+    "**/favicon.svg",
+    "**/icon.ico"
   ],
   "win": {
     "icon": "build/icon.ico",
@@ -44,12 +45,17 @@
     "runAfterFinish": true,
     "createDesktopShortcut": true,
     "createStartMenuShortcut": true,
-    "shortcutName": "HushLoop"
+    "shortcutName": "HushLoop",
+    "artifactName": "${productName}-Setup-${version}.${ext}"
+  },
+  "portable": {
+    "artifactName": "${productName}-Portable-${version}.${ext}"
   },
   "msi": {
     "oneClick": false,
     "perMachine": false,
     "runAfterFinish": true,
-    "shortcutName": "HushLoop"
+    "shortcutName": "HushLoop",
+    "artifactName": "${productName}-${version}.${ext}"
   }
 }

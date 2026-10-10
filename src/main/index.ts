@@ -15,6 +15,26 @@ import { DEFAULT_USER_SETTINGS, type UserSettings } from '../shared/types/settin
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
 
+process.on('uncaughtException', (err) => {
+  console.error('[HushLoop] Uncaught exception:', err);
+  try {
+    const logPath = path.join(app.getPath('userData'), 'crash.log');
+    fs.appendFileSync(logPath, `[${new Date().toISOString()}] Uncaught: ${err.stack || err}\n`);
+  } catch (logErr) {
+    console.error('[HushLoop] Failed to write crash log:', logErr);
+  }
+});
+
+process.on('unhandledRejection', (reason) => {
+  console.error('[HushLoop] Unhandled rejection:', reason);
+  try {
+    const logPath = path.join(app.getPath('userData'), 'crash.log');
+    fs.appendFileSync(logPath, `[${new Date().toISOString()}] Rejection: ${reason}\n`);
+  } catch (logErr) {
+    console.error('[HushLoop] Failed to write rejection log:', logErr);
+  }
+});
+
 let mainWindow: BrowserWindow | null = null;
 let trayManager: TrayManager | null = null;
 let timerEngine: TimerEngine | null = null;
@@ -69,15 +89,34 @@ async function initSubsystems(): Promise<UserSettings> {
 
 function createWindow(settings: UserSettings): void {
   const candidateIconPaths = [
+    path.join(process.resourcesPath, 'app.asar.unpacked/dist/icon.ico'),
+    path.join(process.resourcesPath, 'app.asar.unpacked/dist/favicon.ico'),
+    path.join(app.getAppPath(), 'dist/icon.ico'),
+    path.join(app.getAppPath(), 'dist/favicon.ico'),
+    path.join(app.getAppPath(), 'build/icon.ico'),
+    path.join(__dirname, '../../dist/icon.ico'),
     path.join(__dirname, '../../dist/favicon.ico'),
-    path.join(__dirname, '../../src/renderer/public/favicon.ico'),
+    path.join(process.resourcesPath, 'dist/icon.ico'),
     path.join(process.resourcesPath, 'dist/favicon.ico'),
-    path.join(process.resourcesPath, 'favicon.ico'),
   ];
   let appIcon: string | undefined;
   for (const p of candidateIconPaths) {
     if (fs.existsSync(p)) {
       appIcon = p;
+      break;
+    }
+  }
+
+  const candidatePreloadPaths = [
+    path.join(__dirname, '../preload/index.cjs'),
+    path.join(__dirname, '../preload/index.js'),
+    path.join(app.getAppPath(), 'dist-electron/preload/index.cjs'),
+    path.join(app.getAppPath(), 'dist-electron/preload/index.js'),
+  ];
+  let preloadPath = candidatePreloadPaths[0];
+  for (const p of candidatePreloadPaths) {
+    if (fs.existsSync(p)) {
+      preloadPath = p;
       break;
     }
   }
@@ -89,13 +128,13 @@ function createWindow(settings: UserSettings): void {
     minHeight: 640,
     title: 'HushLoop',
     backgroundColor: '#0d1117',
-    show: true,
+    show: true, // Show directly so window appears immediately
     center: true,
     frame: false, // Custom frameless glassmorphic header
     autoHideMenuBar: true,
     icon: appIcon,
     webPreferences: {
-      preload: path.join(__dirname, '../preload/index.cjs'),
+      preload: preloadPath,
       contextIsolation: true,
       nodeIntegration: false,
       sandbox: false,
@@ -106,32 +145,36 @@ function createWindow(settings: UserSettings): void {
     console.error(`[HushLoop] Failed to load URL: ${errorCode} - ${errorDescription}`);
   });
 
-  mainWindow.once('ready-to-show', () => {
-    mainWindow?.show();
-    mainWindow?.focus();
+  mainWindow.webContents.on('render-process-gone', (_event, details) => {
+    console.error('[HushLoop] Renderer process terminated:', details);
+  });
 
-    // If crash recovery occurred, alert the renderer UI
-    if (pendingRecoveredVolume !== null && mainWindow && !mainWindow.isDestroyed()) {
-      mainWindow.webContents.send('silencer:crash-recovered', pendingRecoveredVolume);
-      pendingRecoveredVolume = null;
+  mainWindow.webContents.on('console-message', (_event, level, message, line, sourceId) => {
+    console.info(`[Renderer:L${level}] (${sourceId}:${line}) ${message}`);
+  });
+
+  mainWindow.once('ready-to-show', () => {
+    if (mainWindow && !mainWindow.isDestroyed()) {
+      mainWindow.focus();
+
+      // If crash recovery occurred, alert the renderer UI
+      if (pendingRecoveredVolume !== null) {
+        mainWindow.webContents.send('silencer:crash-recovered', pendingRecoveredVolume);
+        pendingRecoveredVolume = null;
+      }
     }
   });
 
-  // Fallback: Ensure window shows and focuses even if driver delays ready-to-show
-  setTimeout(() => {
-    if (mainWindow && !mainWindow.isDestroyed()) {
-      if (!mainWindow.isVisible()) {
-        mainWindow.show();
-      }
-      mainWindow.focus();
-    }
-  }, 1000);
-
-  // Handle window close: quit cleanly to release locks, restore audio, and avoid zombie processes
-  mainWindow.on('close', () => {
+  // Handle window close: in production hide to tray if available; in dev, quit so locks aren't retained
+  mainWindow.on('close', (event) => {
     if (!isQuitting) {
-      isQuitting = true;
-      app.quit();
+      if (!process.env.VITE_DEV_SERVER_URL && trayManager?.hasTray()) {
+        event.preventDefault();
+        mainWindow?.hide();
+      } else {
+        isQuitting = true;
+        app.quit();
+      }
     }
   });
 
@@ -301,8 +344,12 @@ function createWindow(settings: UserSettings): void {
   });
 
   ipcMain.handle('window:close-to-tray', () => {
-    isQuitting = true;
-    app.quit();
+    if (trayManager?.hasTray()) {
+      mainWindow?.hide();
+    } else {
+      isQuitting = true;
+      app.quit();
+    }
   });
 
   ipcMain.handle('window:toggle-visibility', () => {
@@ -317,7 +364,18 @@ function createWindow(settings: UserSettings): void {
   if (process.env.VITE_DEV_SERVER_URL) {
     mainWindow.loadURL(process.env.VITE_DEV_SERVER_URL);
   } else {
-    mainWindow.loadFile(path.join(__dirname, '../../dist/index.html'));
+    const candidateHtml = [
+      path.join(app.getAppPath(), 'dist/index.html'),
+      path.join(__dirname, '../../dist/index.html'),
+    ];
+    let htmlPath = candidateHtml[0];
+    for (const p of candidateHtml) {
+      if (fs.existsSync(p)) {
+        htmlPath = p;
+        break;
+      }
+    }
+    mainWindow.loadFile(htmlPath);
   }
 }
 
@@ -338,6 +396,7 @@ if (!gotSingleInstanceLock) {
   });
 
   app.whenReady().then(async () => {
+    app.setAppUserModelId('com.hushloop.app');
     let settings: UserSettings;
     try {
       settings = await initSubsystems();

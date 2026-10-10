@@ -12,6 +12,7 @@ export interface AudioDriver {
 
 export class WinMMAudioDriver implements AudioDriver {
   private readonly powershellPreamble = `
+$ProgressPreference = 'SilentlyContinue'
 $src = @'
 using System;
 using System.Runtime.InteropServices;
@@ -34,9 +35,15 @@ public class WinMMAudio {
 Add-Type -TypeDefinition $src
 `.trim();
 
+  private buildEncodedCommand(psCode: string): string {
+    const fullScript = `${this.powershellPreamble}\n${psCode}`;
+    const base64 = Buffer.from(fullScript, 'utf16le').toString('base64');
+    return `powershell -NoProfile -NonInteractive -EncodedCommand ${base64}`;
+  }
+
   public async getVolume(): Promise<number> {
     try {
-      const command = `powershell -NoProfile -Command "${this.powershellPreamble}; [WinMMAudio]::Get()"`;
+      const command = this.buildEncodedCommand('[WinMMAudio]::Get()');
       const { stdout } = await execAsync(command);
       const vol = parseInt(stdout.trim(), 10);
       return Number.isNaN(vol) ? 100 : vol;
@@ -49,7 +56,7 @@ Add-Type -TypeDefinition $src
   public async setVolume(volumePercent: number): Promise<void> {
     try {
       const bounded = Math.max(0, Math.min(100, Math.round(volumePercent)));
-      const command = `powershell -NoProfile -Command "${this.powershellPreamble}; [WinMMAudio]::Set(${bounded})"`;
+      const command = this.buildEncodedCommand(`[WinMMAudio]::Set(${bounded})`);
       await execAsync(command);
     } catch (err) {
       console.error('[WinMMAudioDriver] Failed to set audio volume:', err);
