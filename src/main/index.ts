@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain } from 'electron';
+import { app, BrowserWindow, ipcMain, screen, shell } from 'electron';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -11,6 +11,9 @@ import { SettingsStore } from './storage/settings-store';
 import { GlobalHotkeyManager } from './hotkeys';
 import type { TimerPhase } from '../shared/types';
 import { DEFAULT_USER_SETTINGS, type UserSettings } from '../shared/types/settings';
+
+// Improve GPU stability and prevent status breakpoint crashes across diverse Windows laptop GPUs
+app.commandLine.appendSwitch('disable-gpu-sandbox');
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -89,6 +92,7 @@ async function initSubsystems(): Promise<UserSettings> {
 
 function createWindow(settings: UserSettings): void {
   const candidateIconPaths = [
+    path.join(process.resourcesPath, 'icon.ico'),
     path.join(process.resourcesPath, 'app.asar.unpacked/dist/icon.ico'),
     path.join(process.resourcesPath, 'app.asar.unpacked/dist/favicon.ico'),
     path.join(app.getAppPath(), 'dist/icon.ico'),
@@ -121,14 +125,20 @@ function createWindow(settings: UserSettings): void {
     }
   }
 
+  // Adaptive sizing ensuring window fits comfortably on 1366x768 and smaller laptop displays
+  const primaryDisplay = screen.getPrimaryDisplay();
+  const { width: workWidth, height: workHeight } = primaryDisplay.workAreaSize;
+  const initialWidth = Math.min(940, Math.max(760, workWidth - 40));
+  const initialHeight = Math.min(660, Math.max(520, workHeight - 40));
+
   mainWindow = new BrowserWindow({
-    width: 980,
-    height: 720,
-    minWidth: 840,
-    minHeight: 640,
+    width: initialWidth,
+    height: initialHeight,
+    minWidth: 720,
+    minHeight: 480,
     title: 'HushLoop',
     backgroundColor: '#0d1117',
-    show: true, // Show directly so window appears immediately
+    show: false, // Start hidden to prevent white flashes and guarantee clean DWM display
     center: true,
     frame: false, // Custom frameless glassmorphic header
     autoHideMenuBar: true,
@@ -153,17 +163,28 @@ function createWindow(settings: UserSettings): void {
     console.info(`[Renderer:L${level}] (${sourceId}:${line}) ${message}`);
   });
 
-  mainWindow.once('ready-to-show', () => {
-    if (mainWindow && !mainWindow.isDestroyed()) {
-      mainWindow.focus();
+  let windowShown = false;
+  const showMainWindow = () => {
+    if (windowShown || !mainWindow || mainWindow.isDestroyed()) return;
+    windowShown = true;
+    mainWindow.show();
+    mainWindow.focus();
+  };
 
-      // If crash recovery occurred, alert the renderer UI
-      if (pendingRecoveredVolume !== null) {
-        mainWindow.webContents.send('silencer:crash-recovered', pendingRecoveredVolume);
-        pendingRecoveredVolume = null;
-      }
+  mainWindow.once('ready-to-show', () => {
+    showMainWindow();
+
+    // If crash recovery occurred, alert the renderer UI
+    if (pendingRecoveredVolume !== null) {
+      mainWindow?.webContents.send('silencer:crash-recovered', pendingRecoveredVolume);
+      pendingRecoveredVolume = null;
     }
   });
+
+  // Fallback safety: ensure window is made visible even if ready-to-show event is missed
+  setTimeout(() => {
+    showMainWindow();
+  }, 1000);
 
   // Handle window close: in production hide to tray if available; in dev, quit so locks aren't retained
   mainWindow.on('close', (event) => {
@@ -343,6 +364,21 @@ function createWindow(settings: UserSettings): void {
     mainWindow?.minimize();
   });
 
+  ipcMain.handle('window:maximize', () => {
+    if (!mainWindow) return false;
+    if (mainWindow.isMaximized()) {
+      mainWindow.unmaximize();
+      return false;
+    } else {
+      mainWindow.maximize();
+      return true;
+    }
+  });
+
+  ipcMain.handle('window:is-maximized', () => {
+    return mainWindow?.isMaximized() ?? false;
+  });
+
   ipcMain.handle('window:close-to-tray', () => {
     if (trayManager?.hasTray()) {
       mainWindow?.hide();
@@ -352,12 +388,25 @@ function createWindow(settings: UserSettings): void {
     }
   });
 
+  ipcMain.handle('app:quit', () => {
+    isQuitting = true;
+    app.quit();
+  });
+
   ipcMain.handle('window:toggle-visibility', () => {
     trayManager?.toggleWindow();
   });
 
   ipcMain.handle('app:version', () => {
     return app.getVersion();
+  });
+
+  ipcMain.handle('app:open-external', async (_event, targetUrl: string) => {
+    if (typeof targetUrl === 'string' && (targetUrl.startsWith('https://') || targetUrl.startsWith('http://'))) {
+      await shell.openExternal(targetUrl);
+      return true;
+    }
+    return false;
   });
 
   // Load URL

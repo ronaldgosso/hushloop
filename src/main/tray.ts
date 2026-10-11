@@ -1,6 +1,12 @@
-import { app, BrowserWindow, Menu, nativeImage, Tray } from 'electron';
+import { app, BrowserWindow, Menu, Tray } from 'electron';
+import fs from 'fs';
+import path from 'path';
+import { fileURLToPath } from 'url';
 import type { TimerEngine } from '../core/timer/timer-engine';
 import type { TimerSnapshot } from '../shared/types';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = path.dirname(__filename);
 
 export class TrayManager {
   private tray: Tray | null = null;
@@ -17,18 +23,37 @@ export class TrayManager {
     return this.tray !== null;
   }
 
-  private createTrayIcon(): Electron.NativeImage {
-    // 16x16 native PNG raw buffer ensures zero Shell_NotifyIcon errors on Windows 11
-    const b64 =
-      'iVBORw0KGgoAAAANSUhEUgAAABAAAAAQCAYAAAAf8/9hAAABiElEQVR4nIzTyyvEURQH8DPMzEosrCxkMdQgeeSdpNSElZQNZWEtCxv5I6wIGxsrJewYsRF5JDJ5Td52dnbyiPH9ds8vp9/8lFufmd+5c+/93XvumbBktwLogkqo0L4LSEESXu3gkG9yP8xCoQS3ZxiG9aAFRmDKxCtwps9V0KfPGRiARbtAK+xqvAOjcOp7ez1MQxO8Qy1ccUIupKEUjnRARie1QC+MaxwWlwvmZhs6uEA3rMEHlMM9xCAONTABeWYndXDsHS0HHwkNkjqZbRLmzaQeuIEInMCh9ie4QJEGj2bCA7yZuFiPGNE4rd9xnulTA7vN/7YoF3jSoMH8wCR+m5hHuxOXfbY2b6c8wpYGvOtmfZ4RVxde29QjfInLWUz7N7gDXgevphoWxF3drXqBfLMQ8+Ull4k88AqpEfbE1cQlDEp2IbXrC0rEXTnnpGwps8bn5DfT57APUXGVWqb9vJ0hWGLg/zOxeFiunRLcVmFMzJWH/hjIOmcJM7FMHItnGa79A38AAAD//1W2+FcAAAAGSURBVAMAfa1OFxO+OlAAAAAASUVORK5CYII=';
-    return nativeImage.createFromBuffer(Buffer.from(b64, 'base64'));
+  private resolveIconPath(): string | null {
+    const candidates = [
+      path.join(process.resourcesPath, 'icon.ico'),
+      path.join(process.resourcesPath, 'app.asar.unpacked/dist/icon.ico'),
+      path.join(process.resourcesPath, 'app.asar.unpacked/dist/favicon.ico'),
+      path.join(app.getAppPath(), 'dist/icon.ico'),
+      path.join(app.getAppPath(), 'dist/favicon.ico'),
+      path.join(app.getAppPath(), 'build/icon.ico'),
+      path.join(__dirname, '../../dist/icon.ico'),
+      path.join(__dirname, '../../build/icon.ico'),
+      path.join(process.cwd(), 'build/icon.ico'),
+    ];
+
+    for (const candidate of candidates) {
+      if (fs.existsSync(candidate)) {
+        return candidate;
+      }
+    }
+    return null;
   }
 
   private initTray(): void {
     try {
-      const icon = this.createTrayIcon();
-      this.tray = new Tray(icon);
+      const iconPath = this.resolveIconPath();
+      if (!iconPath) {
+        console.warn('[HushLoop] No tray icon file found on disk; skipping tray initialization.');
+        this.tray = null;
+        return;
+      }
 
+      this.tray = new Tray(iconPath);
       this.tray.setToolTip('HushLoop - Ready to Focus');
 
       this.tray.on('click', () => {

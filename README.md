@@ -3,8 +3,12 @@
   <h1>HushLoop</h1>
   <p><strong>Active Pomodoro Desktop Timer for Windows 11</strong></p>
   <p><i>Automated Distraction Silencing • Procedural Web Audio Soundscapes • Native Tray & Global Hotkeys</i></p>
+  <p>Conceived and Engineered by <strong><a href="https://github.com/ronaldgosso">Ronald Gosso</a></strong></p>
+  <p>🌐 <strong><a href="https://ronaldgosso.github.io/hushloop_site/">Visit Official Landing Page & Web Showcase</a></strong></p>
 
+[![Website](https://img.shields.io/badge/Website-ronaldgosso.github.io%2Fhushloop__site-00f2fe.svg)](https://ronaldgosso.github.io/hushloop_site/)
 [![Build & Test](https://github.com/ronaldgosso/hushloop/actions/workflows/build-and-test.yml/badge.svg)](https://github.com/ronaldgosso/hushloop/actions/workflows/build-and-test.yml)
+[![Version](https://img.shields.io/badge/Release-v2.0.0-0078D4.svg)](https://github.com/ronaldgosso/hushloop/releases/tag/v2.0.0)
 [![TypeScript](https://img.shields.io/badge/TypeScript-5.6-blue.svg?logo=typescript)](https://www.typescriptlang.org/)
 [![React](https://img.shields.io/badge/React-18.3-61DAFB.svg?logo=react)](https://react.dev/)
 [![Electron](https://img.shields.io/badge/Electron-33.0-47848F.svg?logo=electron)](https://www.electronjs.org/)

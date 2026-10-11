@@ -12,8 +12,12 @@ export interface IPCChannels {
 
   // Window Controls
   'window:minimize': () => Promise<void>;
+  'window:maximize': () => Promise<boolean>;
+  'window:is-maximized': () => Promise<boolean>;
   'window:close-to-tray': () => Promise<void>;
   'window:toggle-visibility': () => Promise<void>;
+  'app:quit': () => Promise<void>;
+  'app:open-external': (url: string) => Promise<boolean>;
 
   // Silencer Controls
   'silencer:status': () => Promise<{ isSilenced: boolean; currentVolume: number }>;
@@ -75,8 +79,12 @@ export interface HushLoopAPI {
   registerHotkey: (accelerator: string) => Promise<{ success: boolean; accelerator: string }>;
 
   minimizeWindow: () => Promise<void>;
+  maximizeWindow: () => Promise<boolean>;
+  isWindowMaximized: () => Promise<boolean>;
   closeToTray: () => Promise<void>;
+  quitApp: () => Promise<void>;
   toggleWindowVisibility: () => Promise<void>;
   getAppVersion: () => Promise<string>;
+  openExternal: (url: string) => Promise<boolean>;
 }
 

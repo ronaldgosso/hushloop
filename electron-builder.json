@@ -12,6 +12,12 @@
     "**/favicon.svg",
     "**/icon.ico"
   ],
+  "extraResources": [
+    {
+      "from": "build/icon.ico",
+      "to": "icon.ico"
+    }
+  ],
   "win": {
     "icon": "build/icon.ico",
     "publisherName": "Ronald Gosso",

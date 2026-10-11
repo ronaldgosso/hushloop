@@ -1,6 +1,9 @@
 import React, { useState } from 'react';
-import { X, Sliders, Shield, Keyboard, RotateCcw, Check, AlertCircle } from 'lucide-react';
+import { X, Sliders, Shield, Keyboard, RotateCcw, Check, AlertCircle, Globe, ExternalLink } from 'lucide-react';
 import { DEFAULT_USER_SETTINGS, type UserSettings } from '@shared/types/settings';
+
+const LANDING_PAGE_URL = 'https://ronaldgosso.github.io/hushloop_site/';
+const AUTHOR_URL = 'https://github.com/ronaldgosso';
 
 interface SettingsModalProps {
   isOpen: boolean;
@@ -191,6 +194,41 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
             <p className="setting-hint">
               Press this shortcut anywhere in Windows to immediately toggle Play/Pause.
             </p>
+          </section>
+
+          {/* Section 4: About & Project Hub */}
+          <section className="settings-section about-section-box">
+            <div className="section-title-with-icon">
+              <Globe size={16} color="#00F2FE" />
+              <h3 className="section-title">HushLoop Project Hub</h3>
+              <span className="version-pill">v2.0.0</span>
+            </div>
+            <p className="setting-hint">
+              Created and engineered with dedication by{' '}
+              <button
+                type="button"
+                className="author-link-text"
+                onClick={() => window.hushLoopAPI?.openExternal(AUTHOR_URL)}
+              >
+                Ronald Gosso <ExternalLink size={12} className="inline-icon" />
+              </button>
+              .
+            </p>
+            <div className="landing-hub-card">
+              <div className="landing-hub-info">
+                <span className="landing-hub-title">Official Product Landing Page</span>
+                <span className="landing-hub-url">ronaldgosso.github.io/hushloop_site</span>
+              </div>
+              <button
+                type="button"
+                className="landing-hub-launch-btn"
+                onClick={() => window.hushLoopAPI?.openExternal(LANDING_PAGE_URL)}
+              >
+                <Globe size={14} />
+                <span>Open Landing Page</span>
+                <ExternalLink size={12} />
+              </button>
+            </div>
           </section>
 
           {/* Modal Footer */}
