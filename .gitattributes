@@ -1,0 +1,13 @@
+advanced-installer-package/app/*.exe filter=lfs diff=lfs merge=lfs -text
+advanced-installer-package/app/*.asar filter=lfs diff=lfs merge=lfs -text
+advanced-installer-package/app/*.dat filter=lfs diff=lfs merge=lfs -text
+advanced-installer-package/app/*.pak filter=lfs diff=lfs merge=lfs -text
+advanced-installer-package/app/*.dll filter=lfs diff=lfs merge=lfs -text
+advanced-installer-package/app/*.html filter=lfs diff=lfs merge=lfs -text
+advanced-installer-package/app/*.bin filter=lfs diff=lfs merge=lfs -text
+advanced-installer-package/graphics/*.ico filter=lfs diff=lfs merge=lfs -text
+advanced-installer-package/graphics/*.png filter=lfs diff=lfs merge=lfs -text
+advanced-installer-package/graphics/*.bmp filter=lfs diff=lfs merge=lfs -text
+advanced-installer-package/graphics/*.svg filter=lfs diff=lfs merge=lfs -text
+advanced-installer-package/eula/*.rtf filter=lfs diff=lfs merge=lfs -text
+advanced-installer-package/HushLoop.aip filter=lfs diff=lfs merge=lfs -text
