@@ -46,8 +46,9 @@ export function SettingsModal({ isOpen, onClose, settings, onSave }: SettingsMod
   };
 
   const handleTestHotkey = async () => {
-    if (!window.focusDeckAPI?.registerHotkey) return;
-    const res = await window.focusDeckAPI.registerHotkey(hotkey);
+    const api = window.hushLoopAPI;
+    if (!api?.registerHotkey) return;
+    const res = await api.registerHotkey(hotkey);
     if (res.success) {
       setHotkeyStatus('Hotkey registered successfully!');
     } else {

@@ -1,6 +1,6 @@
 # Windows 11 Silencing: Technical Analysis & Honest Evaluation
 
-One of the core promises of FocusDeck is to actively silence distractions on Windows 11 when a focus session starts and restore normal operation when it finishes. This document provides an honest, production-grade assessment of what Windows 11 allows, what is technically restricted, and how FocusDeck implements reliable silencing.
+One of the core promises of HushLoop is to actively silence distractions on Windows 11 when a focus session starts and restore normal operation when it finishes. This document provides an honest, production-grade assessment of what Windows 11 allows, what is technically restricted, and how HushLoop implements reliable silencing.
 
 ---
 
@@ -17,9 +17,9 @@ On Windows 11, interruptions come in three primary forms:
 
 ### 2.1 Audio Silencing (Fully Feasible & Reliable)
 - **Mechanism**: Windows Core Audio Endpoints (`IAudioEndpointVolume`).
-- **Capability**: FocusDeck can read the exact master volume level (`0.0` to `1.0`) and the mute state (`true` / `false`) before a session starts.
-- **Action**: FocusDeck can mute master audio or duck it down to a user-configured level during focus, and restore the precise pre-session volume and mute status on completion.
-- **Crash Safety**: The pre-session volume and mute state are written to disk before modifying audio. If FocusDeck or the system crashes, startup recovery restores the user's volume.
+- **Capability**: HushLoop can read the exact master volume level (`0.0` to `1.0`) and the mute state (`true` / `false`) before a session starts.
+- **Action**: HushLoop can mute master audio or duck it down to a user-configured level during focus, and restore the precise pre-session volume and mute status on completion.
+- **Crash Safety**: The pre-session volume and mute state are written to disk before modifying audio. If HushLoop or the system crashes, startup recovery restores the user's volume.
 
 ### 2.2 Notification Silencing & "Do Not Disturb" (Windows 11 Limitations)
 - **Historical Context (Windows 10)**:
@@ -32,21 +32,21 @@ On Windows 11, interruptions come in three primary forms:
 
 ---
 
-## 3. FocusDeck's Honest Architecture for Windows 11
+## 3. HushLoop's Honest Architecture for Windows 11
 
-Rather than faking DND support or using fragile registry hacks that break on Windows updates, FocusDeck adopts a transparent, multi-tiered approach:
+Rather than faking DND support or using fragile registry hacks that break on Windows updates, HushLoop adopts a transparent, multi-tiered approach:
 
 1. **Native Master Audio Silencing / Ducking**:
-   - FocusDeck captures and manages the system master volume and mute state via native Windows Core Audio.
+   - HushLoop captures and manages the system master volume and mute state via native Windows Core Audio.
    - When focus begins, notification chimes, system pings, and background audio distractions are muted.
    - When break time arrives, the original volume and mute status are restored.
 
 2. **Application-Level Silence**:
-   - FocusDeck suppresses all non-critical notifications from itself during active focus.
-   - FocusDeck timer chime only fires when transitioning into break or idle.
+   - HushLoop suppresses all non-critical notifications from itself during active focus.
+   - HushLoop timer chime only fires when transitioning into break or idle.
 
 3. **Assisted Windows 11 Focus Integration**:
-   - FocusDeck provides an intuitive shortcut and visual indicator reminding the user to trigger Windows 11 Focus (`Win + N` ➔ `Focus`) if full OS banner suppression is desired.
+   - HushLoop provides an intuitive shortcut and visual indicator reminding the user to trigger Windows 11 Focus (`Win + N` ➔ `Focus`) if full OS banner suppression is desired.
    - The UI clearly communicates:
      - *"Audio Silencing: Active (System chimes & distractions muted)"*
      - *"Windows 11 DND: Use Win+N for visual banner suppression"*
@@ -61,5 +61,4 @@ Rather than faking DND support or using fragile registry hacks that break on Win
 
 To guarantee the user is never left with an unexpectedly muted system after a crash:
 
-![FocusDeck System Silencing and Crash Recovery Protocol](images/crash_recovery_flowchart.jpg)
-
+![HushLoop System Silencing and Crash Recovery Protocol](images/crash_recovery_flowchart.jpg)

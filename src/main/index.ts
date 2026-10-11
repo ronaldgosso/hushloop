@@ -80,7 +80,7 @@ async function initSubsystems(): Promise<UserSettings> {
   if (recoveryResult.recovered && recoveryResult.snapshot) {
     pendingRecoveredVolume = recoveryResult.snapshot.volumePercent;
     console.info(
-      `[FocusDeck] Startup crash recovery: restored system audio to ${pendingRecoveredVolume}%`,
+      `[HushLoop] Startup crash recovery: restored system audio to ${pendingRecoveredVolume}%`,
     );
   }
 

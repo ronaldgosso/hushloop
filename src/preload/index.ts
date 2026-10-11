@@ -1,8 +1,8 @@
 import { contextBridge, ipcRenderer } from 'electron';
-import type { FocusDeckAPI } from '../shared/types/ipc';
+import type { HushLoopAPI } from '../shared/types/ipc';
 import type { PhaseCompleteEvent, TimerPhase, TimerSnapshot } from '../shared/types';
 
-const api: FocusDeckAPI = {
+const api: HushLoopAPI = {
   startTimer: (phase?: TimerPhase) => ipcRenderer.invoke('timer:start', phase),
   pauseTimer: () => ipcRenderer.invoke('timer:pause'),
   resumeTimer: () => ipcRenderer.invoke('timer:resume'),
@@ -65,4 +65,4 @@ const api: FocusDeckAPI = {
   registerHotkey: (accelerator: string) => ipcRenderer.invoke('hotkey:register', accelerator),
 };
 
-contextBridge.exposeInMainWorld('focusDeckAPI', api);
+contextBridge.exposeInMainWorld('hushLoopAPI', api);

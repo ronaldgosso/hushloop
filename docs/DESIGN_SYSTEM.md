@@ -1,8 +1,8 @@
-# FocusDeck Design System: Dentale EHR Inspired
+# HushLoop Design System: Dentale EHR Inspired
 
-This design system is inspired by the **Dentale EHR Healthcare Desktop App** on Dribbble ([Shot 27482436](https://dribbble.com/shots/27482436-Dentale-EHR-Healthcare-Desktop-App)). It brings a futuristic, medical-grade clarity and high-tech dark glassmorphism aesthetic to FocusDeck on Windows 11.
+This design system is inspired by the **Dentale EHR Healthcare Desktop App** on Dribbble ([Shot 27482436](https://dribbble.com/shots/27482436-Dentale-EHR-Healthcare-Desktop-App)). It brings a futuristic, medical-grade clarity and high-tech dark glassmorphism aesthetic to HushLoop on Windows 11.
 
-![FocusDeck Design Mockup](images/focusdeck_design_mockup.jpg)
+![HushLoop Design Mockup](images/hushloop_design_mockup.jpg)
 
 ---
 
