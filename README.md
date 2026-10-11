@@ -33,15 +33,15 @@ HushLoop's brand mark embodies **The Acoustic Loop**:
 
 ---
 
-## 📸 Visual Identity & Architecture
+## 📸 Visual Identity & Design System
 
-HushLoop's visual language is inspired by the **Dentale EHR Healthcare Desktop App** design aesthetic:
+HushLoop's visual language is engineered specifically for Windows 11 Fluent dark aesthetics, deep cognitive immersion, and uninterrupted developer focus:
 
-- **Futuristic Dark Glassmorphism**: Surface panels (`rgba(22, 27, 34, 0.72)`) over deep space obsidian (`#0D1117`) with 16px backdrop blur.
-- **Electric Cyan Progress Indicator**: Vibrant glowing arc (`#00F2FE` and `#4EEDDE`) visualizing focus progress.
-- **Coral Break State**: Warm coral accents (`#FF4B72`) signaling mindful rest intervals.
-- **Floating Pill Dock**: Ergonomic bottom floating dock with instant audio and session controls.
-- **Frameless Window Bar**: Custom drag region with Windows 11 status pulse indicator and window controls.
+- **Futuristic Dark Glassmorphism**: Surface panels (`rgba(22, 27, 34, 0.72)`) over deep space obsidian (`#0D1117`) with 16px backdrop blur and 1px cyan perimeter glow.
+- **Electric Cyan Progress Indicator**: Vibrant glowing arc (`#00F2FE` and `#4EEDDE`) visualizing real-time session progress and interval phases.
+- **Living Ambient Aurora**: Procedural WebGL/Canvas backdrop responding smoothly to active focus and break states.
+- **Floating Pill Dock**: Ergonomic bottom floating dock with instant session controls, procedural soundscape switcher, and volume regulation.
+- **Windows 11 Frameless Header**: Native custom drag bar with live status pulse indicator, Ronald Gosso attribution badge, and official web showcase launcher.
 
 ![HushLoop Design Mockup](docs/images/hushloop_design_mockup.jpg)
 
@@ -169,7 +169,7 @@ Builds a standard Windows installer with desktop and Start Menu shortcuts:
 npm run package:exe
 ```
 
-Output: `release/HushLoop-Setup-1.1.4.exe` (~84 MB)
+Output: `release/HushLoop-Setup-2.0.0.exe` (~84 MB)
 
 #### 2. Windows MSI Enterprise Installer (`.msi`)
 
@@ -179,7 +179,7 @@ Builds a Windows Installer package via WiX Toolset, ideal for enterprise mass-de
 npm run package:msi
 ```
 
-Output: `release/HushLoop-1.1.4.msi` (~94 MB)
+Output: `release/HushLoop-2.0.0.msi` (~94 MB)
 
 #### 3. Portable Standalone Application (`.exe`)
 
@@ -189,7 +189,7 @@ Builds a single self-contained executable that runs immediately without installa
 npm run package:portable
 ```
 
-Output: `release/HushLoop-Portable-1.1.4.exe` (~84 MB)
+Output: `release/HushLoop-Portable-2.0.0.exe` (~84 MB)
 
 #### 4. Unpacked Development Directory (`.exe`)
 
