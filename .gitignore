@@ -35,3 +35,6 @@ $RECYCLE.BIN/
 
 # Silencer local recovery state
 silencer-session.json
+
+# Vite build artifacts
+*.timestamp-*.mjs
