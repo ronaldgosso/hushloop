@@ -1,6 +1,6 @@
 # 📦 HushLoop — Advanced Installer Bundling Package
 
-This directory contains everything required to produce a production-ready Windows 11 Setup Installer (`HushLoop-Setup-1.1.3.exe`) using **Advanced Installer**.
+This directory contains everything required to produce a production-ready Windows 11 Setup Installer (`HushLoop-Setup-1.1.4.exe`) using **Advanced Installer**.
 
 ---
 
@@ -22,7 +22,7 @@ advanced-installer-package/
 ├── HushLoop.aip                 <-- Pre-configured Advanced Installer Project file
 ├── README_ADVANCED_INSTALLER.md <-- This comprehensive guide
 ├── app/                         <-- Ready-to-bundle application binaries
-│   ├── HushLoop.exe             <-- Main Windows executable (v1.1.3)
+│   ├── HushLoop.exe             <-- Main Windows executable (v1.1.4)
 │   ├── resources/               <-- app.asar (with index.cjs) and unpacked assets
 │   ├── locales/                 <-- Chromium locale packs
 │   ├── chrome_*.pak             <-- UI resources
@@ -50,7 +50,7 @@ advanced-installer-package/
 2. Go to **File ➔ Open** and select:
    `c:\Users\Neptune\Documents\Projects\hushloop\advanced-installer-package\HushLoop.aip`
 3. Click the **Build** button in the top toolbar (or press `F7`).
-4. Advanced Installer will compile and place `HushLoop-Setup-1.1.3.exe` inside the `Output\` folder.
+4. Advanced Installer will compile and place `HushLoop-Setup-1.1.4.exe` inside the `Output\` folder.
 5. Click **Run** (`Ctrl + F5`) to test the installer!
 
 ---
@@ -65,7 +65,7 @@ If you prefer to create a new project from scratch in Advanced Installer:
 
 #### 2. Product Details
 - **Product Name**: `HushLoop`
-- **Product Version**: `1.1.3`
+- **Product Version**: `1.1.4`
 - **Company / Manufacturer**: `Ronald Gosso`
 - **Support / Website URL**: `https://ronaldgosso.github.io/hushloop_site/`
 - **Help URL**: `https://github.com/ronaldgosso/hushloop/issues`
@@ -104,13 +104,13 @@ If you prefer to create a new project from scratch in Advanced Installer:
 
 #### 8. Build
 - Click **Build** (`F7`).
-- Name the output file: `HushLoop-Setup-1.1.3.exe`.
+- Name the output file: `HushLoop-Setup-1.1.4.exe`.
 
 ---
 
 ## 🏷️ Releasing to GitHub
 
-Once `HushLoop-Setup-1.1.3.exe` is generated:
+Once `HushLoop-Setup-1.1.4.exe` is generated:
 
 1. Test installing on your Windows PC:
    - Run the installer.
@@ -118,7 +118,7 @@ Once `HushLoop-Setup-1.1.3.exe` is generated:
    - Launch HushLoop and verify the glassmorphic window and tray icon appear.
 2. Go to **GitHub ➔ ronaldgosso/hushloop ➔ Releases**:
    - Click **Draft a new release**.
-   - Tag version: `v1.1.3`.
-   - Title: `HushLoop v1.1.3 — Active Pomodoro Desktop Timer for Windows 11`.
-   - Drag and drop `HushLoop-Setup-1.1.3.exe` into the release binaries section.
+   - Tag version: `v1.1.4`.
+   - Title: `HushLoop v1.1.4 — Active Pomodoro Desktop Timer for Windows 11`.
+   - Drag and drop `HushLoop-Setup-1.1.4.exe` into the release binaries section.
    - Publish the release!
