@@ -274,6 +274,30 @@ body {
   border: 1px solid var(--border-subtle);
 }
 
+.app-author-pill {
+  font-size: 10px;
+  font-weight: 600;
+  color: #4eedde;
+  background: rgba(78, 237, 222, 0.08);
+  padding: 2px 8px;
+  border-radius: 6px;
+  border: 1px solid rgba(78, 237, 222, 0.25);
+  cursor: pointer;
+  transition: all 0.2s ease;
+  -webkit-app-region: no-drag;
+}
+
+.app-author-pill:hover {
+  background: rgba(78, 237, 222, 0.18);
+  border-color: rgba(78, 237, 222, 0.5);
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+.no-drag {
+  -webkit-app-region: no-drag;
+}
+
 .window-controls {
   display: flex;
   align-items: center;
@@ -1430,3 +1454,101 @@ body {
   cursor: not-allowed;
   transform: none;
 }
+
+/* Project Hub & About Styling */
+.about-section-box {
+  background: rgba(0, 242, 254, 0.03);
+  border: 1px solid rgba(0, 242, 254, 0.15);
+  border-radius: 12px;
+  padding: 14px 16px;
+  margin-top: 12px;
+}
+
+.version-pill {
+  font-size: 10px;
+  font-family: monospace;
+  font-weight: 700;
+  color: #00f2fe;
+  background: rgba(0, 242, 254, 0.12);
+  padding: 2px 7px;
+  border-radius: 6px;
+  border: 1px solid rgba(0, 242, 254, 0.3);
+  margin-left: 6px;
+}
+
+.author-link-text {
+  background: none;
+  border: none;
+  color: #4eedde;
+  font-weight: 600;
+  cursor: pointer;
+  padding: 0;
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+}
+
+.author-link-text:hover {
+  color: #ffffff;
+}
+
+.inline-icon {
+  display: inline;
+  vertical-align: middle;
+}
+
+.landing-hub-card {
+  margin-top: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  padding: 10px 14px;
+  background: rgba(10, 15, 26, 0.6);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: 10px;
+}
+
+.landing-hub-info {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.landing-hub-title {
+  font-size: 12px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.landing-hub-url {
+  font-size: 11px;
+  font-family: monospace;
+  color: var(--text-muted);
+}
+
+.landing-hub-launch-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.15) 0%, rgba(78, 237, 222, 0.15) 100%);
+  border: 1px solid rgba(0, 242, 254, 0.4);
+  color: #00f2fe;
+  padding: 6px 12px;
+  border-radius: 8px;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  white-space: nowrap;
+}
+
+.landing-hub-launch-btn:hover {
+  background: linear-gradient(135deg, rgba(0, 242, 254, 0.3) 0%, rgba(78, 237, 222, 0.3) 100%);
+  border-color: #00f2fe;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+

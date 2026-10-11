@@ -47,6 +47,7 @@ const api: HushLoopAPI = {
   quitApp: () => ipcRenderer.invoke('app:quit'),
   toggleWindowVisibility: () => ipcRenderer.invoke('window:toggle-visibility'),
   getAppVersion: () => ipcRenderer.invoke('app:version'),
+  openExternal: (url: string) => ipcRenderer.invoke('app:open-external', url),
 
   onCrashRecovery: (callback: (recoveredVolume: number) => void) => {
     const handler = (_event: Electron.IpcRendererEvent, recoveredVolume: number) => {

@@ -1,6 +1,6 @@
 # 📦 HushLoop — Advanced Installer Bundling Package
 
-This directory contains everything required to produce a production-ready Windows 11 Setup Installer (`HushLoop-Setup-1.1.5.exe`) using **Advanced Installer**.
+This directory contains everything required to produce a production-ready Windows 11 Setup Installer (`HushLoop-Setup-2.0.0.exe`) using **Advanced Installer**.
 
 ---
 

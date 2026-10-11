@@ -1,4 +1,4 @@
-import { app, BrowserWindow, ipcMain, screen } from 'electron';
+import { app, BrowserWindow, ipcMain, screen, shell } from 'electron';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
@@ -399,6 +399,14 @@ function createWindow(settings: UserSettings): void {
 
   ipcMain.handle('app:version', () => {
     return app.getVersion();
+  });
+
+  ipcMain.handle('app:open-external', async (_event, targetUrl: string) => {
+    if (typeof targetUrl === 'string' && (targetUrl.startsWith('https://') || targetUrl.startsWith('http://'))) {
+      await shell.openExternal(targetUrl);
+      return true;
+    }
+    return false;
   });
 
   // Load URL

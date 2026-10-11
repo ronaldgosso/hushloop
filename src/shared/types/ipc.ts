@@ -17,6 +17,7 @@ export interface IPCChannels {
   'window:close-to-tray': () => Promise<void>;
   'window:toggle-visibility': () => Promise<void>;
   'app:quit': () => Promise<void>;
+  'app:open-external': (url: string) => Promise<boolean>;
 
   // Silencer Controls
   'silencer:status': () => Promise<{ isSilenced: boolean; currentVolume: number }>;
@@ -84,5 +85,6 @@ export interface HushLoopAPI {
   quitApp: () => Promise<void>;
   toggleWindowVisibility: () => Promise<void>;
   getAppVersion: () => Promise<string>;
+  openExternal: (url: string) => Promise<boolean>;
 }
 
