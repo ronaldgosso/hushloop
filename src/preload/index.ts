@@ -41,7 +41,10 @@ const api: HushLoopAPI = {
   },
 
   minimizeWindow: () => ipcRenderer.invoke('window:minimize'),
+  maximizeWindow: () => ipcRenderer.invoke('window:maximize'),
+  isWindowMaximized: () => ipcRenderer.invoke('window:is-maximized'),
   closeToTray: () => ipcRenderer.invoke('window:close-to-tray'),
+  quitApp: () => ipcRenderer.invoke('app:quit'),
   toggleWindowVisibility: () => ipcRenderer.invoke('window:toggle-visibility'),
   getAppVersion: () => ipcRenderer.invoke('app:version'),
 

@@ -1,4 +1,5 @@
-import { Minus, X, Settings as SettingsIcon } from 'lucide-react';
+import { useState, useEffect } from 'react';
+import { Minus, Square, Copy, X, Settings as SettingsIcon } from 'lucide-react';
 import { ShinyText } from './effects/ShinyText';
 
 interface HeaderProps {
@@ -7,14 +8,23 @@ interface HeaderProps {
 }
 
 export function Header({ appName = 'HushLoop', onOpenSettings }: HeaderProps) {
+  const [isMaximized, setIsMaximized] = useState(false);
+
+  useEffect(() => {
+    window.hushLoopAPI?.isWindowMaximized().then(setIsMaximized).catch(() => {});
+  }, []);
+
   const handleMinimize = () => {
-    const api = window.hushLoopAPI;
-    api?.minimizeWindow();
+    window.hushLoopAPI?.minimizeWindow();
+  };
+
+  const handleToggleMaximize = async () => {
+    const res = await window.hushLoopAPI?.maximizeWindow();
+    if (res !== undefined) setIsMaximized(res);
   };
 
   const handleCloseToTray = () => {
-    const api = window.hushLoopAPI;
-    api?.closeToTray();
+    window.hushLoopAPI?.closeToTray();
   };
 
   return (
@@ -48,10 +58,18 @@ export function Header({ appName = 'HushLoop', onOpenSettings }: HeaderProps) {
           <Minus size={14} />
         </button>
         <button
+          className="window-btn"
+          onClick={handleToggleMaximize}
+          title={isMaximized ? 'Restore' : 'Maximize'}
+          aria-label={isMaximized ? 'Restore' : 'Maximize'}
+        >
+          {isMaximized ? <Copy size={12} /> : <Square size={12} />}
+        </button>
+        <button
           className="window-btn window-btn-close"
           onClick={handleCloseToTray}
-          title="Close to Tray"
-          aria-label="Close to Tray"
+          title="Close (Minimize to Tray)"
+          aria-label="Close"
         >
           <X size={14} />
         </button>
