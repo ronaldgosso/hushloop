@@ -18,14 +18,14 @@ export default function App() {
 
   // Load User Preferences on launch
   useEffect(() => {
-    const api = window.focusDeckAPI;
+    const api = window.hushLoopAPI;
     if (api?.getSettings) {
       api.getSettings().then(setSettings);
     }
   }, []);
 
   const handleSaveSettings = useCallback(async (updates: Partial<UserSettings>) => {
-    const api = window.focusDeckAPI;
+    const api = window.hushLoopAPI;
     if (api?.updateSettings) {
       const updated = await api.updateSettings(updates);
       setSettings(updated);
@@ -40,7 +40,7 @@ export default function App() {
 
   // Crash recovery listener
   useEffect(() => {
-    const api = window.focusDeckAPI;
+    const api = window.hushLoopAPI;
     if (!api?.onCrashRecovery) return;
 
     const unsub = api.onCrashRecovery(vol => {

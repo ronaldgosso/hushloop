@@ -1,6 +1,6 @@
-# Contributing to FocusDeck 🤝
+# Contributing to HushLoop 🤝
 
-Thank you for your interest in contributing to **FocusDeck**! FocusDeck is an active Pomodoro desktop app tuned for Windows 11, designed to protect deep focus through automated distraction silencing and ambient sound synthesis.
+Thank you for your interest in contributing to **HushLoop**! HushLoop is an active Pomodoro desktop app tuned for Windows 11, designed to protect deep focus through automated distraction silencing and ambient sound synthesis.
 
 We welcome contributions of all levels. Please review this guide to understand our architectural principles, coding standards, and branch workflow.
 
@@ -34,7 +34,7 @@ npm run dev
 
 ## 🌿 Branching & Pull Request Workflow
 
-FocusDeck adheres to a strict **trunk-based feature branching** model:
+HushLoop adheres to a strict **trunk-based feature branching** model:
 
 1. Every logical feature or phase must be developed on a dedicated branch created from `main`:
    ```powershell
@@ -70,13 +70,13 @@ When contributing code, adhere to our five architectural pillars:
 ### 2. Modular Silencing (`src/main/silencer`)
 
 - All audio manipulation must implement the `SystemSilencer` interface.
-- Never alter system audio without first persisting the original volume snapshot to the write-ahead ledger (`CrashRecoveryLedger` at `%APPDATA%\FocusDeck\silencer-session.json`).
+- Never alter system audio without first persisting the original volume snapshot to the write-ahead ledger (`CrashRecoveryLedger` at `%APPDATA%\HushLoop\silencer-session.json`).
 - If Windows terminates unexpectedly, the startup recovery hook must automatically restore the user's audio.
 
 ### 3. Strict Preload Isolation (`src/preload`, `src/shared`)
 
 - Enable `contextIsolation: true` and `nodeIntegration: false` at all times.
-- Renderer processes never access Node `fs`, `child_process`, or raw IPC senders. All communication goes through the typed `window.focusDeckAPI` bridge.
+- Renderer processes never access Node `fs`, `child_process`, or raw IPC senders. All communication goes through the typed `window.hushLoopAPI` bridge.
 
 ### 4. Zero-Asset Procedural Audio (`src/renderer/src/audio`)
 

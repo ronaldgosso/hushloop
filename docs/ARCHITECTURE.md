@@ -1,6 +1,6 @@
-# FocusDeck Architecture & Technical Blueprint
+# HushLoop Architecture & Technical Blueprint
 
-FocusDeck is an Electron desktop application designed for Windows 11 that combines an authoritative Pomodoro timer, ambient focus music, system silencing, and daily analytics with resilient crash recovery.
+HushLoop is an Electron desktop application designed for Windows 11 that combines an authoritative Pomodoro timer, ambient focus music, system silencing, and daily analytics with resilient crash recovery.
 
 ---
 
@@ -8,7 +8,7 @@ FocusDeck is an Electron desktop application designed for Windows 11 that combin
 
 Electron runs two distinct environments. Keeping them isolated is essential for security and stability:
 
-![FocusDeck Process Architecture Diagram](images/architecture_process_model.jpg)
+![HushLoop Process Architecture Diagram](images/architecture_process_model.jpg)
 
 
 ### Why this boundary exists
@@ -74,14 +74,14 @@ export interface SilencerSnapshot {
 1. **Windows 11 Do Not Disturb / Focus Assist**:
    - Microsoft deprecated the legacy Windows 10 Focus Assist registry toggles (`WpnUserService`, `NotificationManager`) in Windows 11 builds (22H2 / 23H2 / 24H2).
    - There is **no stable, documented Win32 or WinRT API** for third-party desktop apps to programmatically toggle Windows 11 Do Not Disturb system-wide without private APIs or administrative elevation that triggers UAC prompts or violates Store policies.
-   - **FocusDeck Solution**:
+   - **HushLoop Solution**:
      - System Master Volume / Notification Sound Muting: Managed via Windows Core Audio endpoint APIs (PowerShell Core Audio interop / native audio ducking).
-     - App-level Focus Mode: Suppresses all FocusDeck-generated alerts and sound effects during focus.
-     - Documented User Action: Transparently informs the user in Settings and UI that Windows 11 DND requires user-level activation (Win + N ➔ Focus), while FocusDeck reliably mutes system distracting audio and restores it automatically.
+     - App-level Focus Mode: Suppresses all HushLoop-generated alerts and sound effects during focus.
+     - Documented User Action: Transparently informs the user in Settings and UI that Windows 11 DND requires user-level activation (Win + N ➔ Focus), while HushLoop reliably mutes system distracting audio and restores it automatically.
 2. **Crash Recovery Ledger**:
-   - Before applying any change to system volume or mute state, FocusDeck writes an atomic snapshot to `%APPDATA%\FocusDeck\silencer-session.json`.
-   - If FocusDeck terminates normally: The silencer restores system audio and deletes the recovery file.
-   - If FocusDeck or Windows crashes: On subsequent launch, FocusDeck inspects `silencer-session.json`. If an un-restored session exists, it immediately restores original volume/mute levels and logs an event.
+   - Before applying any change to system volume or mute state, HushLoop writes an atomic snapshot to `%APPDATA%\HushLoop\silencer-session.json`.
+   - If HushLoop terminates normally: The silencer restores system audio and deletes the recovery file.
+   - If HushLoop or Windows crashes: On subsequent launch, HushLoop inspects `silencer-session.json`. If an un-restored session exists, it immediately restores original volume/mute levels and logs an event.
 
 ---
 
@@ -136,7 +136,7 @@ All communication between Renderer and Main processes follows a strictly typed c
 ## 4. Project Folder Structure
 
 ```
-focusdeck/
+hushloop/
 ├── .github/
 │   └── workflows/
 │       └── build-and-test.yml
@@ -187,7 +187,7 @@ focusdeck/
 │   │   │       └── audio/
 │   │   │           ├── white-noise.mp3
 │   │   │           └── rain.mp3
-│   └── shared/                    # Shared Types & Constants
+│   │   └── shared/                    # Shared Types & Constants
 │       ├── types/
 │       │   ├── timer.ts
 │       │   ├── silencer.ts
@@ -211,7 +211,7 @@ focusdeck/
 | :--- | :--- | :--- |
 | **Electron XSS / Remote Execution** | Critical | Strict CSP in `index.html`. `contextIsolation: true`, `nodeIntegration: false`. No dynamic code evaluation (`eval`), only typed IPC. |
 | **Timer Drift on Laptop Sleep** | High | Pure timestamp calculations (`Date.now() - startTime`). Electron `powerMonitor` listens to `suspend` and `resume` to re-sync immediately. |
-| **System Audio Stuck Muted on Crash** | High | Persistent journal in `%APPDATA%\FocusDeck\silencer-session.json`. Startup hook scans and restores original state immediately. |
+| **System Audio Stuck Muted on Crash** | High | Persistent journal in `%APPDATA%\HushLoop\silencer-session.json`. Startup hook scans and restores original state immediately. |
 | **Windows 11 DND API Unavailability** | Medium | Audio ducking/muting implemented reliably; DND system behavior honestly presented to user with clear guidance. |
 | **System Tray Icon Disappearing on Windows Explorer Crash** | Low | Listen to `TaskbarCreated` Windows message to re-instantiate tray icon automatically. |
 

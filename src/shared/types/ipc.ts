@@ -41,7 +41,7 @@ export interface IPCChannels {
   'hotkey:register': (accelerator: string) => Promise<{ success: boolean; accelerator: string }>;
 }
 
-export interface FocusDeckAPI {
+export interface HushLoopAPI {
   startTimer: (phase?: TimerPhase) => Promise<TimerSnapshot>;
   pauseTimer: () => Promise<TimerSnapshot>;
   resumeTimer: () => Promise<TimerSnapshot>;
@@ -79,3 +79,4 @@ export interface FocusDeckAPI {
   toggleWindowVisibility: () => Promise<void>;
   getAppVersion: () => Promise<string>;
 }
+

@@ -85,7 +85,7 @@ export class WindowsSilencer implements SystemSilencer {
 
   private static readonly HONEST_LIMITATIONS = [
     'Windows 11 Do Not Disturb (DND) has no public Win32 API. Use Win+N to enable visual toast suppression manually.',
-    'FocusDeck automatically ducks/mutes system master audio and suppresses internal notification sounds.',
+    'HushLoop automatically ducks/mutes system master audio and suppresses internal notification sounds.',
   ];
 
   constructor(driver?: AudioDriver, ledger?: CrashRecoveryLedger) {

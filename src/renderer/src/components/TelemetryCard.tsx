@@ -27,7 +27,7 @@ export function TelemetryCard({ snapshot }: TelemetryCardProps) {
   const [stats, setStats] = useState<StatsSummary | null>(null);
 
   const fetchStats = () => {
-    const api = window.focusDeckAPI;
+    const api = window.hushLoopAPI;
     if (api?.getStatsSummary) {
       api.getStatsSummary().then(setStats);
     }

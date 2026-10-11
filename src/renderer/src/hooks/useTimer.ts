@@ -17,7 +17,7 @@ export function useTimer() {
   const [lastCompletedPhase, setLastCompletedPhase] = useState<PhaseCompleteEvent | null>(null);
 
   useEffect(() => {
-    const api = window.focusDeckAPI;
+    const api = window.hushLoopAPI;
     if (!api) return;
 
     // Fetch authoritative initial snapshot
@@ -48,23 +48,28 @@ export function useTimer() {
   }, []);
 
   const start = useCallback((phase?: TimerPhase) => {
-    return window.focusDeckAPI?.startTimer(phase);
+    const api = window.hushLoopAPI;
+    return api?.startTimer(phase);
   }, []);
 
   const pause = useCallback(() => {
-    return window.focusDeckAPI?.pauseTimer();
+    const api = window.hushLoopAPI;
+    return api?.pauseTimer();
   }, []);
 
   const resume = useCallback(() => {
-    return window.focusDeckAPI?.resumeTimer();
+    const api = window.hushLoopAPI;
+    return api?.resumeTimer();
   }, []);
 
   const reset = useCallback(() => {
-    return window.focusDeckAPI?.resetTimer();
+    const api = window.hushLoopAPI;
+    return api?.resetTimer();
   }, []);
 
   const skip = useCallback(() => {
-    return window.focusDeckAPI?.skipTimer();
+    const api = window.hushLoopAPI;
+    return api?.skipTimer();
   }, []);
 
   return {

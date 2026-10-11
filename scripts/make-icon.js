@@ -1,8 +1,9 @@
 import fs from 'fs';
 import path from 'path';
 
-// Source image from generated artifacts
-const srcPath = 'C:\\Users\\Neptune\\.gemini\\antigravity-ide\\brain\\c397283b-23f5-4d4e-909b-fac25d5f1800\\focusdeck_app_icon_1791562950559.jpg';
+// Source image from assets or artifacts
+const fallbackSrc = path.resolve('docs', 'images', 'hushloop_app_icon.jpg');
+const srcPath = fallbackSrc;
 const buildDir = path.resolve('build');
 const docsImgDir = path.resolve('docs', 'images');
 
@@ -13,11 +14,14 @@ if (!fs.existsSync(docsImgDir)) {
   fs.mkdirSync(docsImgDir, { recursive: true });
 }
 
-// Copy to docs/images
-fs.copyFileSync(srcPath, path.join(docsImgDir, 'focusdeck_app_icon.jpg'));
+// Copy to docs/images if source is different
+const destPath = path.join(docsImgDir, 'hushloop_app_icon.jpg');
+if (path.resolve(srcPath) !== path.resolve(destPath)) {
+  fs.copyFileSync(srcPath, destPath);
+}
 
 // Read image bytes
-const imgBytes = fs.readFileSync(srcPath);
+const imgBytes = fs.readFileSync(destPath);
 
 // Windows Vista+ supports PNG payloads directly in ICO files.
 // Let's create an ICO with a 256x256 entry.

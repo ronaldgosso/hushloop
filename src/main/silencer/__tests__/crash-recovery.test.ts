@@ -12,7 +12,7 @@ describe('CrashRecoveryLedger', () => {
   beforeEach(() => {
     tempLedgerPath = path.join(
       os.tmpdir(),
-      `focusdeck-test-ledger-${Date.now()}-${Math.random().toString(36).substring(7)}.json`,
+      `hushloop-test-ledger-${Date.now()}-${Math.random().toString(36).substring(7)}.json`,
     );
     ledger = new CrashRecoveryLedger(tempLedgerPath);
   });

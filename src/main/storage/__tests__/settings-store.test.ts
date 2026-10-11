@@ -12,7 +12,7 @@ describe('SettingsStore', () => {
   beforeEach(() => {
     tempSettingsPath = path.join(
       os.tmpdir(),
-      `focusdeck-settings-test-${Date.now()}-${Math.random().toString(36).substring(7)}.json`,
+      `hushloop-settings-test-${Date.now()}-${Math.random().toString(36).substring(7)}.json`,
     );
     store = new SettingsStore(tempSettingsPath);
   });

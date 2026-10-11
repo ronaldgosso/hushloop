@@ -14,7 +14,7 @@ describe('WindowsSilencer', () => {
   beforeEach(() => {
     tempLedgerPath = path.join(
       os.tmpdir(),
-      `focusdeck-silencer-test-${Date.now()}-${Math.random().toString(36).substring(7)}.json`,
+      `hushloop-silencer-test-${Date.now()}-${Math.random().toString(36).substring(7)}.json`,
     );
     ledger = new CrashRecoveryLedger(tempLedgerPath);
     mockDriver = new MockAudioDriver();

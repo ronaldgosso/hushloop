@@ -8,11 +8,13 @@ interface HeaderProps {
 
 export function Header({ appName = 'HushLoop', onOpenSettings }: HeaderProps) {
   const handleMinimize = () => {
-    window.focusDeckAPI?.minimizeWindow();
+    const api = window.hushLoopAPI;
+    api?.minimizeWindow();
   };
 
   const handleCloseToTray = () => {
-    window.focusDeckAPI?.closeToTray();
+    const api = window.hushLoopAPI;
+    api?.closeToTray();
   };
 
   return (

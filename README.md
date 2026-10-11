@@ -39,13 +39,13 @@ HushLoop's visual language is inspired by the **Dentale EHR Healthcare Desktop A
 - **Floating Pill Dock**: Ergonomic bottom floating dock with instant audio and session controls.
 - **Frameless Window Bar**: Custom drag region with Windows 11 status pulse indicator and window controls.
 
-![HushLoop Design Mockup](docs/images/focusdeck_design_mockup.jpg)
+![HushLoop Design Mockup](docs/images/hushloop_design_mockup.jpg)
 
 ---
 
 ## 🏛️ System Architecture
 
-FocusDeck is engineered with strict process isolation and unidirectional data flow:
+HushLoop is engineered with strict process isolation and unidirectional data flow:
 
 ![System Architecture](docs/images/system_architecture_diagram.jpg)
 
@@ -62,7 +62,7 @@ FocusDeck is engineered with strict process isolation and unidirectional data fl
 
 - **`SystemSilencer` Interface**: Modular driver architecture abstracting platform-specific volume manipulation.
 - **`WinMMAudioDriver`**: Low-overhead native audio interop through Windows Multimedia (`winmm.dll`), dynamically ducking or muting master output during focus sessions and restoring it when breaking.
-- **Write-Ahead Crash Ledger**: Records original system volume to `%APPDATA%\FocusDeck\silencer-session.json` prior to any volume alteration. If Windows crashes or power drops, FocusDeck automatically restores audio on next launch and displays a recovery banner.
+- **Write-Ahead Crash Ledger**: Records original system volume to `%APPDATA%\HushLoop\silencer-session.json` prior to any volume alteration. If Windows crashes or power drops, HushLoop automatically restores audio on next launch and displays a recovery banner.
 
 ### 3. Procedural Zero-Asset Soundscapes
 
@@ -79,8 +79,8 @@ FocusDeck is engineered with strict process isolation and unidirectional data fl
 
 ### 5. Persistent Telemetry & Streaks
 
-- **Daily Progress Tracking**: Aggregates total daily focus minutes, session completions, and calendar streaks into `%APPDATA%\FocusDeck\stats.json`.
-- **User Preferences**: Configurable session intervals, hotkey bindings, and silencing toggles persisted in `%APPDATA%\FocusDeck\settings.json`.
+- **Daily Progress Tracking**: Aggregates total daily focus minutes, session completions, and calendar streaks into `%APPDATA%\HushLoop\stats.json`.
+- **User Preferences**: Configurable session intervals, hotkey bindings, and silencing toggles persisted in `%APPDATA%\HushLoop\settings.json`.
 
 ---
 
@@ -238,7 +238,7 @@ GitHub Actions automatically runs the [Release Windows Executable](.github/workf
 | **5**  | Crash recovery restoring volume on next launch              | ✅ **Passed** | Write-ahead `CrashRecoveryLedger` with startup recovery and UI banner notice.             |
 | **6**  | Procedural Web Audio soundscapes (Alpha waves, Rain)        | ✅ **Passed** | Zero MP3s; procedural pink noise and 432Hz sine synthesis in `SoundscapeEngine`.          |
 | **7**  | Windows 11 notification and Tray integration                | ✅ **Passed** | `NotificationManager` + `TrayManager` with context menu and minimize-to-tray.             |
-| **8**  | Persistent daily stats (minutes, streaks)                   | ✅ **Passed** | `StatsTracker` + `StatsStore` persisting to `%APPDATA%\FocusDeck\stats.json`.             |
+| **8**  | Persistent daily stats (minutes, streaks)                   | ✅ **Passed** | `StatsTracker` + `StatsStore` persisting to `%APPDATA%\HushLoop\stats.json`.              |
 | **9**  | Dentale EHR dark glassmorphic UI + global hotkey            | ✅ **Passed** | Cyan glow, floating dock, `GlobalHotkeyManager` with `CommandOrControl+Alt+F`.            |
 | **10** | Windows NSIS installer packaged via electron-builder        | ✅ **Passed** | Configured in `electron-builder.json`, outputs to `release/`.                             |
 
