@@ -1,0 +1,1033 @@
+<!doctype html>
+<html lang="en" data-resolution="landscape">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>HushLoop — Launch Video</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-base: #0a0d14;
+        --bg-surface: rgba(18, 23, 33, 0.72);
+        --bg-surface-elevated: rgba(24, 31, 44, 0.88);
+        --border-subtle: rgba(255, 255, 255, 0.1);
+        --border-cyan: rgba(0, 242, 254, 0.45);
+        --color-cyan: #00f2fe;
+        --color-cyan-mint: #4eedde;
+        --color-coral: #ff4b72;
+        --color-coral-soft: #ff6584;
+        --text-primary: #f0f6fc;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      html,
+      body {
+        margin: 0;
+        width: 1920px;
+        height: 1080px;
+        overflow: hidden;
+        background: var(--bg-base);
+        font-family: var(--font-sans);
+        color: var(--text-primary);
+        -webkit-font-smoothing: antialiased;
+      }
+
+      #root {
+        width: 1920px;
+        height: 1080px;
+        position: relative;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 20%, #111827 0%, #0a0d14 70%, #06080d 100%);
+      }
+
+      /* Ambient Aurora Mesh */
+      .aurora-container {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .aurora-mesh {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.04) 1px, transparent 1px);
+        background-size: 40px 40px;
+        opacity: 0.6;
+      }
+
+      .aurora-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(120px);
+        mix-blend-mode: screen;
+        pointer-events: none;
+      }
+
+      .orb-1 {
+        width: 700px;
+        height: 700px;
+        top: -200px;
+        left: 20%;
+        background: radial-gradient(circle, rgba(0, 242, 254, 0.28) 0%, transparent 70%);
+      }
+
+      .orb-2 {
+        width: 600px;
+        height: 600px;
+        bottom: -150px;
+        right: 15%;
+        background: radial-gradient(circle, rgba(78, 237, 222, 0.2) 0%, transparent 70%);
+      }
+
+      .orb-3 {
+        width: 500px;
+        height: 500px;
+        top: 30%;
+        right: -100px;
+        background: radial-gradient(circle, rgba(255, 75, 114, 0.15) 0%, transparent 70%);
+      }
+
+      /* Glass Panel Utility */
+      .glass-panel {
+        background: var(--bg-surface);
+        backdrop-filter: blur(28px) saturate(180%);
+        -webkit-backdrop-filter: blur(28px) saturate(180%);
+        border: 1px solid var(--border-subtle);
+        border-radius: 24px;
+        box-shadow:
+          0 20px 50px -10px rgba(0, 0, 0, 0.6),
+          0 0 0 1px rgba(255, 255, 255, 0.06) inset;
+      }
+
+      .glass-panel-elevated {
+        background: var(--bg-surface-elevated);
+        backdrop-filter: blur(32px);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        border-radius: 20px;
+        box-shadow:
+          0 24px 60px rgba(0, 0, 0, 0.7),
+          0 0 30px rgba(0, 242, 254, 0.18);
+      }
+
+      /* Top Frameless Header */
+      .top-nav {
+        position: absolute;
+        top: 36px;
+        left: 64px;
+        right: 64px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        z-index: 100;
+      }
+
+      .brand-lockup {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .brand-symbol-icon {
+        width: 44px;
+        height: 44px;
+        filter: drop-shadow(0 0 12px rgba(0, 242, 254, 0.6));
+      }
+
+      .brand-title {
+        font-size: 26px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+      }
+
+      .brand-title span {
+        color: var(--color-cyan);
+      }
+
+      .system-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 8px 18px;
+        border-radius: 9999px;
+        background: rgba(0, 242, 254, 0.08);
+        border: 1px solid rgba(0, 242, 254, 0.25);
+        font-size: 13px;
+        font-weight: 700;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        color: var(--color-cyan);
+      }
+
+      .badge-dot {
+        width: 8px;
+        height: 8px;
+        border-radius: 50%;
+        background: var(--color-cyan);
+        box-shadow: 0 0 10px var(--color-cyan);
+      }
+
+      /* Scene Container */
+      .scene {
+        position: absolute;
+        inset: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        padding: 100px 80px 80px;
+        z-index: 10;
+        opacity: 0;
+        pointer-events: none;
+      }
+
+      /* Typography */
+      .scene-title-lead {
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--color-cyan);
+        margin-bottom: 12px;
+      }
+
+      .scene-headline {
+        font-size: 58px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        line-height: 1.1;
+        text-align: center;
+        margin-bottom: 16px;
+        background: linear-gradient(135deg, #ffffff 40%, var(--color-cyan-mint) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .scene-description {
+        font-size: 20px;
+        color: var(--text-secondary);
+        font-weight: 500;
+        text-align: center;
+        max-width: 840px;
+        line-height: 1.5;
+        margin-bottom: 40px;
+      }
+
+      /* =========================================================
+         SCENE 1: GAUGE & HERO LAUNCH
+         ========================================================= */
+      .scene-1-content {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .gauge-wrapper {
+        position: relative;
+        width: 380px;
+        height: 380px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 30px;
+      }
+
+      .gauge-svg {
+        position: absolute;
+        inset: 0;
+        transform: rotate(-90deg);
+      }
+
+      .gauge-center-content {
+        position: relative;
+        z-index: 5;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .timer-display {
+        font-family: var(--font-mono);
+        font-size: 78px;
+        font-weight: 700;
+        letter-spacing: 0.04em;
+        color: #ffffff;
+        text-shadow: 0 0 35px rgba(0, 242, 254, 0.4);
+      }
+
+      .phase-label {
+        font-size: 14px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        color: var(--color-cyan);
+        text-transform: uppercase;
+        margin-top: 4px;
+      }
+
+      .status-pill {
+        margin-top: 10px;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 14px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        font-size: 13px;
+        color: var(--text-secondary);
+      }
+
+      /* Floating Dock */
+      .pill-dock {
+        display: inline-flex;
+        align-items: center;
+        gap: 20px;
+        padding: 12px 28px;
+        border-radius: 9999px;
+        background: rgba(22, 27, 34, 0.85);
+        backdrop-filter: blur(28px);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        box-shadow:
+          0 16px 40px rgba(0, 0, 0, 0.6),
+          0 0 25px rgba(0, 242, 254, 0.18);
+      }
+
+      .dock-btn {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #ffffff;
+      }
+
+      .dock-btn-primary {
+        width: 58px;
+        height: 58px;
+        background: linear-gradient(135deg, var(--color-cyan) 0%, var(--color-cyan-mint) 100%);
+        border: none;
+        color: #0a0d14;
+        box-shadow: 0 0 24px rgba(0, 242, 254, 0.5);
+      }
+
+      /* Simulated Cursor */
+      .virtual-cursor {
+        position: absolute;
+        width: 32px;
+        height: 32px;
+        pointer-events: none;
+        z-index: 1000;
+        filter: drop-shadow(0 4px 12px rgba(0, 0, 0, 0.8));
+      }
+
+      /* =========================================================
+         SCENE 2: PROCEDURAL SOUNDSCAPES
+         ========================================================= */
+      .scene-2-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 40px;
+        width: 100%;
+        max-width: 1280px;
+        align-items: center;
+      }
+
+      .soundscape-card {
+        padding: 36px;
+      }
+
+      .soundscape-list {
+        display: flex;
+        flex-direction: column;
+        gap: 16px;
+        margin-top: 24px;
+      }
+
+      .soundscape-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 24px;
+        border-radius: 16px;
+        background: rgba(255, 255, 255, 0.04);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+      }
+
+      .soundscape-item.active {
+        background: rgba(0, 242, 254, 0.12);
+        border: 1px solid rgba(0, 242, 254, 0.4);
+        box-shadow: 0 0 20px rgba(0, 242, 254, 0.15);
+      }
+
+      .item-info {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .item-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: rgba(255, 255, 255, 0.08);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-cyan);
+      }
+
+      .item-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      .item-sub {
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+
+      .audio-waveform-visualizer {
+        height: 280px;
+        padding: 32px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .waveform-bars {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 6px;
+        height: 140px;
+      }
+
+      .wave-bar {
+        width: 8px;
+        border-radius: 4px;
+        background: linear-gradient(to top, var(--color-cyan), var(--color-cyan-mint));
+        box-shadow: 0 0 10px rgba(0, 242, 254, 0.4);
+      }
+
+      /* =========================================================
+         SCENE 3: ACTIVE SILENCING & CRASH LEDGER
+         ========================================================= */
+      .scene-3-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 28px;
+        width: 100%;
+        max-width: 1360px;
+      }
+
+      .feature-card {
+        padding: 36px 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        min-height: 380px;
+      }
+
+      .card-header-icon {
+        width: 56px;
+        height: 56px;
+        border-radius: 16px;
+        background: rgba(0, 242, 254, 0.12);
+        border: 1px solid rgba(0, 242, 254, 0.3);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-cyan);
+        margin-bottom: 24px;
+      }
+
+      .card-header-icon.coral {
+        background: rgba(255, 75, 114, 0.12);
+        border-color: rgba(255, 75, 114, 0.3);
+        color: var(--color-coral);
+      }
+
+      .card-title {
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+        margin-bottom: 12px;
+      }
+
+      .card-body {
+        font-size: 16px;
+        color: var(--text-secondary);
+        line-height: 1.6;
+        margin-bottom: 24px;
+      }
+
+      .stat-counter-large {
+        font-family: var(--font-mono);
+        font-size: 48px;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      .stat-counter-large span {
+        color: var(--color-cyan);
+      }
+
+      .code-badge {
+        display: block;
+        padding: 10px 14px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.4);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        font-family: var(--font-mono);
+        font-size: 12px;
+        color: var(--color-cyan-mint);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+      }
+
+      /* =========================================================
+         SCENE 4: PHASE SHIFT & BRAND OUTRO
+         ========================================================= */
+      .outro-container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+      }
+
+      .outro-logo-lockup {
+        width: 600px;
+        height: auto;
+        margin-bottom: 30px;
+        filter: drop-shadow(0 0 35px rgba(0, 242, 254, 0.35));
+      }
+
+      .outro-tagline {
+        font-size: 32px;
+        font-weight: 700;
+        color: #ffffff;
+        margin-bottom: 16px;
+        letter-spacing: -0.02em;
+      }
+
+      .outro-author {
+        font-size: 20px;
+        color: var(--text-secondary);
+        margin-bottom: 36px;
+      }
+
+      .outro-author strong {
+        color: var(--color-cyan);
+      }
+
+      .badge-row {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .meta-pill {
+        padding: 10px 22px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        font-size: 15px;
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      .meta-pill.highlight {
+        background: rgba(0, 242, 254, 0.12);
+        border-color: rgba(0, 242, 254, 0.4);
+        color: var(--color-cyan);
+      }
+    </style>
+  </head>
+  <body>
+    <div
+      id="root"
+      data-composition-id="main"
+      data-start="0"
+      data-duration="20"
+      data-width="1920"
+      data-height="1080"
+    >
+      <!-- Background Music Track -->
+      <audio
+        id="bgm"
+        class="clip"
+        data-start="0"
+        data-duration="20"
+        data-track-index="0"
+        data-volume="1"
+        src="assets/music/music.mp3"
+      ></audio>
+
+      <!-- Living Aurora Background with data-layout-allow-overflow -->
+      <div id="auroraContainer" class="aurora-container clip" data-start="0" data-duration="20" data-layout-allow-overflow>
+        <div class="aurora-mesh"></div>
+        <div id="orb1" class="aurora-orb orb-1"></div>
+        <div id="orb2" class="aurora-orb orb-2"></div>
+        <div id="orb3" class="aurora-orb orb-3"></div>
+      </div>
+
+      <!-- Persistent Top Navigation Bar -->
+      <nav id="topNav" class="top-nav clip" data-start="0" data-duration="20">
+        <div class="brand-lockup">
+          <img
+            src="assets/variants/hushloop-symbol-mono-00f2fe.svg"
+            alt="HushLoop Logo"
+            class="brand-symbol-icon"
+          />
+          <span class="brand-title">Hush<span>Loop</span></span>
+        </div>
+        <div class="system-badge">
+          <span class="badge-dot"></span>
+          <span>Windows 11 Native • v2.0.0</span>
+        </div>
+      </nav>
+
+      <!-- =========================================================
+           SCENE 1: THE IGNITION (0.0s - 4.0s)
+           ========================================================= -->
+      <section id="scene1" class="scene clip" data-start="0" data-duration="4.0">
+        <div class="scene-1-content">
+          <span class="scene-title-lead">Active Pomodoro Desktop Timer</span>
+          <h1 id="s1Headline" class="scene-headline">DEEP FOCUS, SILENCED.</h1>
+          <p id="s1Desc" class="scene-description">
+            Zero timer drift. Procedural audio synthesis. Automated distraction silencing for
+            Windows 11.
+          </p>
+
+          <div id="gaugeContainer" class="gauge-wrapper">
+            <svg class="gauge-svg" width="380" height="380" viewBox="0 0 380 380">
+              <defs>
+                <linearGradient id="cyanFocusGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                  <stop offset="0%" stop-color="#00F2FE" />
+                  <stop offset="100%" stop-color="#4EEDDE" />
+                </linearGradient>
+                <filter id="cyanGlow" x="-20%" y="-20%" width="140%" height="140%">
+                  <feGaussianBlur stdDeviation="8" result="blur" />
+                  <feMerge>
+                    <feMergeNode in="blur" />
+                    <feMergeNode in="SourceGraphic" />
+                  </feMerge>
+                </filter>
+              </defs>
+              <!-- Outer track -->
+              <circle
+                cx="190"
+                cy="190"
+                r="165"
+                fill="none"
+                stroke="rgba(255,255,255,0.06)"
+                stroke-width="12"
+              />
+              <!-- Progress ring (circumference = 2 * PI * 165 = 1036.7) -->
+              <circle
+                id="gaugeArc"
+                cx="190"
+                cy="190"
+                r="165"
+                fill="none"
+                stroke="url(#cyanFocusGrad)"
+                stroke-width="12"
+                stroke-linecap="round"
+                stroke-dasharray="1036.7"
+                stroke-dashoffset="1036.7"
+                filter="url(#cyanGlow)"
+              />
+            </svg>
+
+            <div class="gauge-center-content">
+              <span id="s1TimerText" class="timer-display">25:00</span>
+              <span class="phase-label">FOCUS SESSION</span>
+              <div class="status-pill">
+                <span class="badge-dot"></span>
+                <span id="s1Status">Standby</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Bottom Pill Dock -->
+          <div id="s1Dock" class="pill-dock">
+            <div class="dock-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="11 19 2 12 11 5 11 19"></polygon>
+                <polygon points="22 19 13 12 22 5 22 19"></polygon>
+              </svg>
+            </div>
+            <div id="s1PlayBtn" class="dock-btn dock-btn-primary">
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                <polygon points="5 3 19 12 5 21 5 3"></polygon>
+              </svg>
+            </div>
+            <div class="dock-btn">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <polygon points="13 19 22 12 13 5 13 19"></polygon>
+                <polygon points="2 19 11 12 2 5 2 19"></polygon>
+              </svg>
+            </div>
+          </div>
+        </div>
+
+        <!-- Simulated Pointer Cursor -->
+        <svg id="cursor1" class="virtual-cursor" viewBox="0 0 24 24" fill="white" stroke="#0a0d14" stroke-width="1.5">
+          <path d="M3 3l7 18 3-7 7-3L3 3z" />
+        </svg>
+      </section>
+
+      <!-- =========================================================
+           SCENE 2: PROCEDURAL SOUNDSCAPES (4.0s - 8.8s)
+           ========================================================= -->
+      <section id="scene2" class="scene clip" data-start="4.0" data-duration="4.8">
+        <span class="scene-title-lead">Zero-Asset Web Audio API Synthesis</span>
+        <h2 id="s2Headline" class="scene-headline">NO MP3s. PURE ACOUSTIC MATH.</h2>
+        <p class="scene-description">
+          Procedural binaural alpha waves and pink-noise rain generated in real-time under strict CSP.
+        </p>
+
+        <div class="scene-2-grid">
+          <!-- Soundscape Selector Card -->
+          <div id="s2CardLeft" class="glass-panel soundscape-card">
+            <span class="scene-title-lead">Focus Soundscapes</span>
+            <div class="soundscape-list">
+              <div id="scItem1" class="soundscape-item active">
+                <div class="item-info">
+                  <div class="item-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M2 12c.6 0 1.2-.4 1.4-1 1.2-3 3.6-5 6.6-5 3.3 0 6 2.7 6 6 0 1.7 1.3 3 3 3s3-1.3 3-3"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="item-title">Alpha Waves (432Hz)</div>
+                    <div class="item-sub">Dual binaural sine synthesis • Hyper-focus</div>
+                  </div>
+                </div>
+                <div class="badge-dot"></div>
+              </div>
+
+              <div id="scItem2" class="soundscape-item">
+                <div class="item-info">
+                  <div class="item-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path d="M20 16.2A4.5 4.5 0 0 0 17.5 8h-1.8A7 7 0 1 0 4 14.9"></path>
+                      <path d="M16 14v6"></path>
+                      <path d="M8 14v6"></path>
+                      <path d="M12 16v6"></path>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="item-title">Rain Ambience</div>
+                    <div class="item-sub">Pink noise with resonant low-pass filter</div>
+                  </div>
+                </div>
+              </div>
+
+              <div id="scItem3" class="soundscape-item">
+                <div class="item-info">
+                  <div class="item-icon">
+                    <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <circle cx="12" cy="12" r="10"></circle>
+                      <circle cx="12" cy="12" r="3"></circle>
+                    </svg>
+                  </div>
+                  <div>
+                    <div class="item-title">White Noise</div>
+                    <div class="item-sub">Broadband acoustic masking</div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Real-Time Visualizer Card -->
+          <div id="s2CardRight" class="glass-panel audio-waveform-visualizer">
+            <div>
+              <span class="scene-title-lead">Real-Time Synthesis Spectrum</span>
+              <h3 style="font-size: 24px; font-weight: 700; color: #fff; margin-top: 6px;">
+                432 Hz Binaural Carrier
+              </h3>
+            </div>
+
+            <!-- Equalizer / Waveform Bars -->
+            <div id="waveBars" class="waveform-bars">
+              <div class="wave-bar" style="height: 30px;"></div>
+              <div class="wave-bar" style="height: 55px;"></div>
+              <div class="wave-bar" style="height: 90px;"></div>
+              <div class="wave-bar" style="height: 120px;"></div>
+              <div class="wave-bar" style="height: 80px;"></div>
+              <div class="wave-bar" style="height: 110px;"></div>
+              <div class="wave-bar" style="height: 135px;"></div>
+              <div class="wave-bar" style="height: 95px;"></div>
+              <div class="wave-bar" style="height: 70px;"></div>
+              <div class="wave-bar" style="height: 115px;"></div>
+              <div class="wave-bar" style="height: 60px;"></div>
+              <div class="wave-bar" style="height: 40px;"></div>
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+              <span style="font-size: 14px; color: var(--text-secondary);">Harmonic Tone Quality: <strong>99.8%</strong></span>
+              <span class="system-badge">Pure Math • 0 KB Assets</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           SCENE 3: ACTIVE SILENCING & CRASH RESILIENCE (8.8s - 14.4s)
+           ========================================================= -->
+      <section id="scene3" class="scene clip" data-start="8.8" data-duration="5.6">
+        <span class="scene-title-lead">Windows 11 Native Architecture</span>
+        <h2 id="s3Headline" class="scene-headline">DISTRACTIONS SILENCED. CRASH-PROOF.</h2>
+        <p class="scene-description">
+          Automated winmm.dll volume ducking paired with a write-ahead crash ledger for total peace of mind.
+        </p>
+
+        <div class="scene-3-grid">
+          <!-- Card 1: winmm.dll Silencer -->
+          <div id="s3Card1" class="glass-panel feature-card">
+            <div>
+              <div class="card-header-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                  <line x1="23" y1="9" x2="17" y2="15"></line>
+                  <line x1="17" y1="9" x2="23" y2="15"></line>
+                </svg>
+              </div>
+              <h3 class="card-title">System Audio Ducking</h3>
+              <p class="card-body">
+                Suppresses notification chimes, system alerts, and background noise during deep focus.
+              </p>
+            </div>
+            <div>
+              <div style="margin-bottom: 12px; font-size: 14px; color: var(--color-cyan); font-weight: 700;">
+                ACTIVE FOCUS: -70% DUCKED
+              </div>
+              <span class="code-badge">WinMMAudioDriver::Duck()</span>
+            </div>
+          </div>
+
+          <!-- Card 2: Crash-Recovery Ledger -->
+          <div id="s3Card2" class="glass-panel feature-card">
+            <div>
+              <div class="card-header-icon coral">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                </svg>
+              </div>
+              <h3 class="card-title">Write-Ahead Ledger</h3>
+              <p class="card-body">
+                Pre-session volume is recorded to disk before alterations. Never get left on mute after a crash.
+              </p>
+            </div>
+            <div>
+              <div style="margin-bottom: 12px; font-size: 14px; color: var(--color-coral); font-weight: 700;">
+                FAIL-SAFE GUARANTEED
+              </div>
+              <span class="code-badge">%APPDATA%\HushLoop\silencer-session.json</span>
+            </div>
+          </div>
+
+          <!-- Card 3: Daily Streak Telemetry -->
+          <div id="s3Card3" class="glass-panel feature-card">
+            <div>
+              <div class="card-header-icon">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                  <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                </svg>
+              </div>
+              <h3 class="card-title">Zero-Drift Telemetry</h3>
+              <p class="card-body">
+                Absolute epoch delta tracking (`Date.now()`). Immune to Windows sleep mode or minimization.
+              </p>
+            </div>
+            <div>
+              <div class="stat-counter-large">
+                <span id="s3Streak">5</span> DAYS <span style="font-size: 24px; color: #fff;">STREAK</span>
+              </div>
+              <span class="code-badge">125 Total Focus Minutes Today</span>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- =========================================================
+           SCENE 4: PHASE SHIFT & BRAND OUTRO (14.4s - 20.0s)
+           ========================================================= -->
+      <section id="scene4" class="scene clip" data-start="14.4" data-duration="5.6">
+        <div class="outro-container">
+          <!-- Logo Lockup: Ultra-crisp vector Acoustic Loop + glowing typography -->
+          <div id="outroLogo" style="display: flex; align-items: center; justify-content: center; gap: 24px; margin-bottom: 28px;">
+            <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" width="100" height="100" style="filter: drop-shadow(0 0 20px rgba(0, 242, 254, 0.7));">
+              <!-- Outer unbroken focus ring -->
+              <path fill-rule="evenodd" d="M 128 32 C 74.98 32 32 74.98 32 128 C 32 181.02 74.98 224 128 224 C 181.02 224 224 181.02 224 128 C 224 74.98 181.02 32 128 32 Z M 128 60 C 165.55 60 196 90.45 196 128 C 196 165.55 165.55 196 128 196 C 90.45 196 60 165.55 60 128 C 60 90.45 90.45 60 128 60 Z" fill="#ffffff"/>
+              <!-- Central Sound-Damping Bar (Hush line): vertical pill attenuating sound in Electric Cyan -->
+              <rect x="96" y="96" width="18" height="64" rx="9" fill="#00F2FE"/>
+              <rect x="122" y="80" width="18" height="96" rx="9" fill="#4EEDDE"/>
+              <rect x="148" y="104" width="18" height="48" rx="9" fill="#00F2FE"/>
+            </svg>
+            <div style="font-family: var(--font-sans); font-size: 88px; font-weight: 800; letter-spacing: -0.03em; color: #ffffff; text-shadow: 0 0 30px rgba(0, 242, 254, 0.35);">
+              Hush<span style="color: var(--color-cyan); font-weight: 600;">Loop</span>
+            </div>
+          </div>
+
+          <h2 id="outroTagline" class="outro-tagline">
+            Deep Work, Uninterrupted.
+          </h2>
+
+          <p id="outroAuthor" class="outro-author">
+            Conceived and Engineered by <strong>Ronald Gosso</strong>
+          </p>
+
+          <div id="outroBadges" class="badge-row">
+            <span class="meta-pill highlight">Release v2.0.0</span>
+            <span class="meta-pill">99.8% Test Coverage</span>
+            <span class="meta-pill">Windows 11 Fluent Dark</span>
+            <span class="meta-pill">Open Source on GitHub</span>
+          </div>
+        </div>
+      </section>
+    </div>
+
+    <!-- GSAP Master Animation Timeline -->
+    <script>
+      window.__timelines = window.__timelines || {};
+      const tl = gsap.timeline({ paused: true });
+
+      // =====================================================
+      // BEAT-SYNCED TIMELINE MAPPINGS (happy-beats-vol-11 @ 114.8 BPM)
+      // Strong Cues: 1.60s, 3.70s, 5.80s, 6.34s, 8.96s, 12.65s, 17.91s
+      // =====================================================
+
+      // Background Aurora ambient motion
+      tl.to("#orb1", { x: 80, y: 40, duration: 10, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+      tl.to("#orb2", { x: -60, y: -50, duration: 10, ease: "sine.inOut", yoyo: true, repeat: 1 }, 0);
+
+      // --- SCENE 1 (0.0s - 4.0s) ---
+      tl.fromTo("#scene1", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0);
+      tl.fromTo("#s1Headline", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.2);
+      tl.fromTo("#s1Desc", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.4);
+      tl.fromTo("#gaugeContainer", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.7, ease: "back.out(1.2)" }, 0.5);
+      tl.fromTo("#s1Dock", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 0.7);
+
+      // Simulated Virtual Cursor clicks the Play button at t=1.2s
+      tl.fromTo("#cursor1", 
+        { x: 1200, y: 900, opacity: 0 }, 
+        { x: 960, y: 885, opacity: 1, duration: 0.7, ease: "power2.out" }, 
+        0.5
+      );
+      // Click press down
+      tl.to("#cursor1", { scale: 0.85, duration: 0.15, yoyo: true, repeat: 1 }, 1.35);
+      tl.to("#s1PlayBtn", { scale: 0.92, duration: 0.15, yoyo: true, repeat: 1 }, 1.35);
+
+      // beat-locked: 1.60s — Arc ignites and starts filling, status changes to Deep Focus
+      tl.to("#gaugeArc", { strokeDashoffset: 518, duration: 2.1, ease: "power2.inOut" }, 1.60);
+      tl.call(() => {
+        document.getElementById("s1Status").innerText = "Deep Focus Active";
+        document.getElementById("s1TimerText").innerText = "24:59";
+      }, null, 1.60);
+
+      // Cursor moves away
+      tl.to("#cursor1", { x: 1300, y: 950, opacity: 0, duration: 0.6, ease: "power2.in" }, 2.0);
+
+      // Scene 1 Exit cleanly before 4.0s
+      tl.to("#scene1", { opacity: 0, scale: 0.95, duration: 0.35, ease: "power2.in" }, 3.65);
+
+      // --- SCENE 2 (4.0s - 8.8s) ---
+      tl.fromTo("#scene2", { opacity: 0, scale: 1.05 }, { opacity: 1, scale: 1, duration: 0.4 }, 4.0);
+      tl.fromTo("#s2Headline", { opacity: 0, y: 24 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 4.2);
+      // beat-grid: soundscape cards enter sequentially
+      tl.fromTo("#s2CardLeft", { opacity: 0, x: -40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 4.4);
+      tl.fromTo("#s2CardRight", { opacity: 0, x: 40 }, { opacity: 1, x: 0, duration: 0.6, ease: "power3.out" }, 4.6);
+
+      // beat-locked: 5.80s & 6.34s — Soundscape item highlight & Waveform bars dynamic pulsing
+      tl.to("#scItem1", { scale: 1.02, duration: 0.25, yoyo: true, repeat: 1 }, 5.80);
+      const waveBars = document.querySelectorAll(".wave-bar");
+      waveBars.forEach((bar, idx) => {
+        tl.to(bar, { 
+          scaleY: 1.4 + (idx % 3) * 0.3, 
+          duration: 0.4 + (idx % 4) * 0.1, 
+          yoyo: true, 
+          repeat: 3, 
+          ease: "sine.inOut" 
+        }, 5.80 + idx * 0.05);
+      });
+
+      // Scene 2 Exit cleanly before 8.8s
+      tl.to("#scene2", { opacity: 0, y: -30, duration: 0.35, ease: "power2.in" }, 8.45);
+
+      // --- SCENE 3 (8.8s - 14.4s) ---
+      tl.fromTo("#scene3", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.4 }, 8.8);
+      tl.fromTo("#s3Headline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 9.0);
+
+      // beat-locked: 9.50s — Feature cards slam in
+      tl.fromTo("#s3Card1", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.1)" }, 9.30);
+      tl.fromTo("#s3Card2", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.1)" }, 9.50);
+      tl.fromTo("#s3Card3", { opacity: 0, y: 40 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.1)" }, 9.70);
+
+      // Telemetry streak counter count-up animation
+      const streakObj = { val: 1 };
+      tl.to(streakObj, {
+        val: 5,
+        duration: 1.6,
+        ease: "power2.out",
+        onUpdate: () => {
+          const el = document.getElementById("s3Streak");
+          if (el) el.innerText = Math.round(streakObj.val);
+        }
+      }, 10.0);
+
+      // Scene 3 Exit cleanly before 14.4s
+      tl.to("#scene3", { opacity: 0, scale: 0.96, duration: 0.35, ease: "power2.in" }, 14.05);
+
+      // --- SCENE 4: BRAND FINALE (14.4s - 20.0s) ---
+      tl.fromTo("#scene4", { opacity: 0, scale: 0.9 }, { opacity: 1, scale: 1, duration: 0.6, ease: "power3.out" }, 14.4);
+      tl.fromTo("#outroLogo", { opacity: 0, y: 25 }, { opacity: 1, y: 0, duration: 0.7, ease: "power3.out" }, 14.8);
+      tl.fromTo("#outroTagline", { opacity: 0, y: 20 }, { opacity: 1, y: 0, duration: 0.5, ease: "power3.out" }, 15.3);
+      tl.fromTo("#outroAuthor", { opacity: 0 }, { opacity: 1, duration: 0.5 }, 15.8);
+
+      // beat-locked: 17.91s — Strong resolution, badges pop in with glowing outline
+      tl.fromTo("#outroBadges .meta-pill", 
+        { opacity: 0, y: 15, scale: 0.9 }, 
+        { opacity: 1, y: 0, scale: 1, stagger: 0.1, duration: 0.5, ease: "back.out(1.4)" }, 
+        17.4
+      );
+      tl.to("#outroLogo", { scale: 1.04, duration: 0.8, yoyo: true, repeat: 1, ease: "sine.inOut" }, 17.91);
+
+      // Settle and hold to t=20.0s
+      tl.to("#root", { duration: 0.1 }, 20.0);
+
+      // Register master timeline
+      window.__timelines["main"] = tl;
+      tl.seek(0);
+    </script>
+  </body>
+</html>

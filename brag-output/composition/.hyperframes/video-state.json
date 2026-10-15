@@ -1,0 +1,486 @@
+{
+  "version": 1,
+  "historyId": "b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f",
+  "currentRevision": "67fde71b-1cb9-4450-9d19-387b3f57ab35",
+  "pendingChanges": false,
+  "files": {
+    "AGENTS.md": {
+      "hash": "1d4f0c8ca2507b94fd7c9df709fff01416adbd51a0f922b9d6ed2f40129147d5",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\1d\\1d4f0c8ca2507b94fd7c9df709fff01416adbd51a0f922b9d6ed2f40129147d5"
+    },
+    "CLAUDE.md": {
+      "hash": "1d4f0c8ca2507b94fd7c9df709fff01416adbd51a0f922b9d6ed2f40129147d5",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\1d\\1d4f0c8ca2507b94fd7c9df709fff01416adbd51a0f922b9d6ed2f40129147d5"
+    },
+    "assets/architecture_process_model.jpg": {
+      "hash": "21b99ad54e92fbde93c7060645cf379904742da2bb17cf27a69dfad0674a5fcf",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\21\\21b99ad54e92fbde93c7060645cf379904742da2bb17cf27a69dfad0674a5fcf"
+    },
+    "assets/concept-a.svg": {
+      "hash": "420eb83200a4fbe1a1c5da2ec6f5f1bffd30b3b2031b2c93bc5bfcb4251c6a9b",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\42\\420eb83200a4fbe1a1c5da2ec6f5f1bffd30b3b2031b2c93bc5bfcb4251c6a9b"
+    },
+    "assets/concept-b.svg": {
+      "hash": "92d248b242d2e1ae8a5333e4eda8d6f09c689fe96430cff6bf570605cb6b3258",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\92\\92d248b242d2e1ae8a5333e4eda8d6f09c689fe96430cff6bf570605cb6b3258"
+    },
+    "assets/concept-c.svg": {
+      "hash": "eb49ff44f4334ddc1ad186188a91ecc48e0e6cba81f67c4bff2ddc3e87aec09d",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\eb\\eb49ff44f4334ddc1ad186188a91ecc48e0e6cba81f67c4bff2ddc3e87aec09d"
+    },
+    "assets/concept-hushloop-1.svg": {
+      "hash": "b0e9f088e04ebb6ea488259389479845b728bd874e12a3bb3b29a121093964b9",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\b0\\b0e9f088e04ebb6ea488259389479845b728bd874e12a3bb3b29a121093964b9"
+    },
+    "assets/concept-hushloop-2.svg": {
+      "hash": "9a886e3e84391728b602e41a1bf6ecb48d55dda4ee4d41733d41780b831168fb",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\9a\\9a886e3e84391728b602e41a1bf6ecb48d55dda4ee4d41733d41780b831168fb"
+    },
+    "assets/concept-hushloop-3.svg": {
+      "hash": "eeb8610ae7c7ada8cce42c4da34634a04fd91d758f310464e03a0165f5f14280",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\ee\\eeb8610ae7c7ada8cce42c4da34634a04fd91d758f310464e03a0165f5f14280"
+    },
+    "assets/concepts_overview.png": {
+      "hash": "520a307ec01350b1f3ec4231c84e5c5acc8c6fc714d7a2a1430b03761bcd51ba",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\52\\520a307ec01350b1f3ec4231c84e5c5acc8c6fc714d7a2a1430b03761bcd51ba"
+    },
+    "assets/concepts_overview.svg": {
+      "hash": "bacd74ffaf50e2828c809343f0e30f740a5bb8e401908636a14f3a426596fec1",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\ba\\bacd74ffaf50e2828c809343f0e30f740a5bb8e401908636a14f3a426596fec1"
+    },
+    "assets/crash_recovery_flowchart.jpg": {
+      "hash": "cb4b02f9dde289caa1bf1b215e40c2a8bc2a69bcc939c764852bb84db4ca7973",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\cb\\cb4b02f9dde289caa1bf1b215e40c2a8bc2a69bcc939c764852bb84db4ca7973"
+    },
+    "assets/hushloop_app_icon.jpg": {
+      "hash": "b535efa907e65d740e4472edfd7e92ed2abb2876862dd71c2a1cf48afeb08cf3",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\b5\\b535efa907e65d740e4472edfd7e92ed2abb2876862dd71c2a1cf48afeb08cf3"
+    },
+    "assets/hushloop_app_icon.png": {
+      "hash": "31640d0f07fb4d579fe653c08f0d565c7d969e9f1ad49e76b27e9169dedc115b",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\31\\31640d0f07fb4d579fe653c08f0d565c7d969e9f1ad49e76b27e9169dedc115b"
+    },
+    "assets/hushloop_concepts_overview.png": {
+      "hash": "f83dbba25ecc0e18b4a6231ad12d5234f166875ae833fae57ec25fbc5f186307",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\f8\\f83dbba25ecc0e18b4a6231ad12d5234f166875ae833fae57ec25fbc5f186307"
+    },
+    "assets/hushloop_concepts_overview.svg": {
+      "hash": "cc28add6aa760d049fba375d6f6f9f8d9899a8ee76b092440fdfec7fa09b1626",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\cc\\cc28add6aa760d049fba375d6f6f9f8d9899a8ee76b092440fdfec7fa09b1626"
+    },
+    "assets/hushloop_design_mockup.jpg": {
+      "hash": "37469f9c494b76d7f580b012ff835b2b84a75bff209eed59d0e76ba1aacf2ee0",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\37\\37469f9c494b76d7f580b012ff835b2b84a75bff209eed59d0e76ba1aacf2ee0"
+    },
+    "assets/hushloop_logo.svg": {
+      "hash": "9e4c32575587834ee5ba02c0df67ae786550c99fc5f48cbf06c6dd3aaeacd0b9",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\9e\\9e4c32575587834ee5ba02c0df67ae786550c99fc5f48cbf06c6dd3aaeacd0b9"
+    },
+    "assets/hushloop_symbol.svg": {
+      "hash": "01a6aff17218d2c09daab2c64d03ae603944b9f5a72777542ecee7712e949dcb",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\01\\01a6aff17218d2c09daab2c64d03ae603944b9f5a72777542ecee7712e949dcb"
+    },
+    "assets/lockup-a.svg": {
+      "hash": "06202494af53a72636bd1ec86f18fe86d16535ff6e1ad18b7d785d005e899607",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\06\\06202494af53a72636bd1ec86f18fe86d16535ff6e1ad18b7d785d005e899607"
+    },
+    "assets/lockup-b.svg": {
+      "hash": "694ac6bf21642341c33e68874a4d1a54416d115ecbf793918dda1872959400a3",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\69\\694ac6bf21642341c33e68874a4d1a54416d115ecbf793918dda1872959400a3"
+    },
+    "assets/lockup-c.svg": {
+      "hash": "8e80b46c78f66614130600debbffdb81d963dedf42d47b3336fc2d8f12971a0a",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\8e\\8e80b46c78f66614130600debbffdb81d963dedf42d47b3336fc2d8f12971a0a"
+    },
+    "assets/lockup-hushloop-1.svg": {
+      "hash": "8e29661937d8b93d64c7ba214c95b8d250c2b3a24c4469af391964b2a74b527d",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\8e\\8e29661937d8b93d64c7ba214c95b8d250c2b3a24c4469af391964b2a74b527d"
+    },
+    "assets/lockup-hushloop-2.svg": {
+      "hash": "9e4c32575587834ee5ba02c0df67ae786550c99fc5f48cbf06c6dd3aaeacd0b9",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\9e\\9e4c32575587834ee5ba02c0df67ae786550c99fc5f48cbf06c6dd3aaeacd0b9"
+    },
+    "assets/lockup-hushloop-3.svg": {
+      "hash": "14f537974d1f1121d856bf703fd4f19dbdf9049fdc0d5af66bca1c0d2b0b895e",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\14\\14f537974d1f1121d856bf703fd4f19dbdf9049fdc0d5af66bca1c0d2b0b895e"
+    },
+    "assets/preview_sheet.html": {
+      "hash": "c991773a7e9d50dfd7183fe6e301aae7e042e8505e1f88de2224a8b2bfe3b3fe",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\c9\\c991773a7e9d50dfd7183fe6e301aae7e042e8505e1f88de2224a8b2bfe3b3fe"
+    },
+    "assets/system_architecture_diagram.jpg": {
+      "hash": "eca3b1472af87bb3ea4ecfadf505b193adb9e31a522d1f64958bca91bc7138fb",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\ec\\eca3b1472af87bb3ea4ecfadf505b193adb9e31a522d1f64958bca91bc7138fb"
+    },
+    "assets/variants/apple-touch-icon.png": {
+      "hash": "e2d1cc1e1cfa0de8fcde62eb9f5fe41a80992c663d40e3560741964ced9ee181",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\e2\\e2d1cc1e1cfa0de8fcde62eb9f5fe41a80992c663d40e3560741964ced9ee181"
+    },
+    "assets/variants/favicon-16.png": {
+      "hash": "121ba0f173127d43215ef22b88c18c77b24fe65ccddb68dfbb0331b437c1a4d7",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\12\\121ba0f173127d43215ef22b88c18c77b24fe65ccddb68dfbb0331b437c1a4d7"
+    },
+    "assets/variants/favicon-32.png": {
+      "hash": "d7f7028ba26160573b83a08032b6bcbfc41972267fc3a41179cede53674e6f63",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\d7\\d7f7028ba26160573b83a08032b6bcbfc41972267fc3a41179cede53674e6f63"
+    },
+    "assets/variants/favicon-48.png": {
+      "hash": "68647cfdbfc6ea5b70d13108c3e31d6de791e7ba06d18ed5bf071df923f1e760",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\68\\68647cfdbfc6ea5b70d13108c3e31d6de791e7ba06d18ed5bf071df923f1e760"
+    },
+    "assets/variants/favicon.ico": {
+      "hash": "bcf2d3756ea7ad6187722f45edf96f035ac260811f876672b4f07b90ba62f0c2",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\bc\\bcf2d3756ea7ad6187722f45edf96f035ac260811f876672b4f07b90ba62f0c2"
+    },
+    "assets/variants/favicon.svg": {
+      "hash": "e3b382c1ed3c1584ac398704767969ec213484ca079909626255ff445137f9e2",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\e3\\e3b382c1ed3c1584ac398704767969ec213484ca079909626255ff445137f9e2"
+    },
+    "assets/variants/head-snippet.html": {
+      "hash": "4cb6bccb1c6dbcf9d9d02f5784243df1f686b94c33aa0f5ea5a0e46f44a33611",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\4c\\4cb6bccb1c6dbcf9d9d02f5784243df1f686b94c33aa0f5ea5a0e46f44a33611"
+    },
+    "assets/variants/hushloop-symbol-app-icon-128.png": {
+      "hash": "8e167873e5592ec93d0504a77e66d0b4ca41012134ba028e4b0f6427cf8dde36",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\8e\\8e167873e5592ec93d0504a77e66d0b4ca41012134ba028e4b0f6427cf8dde36"
+    },
+    "assets/variants/hushloop-symbol-app-icon-256.png": {
+      "hash": "29dfc891175c49f1fb2a8889c493fb9c14c0507a5b13637838506078e0bd53d4",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\29\\29dfc891175c49f1fb2a8889c493fb9c14c0507a5b13637838506078e0bd53d4"
+    },
+    "assets/variants/hushloop-symbol-app-icon-32.png": {
+      "hash": "2efcaa75d3504ab46483ba0a606dd92b176d200d3a40adf69533e5e8e74d11d0",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\2e\\2efcaa75d3504ab46483ba0a606dd92b176d200d3a40adf69533e5e8e74d11d0"
+    },
+    "assets/variants/hushloop-symbol-app-icon-512.png": {
+      "hash": "31640d0f07fb4d579fe653c08f0d565c7d969e9f1ad49e76b27e9169dedc115b",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\31\\31640d0f07fb4d579fe653c08f0d565c7d969e9f1ad49e76b27e9169dedc115b"
+    },
+    "assets/variants/hushloop-symbol-app-icon-64.png": {
+      "hash": "8615e99d48ed6b6dedd775425cc1b60c654e84e06cdb840fbb20e495e7e9f48d",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\86\\8615e99d48ed6b6dedd775425cc1b60c654e84e06cdb840fbb20e495e7e9f48d"
+    },
+    "assets/variants/hushloop-symbol-app-icon.svg": {
+      "hash": "496eedd3e12b420b40b614186b87f582b7ba37f87fbc761c427b9b696610d056",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\49\\496eedd3e12b420b40b614186b87f582b7ba37f87fbc761c427b9b696610d056"
+    },
+    "assets/variants/hushloop-symbol-black-128.png": {
+      "hash": "fd8b490c0d929b9482a111a2e99b42ed96eb0cc2778f49cff9a14c3e004f819f",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\fd\\fd8b490c0d929b9482a111a2e99b42ed96eb0cc2778f49cff9a14c3e004f819f"
+    },
+    "assets/variants/hushloop-symbol-black-256.png": {
+      "hash": "7b1f0ef29a4a345114cd5e1572f1322645336d6d0880d7c8c691f83b18937f28",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\7b\\7b1f0ef29a4a345114cd5e1572f1322645336d6d0880d7c8c691f83b18937f28"
+    },
+    "assets/variants/hushloop-symbol-black-32.png": {
+      "hash": "12ae2763ff0ec7fd4ca950828c78797d2940bae006331593b8abcd160052bdcc",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\12\\12ae2763ff0ec7fd4ca950828c78797d2940bae006331593b8abcd160052bdcc"
+    },
+    "assets/variants/hushloop-symbol-black-512.png": {
+      "hash": "e3c56aa424492adac45e45165527fabe0b65b9271de3271715ba517f7bbf8465",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\e3\\e3c56aa424492adac45e45165527fabe0b65b9271de3271715ba517f7bbf8465"
+    },
+    "assets/variants/hushloop-symbol-black-64.png": {
+      "hash": "d8351043c735862499775c2639b1dbffafd3f722edb2c536984f013724fce63b",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\d8\\d8351043c735862499775c2639b1dbffafd3f722edb2c536984f013724fce63b"
+    },
+    "assets/variants/hushloop-symbol-black.svg": {
+      "hash": "60dc09768bbd1a1975a43436d75aa11f46364619cf8a1c3164063cb04cb4f18b",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\60\\60dc09768bbd1a1975a43436d75aa11f46364619cf8a1c3164063cb04cb4f18b"
+    },
+    "assets/variants/hushloop-symbol-favicon-128.png": {
+      "hash": "3f048d91d8bcd6691cff720892453f956d1aa956910dd56a07124f72e4507477",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\3f\\3f048d91d8bcd6691cff720892453f956d1aa956910dd56a07124f72e4507477"
+    },
+    "assets/variants/hushloop-symbol-favicon-256.png": {
+      "hash": "dbc77bc39f37dba12d72dcd6c7298973160d0f16d26a91456257edc7de41f946",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\db\\dbc77bc39f37dba12d72dcd6c7298973160d0f16d26a91456257edc7de41f946"
+    },
+    "assets/variants/hushloop-symbol-favicon-32.png": {
+      "hash": "d7f7028ba26160573b83a08032b6bcbfc41972267fc3a41179cede53674e6f63",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\d7\\d7f7028ba26160573b83a08032b6bcbfc41972267fc3a41179cede53674e6f63"
+    },
+    "assets/variants/hushloop-symbol-favicon-512.png": {
+      "hash": "70030b472825b1f7839bbd4e8a6c08e2ffad8b3259e2f7be79c598000ed040f6",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\70\\70030b472825b1f7839bbd4e8a6c08e2ffad8b3259e2f7be79c598000ed040f6"
+    },
+    "assets/variants/hushloop-symbol-favicon-64.png": {
+      "hash": "310e7723dbfe8b7c491efae937189cd1c06d8ea24822e620cd83a48a03ff2ba8",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\31\\310e7723dbfe8b7c491efae937189cd1c06d8ea24822e620cd83a48a03ff2ba8"
+    },
+    "assets/variants/hushloop-symbol-favicon.svg": {
+      "hash": "e3b382c1ed3c1584ac398704767969ec213484ca079909626255ff445137f9e2",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\e3\\e3b382c1ed3c1584ac398704767969ec213484ca079909626255ff445137f9e2"
+    },
+    "assets/variants/hushloop-symbol-mono-00f2fe-128.png": {
+      "hash": "09ff8823cc02de530c4d328bb0ad139be5c0198b14f2913c664d576e33927dcf",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\09\\09ff8823cc02de530c4d328bb0ad139be5c0198b14f2913c664d576e33927dcf"
+    },
+    "assets/variants/hushloop-symbol-mono-00f2fe-256.png": {
+      "hash": "fa248ffc7203433e164e9e43602430a9b090a3c42526ebbe111bfb8e0ad9daae",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\fa\\fa248ffc7203433e164e9e43602430a9b090a3c42526ebbe111bfb8e0ad9daae"
+    },
+    "assets/variants/hushloop-symbol-mono-00f2fe-32.png": {
+      "hash": "7091fa602b09d490f06437b65445992800b9b313e86d631f6f2e908b9d1a639d",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\70\\7091fa602b09d490f06437b65445992800b9b313e86d631f6f2e908b9d1a639d"
+    },
+    "assets/variants/hushloop-symbol-mono-00f2fe-512.png": {
+      "hash": "c3060e9a89c389dad498ed3587252387970506ff045a4238703439f83e367ff4",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\c3\\c3060e9a89c389dad498ed3587252387970506ff045a4238703439f83e367ff4"
+    },
+    "assets/variants/hushloop-symbol-mono-00f2fe-64.png": {
+      "hash": "1bde6246f31c235ab1a81d62d168422f0a6b33aaa1cf38473509d39c945f1d19",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\1b\\1bde6246f31c235ab1a81d62d168422f0a6b33aaa1cf38473509d39c945f1d19"
+    },
+    "assets/variants/hushloop-symbol-mono-00f2fe.svg": {
+      "hash": "01a6aff17218d2c09daab2c64d03ae603944b9f5a72777542ecee7712e949dcb",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\01\\01a6aff17218d2c09daab2c64d03ae603944b9f5a72777542ecee7712e949dcb"
+    },
+    "assets/variants/hushloop-symbol-square-128.png": {
+      "hash": "91a5369cdb19b2e7b62d0d109639e217b8d6a8ce2f6cd604e46ce0b30c18076e",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\91\\91a5369cdb19b2e7b62d0d109639e217b8d6a8ce2f6cd604e46ce0b30c18076e"
+    },
+    "assets/variants/hushloop-symbol-square-256.png": {
+      "hash": "a24587ef771a66d005a7954697f1b87aef00d386bb3f473d9fea42bbce7aeb87",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\a2\\a24587ef771a66d005a7954697f1b87aef00d386bb3f473d9fea42bbce7aeb87"
+    },
+    "assets/variants/hushloop-symbol-square-32.png": {
+      "hash": "8d9ca9735bd6186431aa5de5b11e333e0e3518b56cce232109ededfefebbfb84",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\8d\\8d9ca9735bd6186431aa5de5b11e333e0e3518b56cce232109ededfefebbfb84"
+    },
+    "assets/variants/hushloop-symbol-square-512.png": {
+      "hash": "e55bb042736c178f6db927e112a84167451017e01869595fa6fc14754c178fbf",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\e5\\e55bb042736c178f6db927e112a84167451017e01869595fa6fc14754c178fbf"
+    },
+    "assets/variants/hushloop-symbol-square-64.png": {
+      "hash": "fb518bb60793ea0dc1b92abec6601b73509569a6e85e38b5286fe047609506fb",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\fb\\fb518bb60793ea0dc1b92abec6601b73509569a6e85e38b5286fe047609506fb"
+    },
+    "assets/variants/hushloop-symbol-square.svg": {
+      "hash": "84937d484c0c60ad144ba9e5b39db326230ad96edc1d0d82b07d112b75ec25bf",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\84\\84937d484c0c60ad144ba9e5b39db326230ad96edc1d0d82b07d112b75ec25bf"
+    },
+    "assets/variants/hushloop-symbol-white-128.png": {
+      "hash": "b57439bcdce96e25a470e2dc4589226280e01a7232755b130e1708ab2d76eada",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\b5\\b57439bcdce96e25a470e2dc4589226280e01a7232755b130e1708ab2d76eada"
+    },
+    "assets/variants/hushloop-symbol-white-256.png": {
+      "hash": "3ecbabaded76bbd8fcca4096189bcd05b58a7748e7ece6a886e36a3eebe3e5c4",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\3e\\3ecbabaded76bbd8fcca4096189bcd05b58a7748e7ece6a886e36a3eebe3e5c4"
+    },
+    "assets/variants/hushloop-symbol-white-32.png": {
+      "hash": "b3259fa1b8b5631f7e7d5f69ad321c36e0ef73375ebabe2f6f34cbd8c164b442",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\b3\\b3259fa1b8b5631f7e7d5f69ad321c36e0ef73375ebabe2f6f34cbd8c164b442"
+    },
+    "assets/variants/hushloop-symbol-white-512.png": {
+      "hash": "6081315af45563b930d64b845f991aa129eb6f152023f7b3b5042629a69c42f4",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\60\\6081315af45563b930d64b845f991aa129eb6f152023f7b3b5042629a69c42f4"
+    },
+    "assets/variants/hushloop-symbol-white-64.png": {
+      "hash": "be6e6c69d91307bc64e554f036c5b7cae0374daa6ebbe81b938f2699c945400d",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\be\\be6e6c69d91307bc64e554f036c5b7cae0374daa6ebbe81b938f2699c945400d"
+    },
+    "assets/variants/hushloop-symbol-white.svg": {
+      "hash": "18ec25c9c376e1a2673f909e207272cafa6b898a38d6ef43c31cda82a05fc85a",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\18\\18ec25c9c376e1a2673f909e207272cafa6b898a38d6ef43c31cda82a05fc85a"
+    },
+    "assets/variants/icon-192.png": {
+      "hash": "1544fa5fdb59a724c68a38f809d9bd4c44b41c5b5e92b1db0c95670bb61b0d36",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\15\\1544fa5fdb59a724c68a38f809d9bd4c44b41c5b5e92b1db0c95670bb61b0d36"
+    },
+    "assets/variants/icon-512.png": {
+      "hash": "fc9f46276ef272b0b56ecf92aa57cb4a2be19683879b9b24d7026249170dc25e",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\fc\\fc9f46276ef272b0b56ecf92aa57cb4a2be19683879b9b24d7026249170dc25e"
+    },
+    "assets/variants/maskable-512.png": {
+      "hash": "45eccdfdf024d1f4371e4a6dfc581f1815e682725512062b61dc49f350729d52",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\45\\45eccdfdf024d1f4371e4a6dfc581f1815e682725512062b61dc49f350729d52"
+    },
+    "assets/variants/site.webmanifest": {
+      "hash": "c20897e539a525f7c162f2b33320617f6525374b8c87b1e582b12e38376810b8",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\c2\\c20897e539a525f7c162f2b33320617f6525374b8c87b1e582b12e38376810b8"
+    },
+    "hyperframes.json": {
+      "hash": "53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\53\\53dbce1e19aa713cbb12ee0bc4d206143b45ab15e6ffbfcaa8f69572d4d24d50"
+    },
+    "index.html": {
+      "hash": "27083dd32231f9143625ea518b2d0f38c563504535761220a25f9b7db07abbd3",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\27\\27083dd32231f9143625ea518b2d0f38c563504535761220a25f9b7db07abbd3"
+    },
+    "meta.json": {
+      "hash": "014701eebc8ddfc7fbffb6351a536039878a9ff7dcae5ef41c2e26d916508503",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\01\\014701eebc8ddfc7fbffb6351a536039878a9ff7dcae5ef41c2e26d916508503"
+    },
+    "package.json": {
+      "hash": "3a751871ceb87c035859ebf8235ba87ad1b55d02885d8495941910e055169fce",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\3a\\3a751871ceb87c035859ebf8235ba87ad1b55d02885d8495941910e055169fce"
+    },
+    "assets/music/music.mp3": {
+      "hash": "364a546834db4c0c2e3b3240eb6df03e98b7362230154b04c5c614442f6660d7",
+      "content": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\36\\364a546834db4c0c2e3b3240eb6df03e98b7362230154b04c5c614442f6660d7"
+    }
+  },
+  "revisions": {
+    "5062d168-3a30-4606-9dd2-92d1139f5468": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792068576617,
+      "endedAt": 1792068576619,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\a6\\a67041f0565132fbe8ac3091afc0810810d5a944aa6e212ee1d8ee5cfbf93e45",
+          "after": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\90\\90d8bff38971a9da865372ad00bed67fe0b5a4fcdf2eae45b2ec8713e4a29d24"
+        }
+      }
+    },
+    "ea30a625-7378-46b5-b0e5-06f930dfcb3c": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792068706526,
+      "endedAt": 1792068706528,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\90\\90d8bff38971a9da865372ad00bed67fe0b5a4fcdf2eae45b2ec8713e4a29d24",
+          "after": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\c2\\c2d8011c57fec882627341f3bd98ff8f2d7217d5c0049edd0a9dbcda32b7b3ee"
+        }
+      }
+    },
+    "67fde71b-1cb9-4450-9d19-387b3f57ab35": {
+      "actor": {
+        "kind": "outside",
+        "name": "Outside"
+      },
+      "label": "Changed outside the app",
+      "startedAt": 1792069085461,
+      "endedAt": 1792069085464,
+      "files": {
+        "index.html": {
+          "before": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\c2\\c2d8011c57fec882627341f3bd98ff8f2d7217d5c0049edd0a9dbcda32b7b3ee",
+          "after": "C:\\Users\\Neptune\\.cache\\hyperframes\\history\\b24bf1b8-6252-4e5e-a2e0-5d807a6e0a6f\\blobs\\27\\27083dd32231f9143625ea518b2d0f38c563504535761220a25f9b7db07abbd3"
+        }
+      }
+    }
+  },
+  "checks": {
+    "latest": {
+      "revision": "ea30a625-7378-46b5-b0e5-06f930dfcb3c",
+      "id": "2fe0aa06-4bb6-469d-b0f8-9dd1b113baff"
+    },
+    "revisions": {
+      "5062d168-3a30-4606-9dd2-92d1139f5468": [
+        {
+          "id": "fe1303b8-f052-43a0-ab2b-83950ab69f4f",
+          "scope": "project",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 3000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1792068597946,
+          "contentHash": "729060979c9c477f1d838c4e0a31e3e684c212dc3c85a3386ccbd30a5f1e1c60",
+          "revision": "5062d168-3a30-4606-9dd2-92d1139f5468",
+          "inputFingerprint": "637a3211c921a4164bb942b421e57c1de33eb2f5b9b51625f293a5321508f136",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision",
+          "status": "cleaned",
+          "cleanedAfterRender": "8608f96d-c36b-4763-ae6a-d8f94345b28f"
+        }
+      ],
+      "ea30a625-7378-46b5-b0e5-06f930dfcb3c": [
+        {
+          "id": "2fe0aa06-4bb6-469d-b0f8-9dd1b113baff",
+          "scope": "project",
+          "report": "C:\\Users\\Neptune\\Documents\\Projects\\hushloop\\brag-output\\composition\\.hyperframes\\artifacts\\checks\\2fe0aa06-4bb6-469d-b0f8-9dd1b113baff.json",
+          "metadata": {
+            "ok": true,
+            "browserSkipped": false,
+            "options": {
+              "samples": 9,
+              "atTransitions": false,
+              "maxIssues": 80,
+              "collapseStatic": true,
+              "tolerance": 2,
+              "timeout": 3000,
+              "contrast": true,
+              "strict": false,
+              "snapshots": false,
+              "browserGpuMode": "auto"
+            }
+          },
+          "createdAt": 1792068724993,
+          "contentHash": "f04a1831402faac38a43c14fa63f18e191dcfcbc5969a99c3b74c0f344ac57eb",
+          "revision": "ea30a625-7378-46b5-b0e5-06f930dfcb3c",
+          "inputFingerprint": "ff2eab6ccee4db80ae4e0eb14c923072c322d86fe1404157d3fa45e14b22479e",
+          "inputScope": "local-project-files",
+          "attribution": "recorded-revision"
+        }
+      ]
+    },
+    "unversioned": [
+      {
+        "id": "bf93dea4-2eba-4ca8-b049-f1aa90cddf60",
+        "scope": "project",
+        "report": "C:\\Users\\Neptune\\Documents\\Projects\\hushloop\\brag-output\\composition\\.hyperframes\\artifacts\\checks\\bf93dea4-2eba-4ca8-b049-f1aa90cddf60.json",
+        "metadata": {
+          "ok": true,
+          "browserSkipped": false,
+          "options": {
+            "samples": 9,
+            "atTransitions": false,
+            "maxIssues": 80,
+            "collapseStatic": true,
+            "tolerance": 2,
+            "timeout": 3000,
+            "contrast": true,
+            "strict": false,
+            "snapshots": false,
+            "browserGpuMode": "auto"
+          }
+        },
+        "createdAt": 1792068476432,
+        "contentHash": "a451d9efe4356c73baf24f47d7168e3a070beb2dcbc2d4fa9ddb85a7ddf5207e",
+        "revision": null,
+        "inputFingerprint": "3e615e8900a7b4bf65813216d4e2b9d74b0af85e982b328bd8cd44d18723db92",
+        "inputScope": "local-project-files",
+        "attribution": "unversioned"
+      }
+    ]
+  },
+  "snapshots": {
+    "latest": null,
+    "revisions": {},
+    "unversioned": []
+  },
+  "renders": {
+    "latest": {
+      "id": "45200691-7533-4c25-b91c-7a244a087194",
+      "completedAt": 1792069174848,
+      "output": "C:\\Users\\Neptune\\Documents\\Projects\\hushloop\\brag-output\\brag.mp4",
+      "status": "completed",
+      "revision": "67fde71b-1cb9-4450-9d19-387b3f57ab35"
+    },
+    "retainedRevisions": [
+      "67fde71b-1cb9-4450-9d19-387b3f57ab35",
+      "ea30a625-7378-46b5-b0e5-06f930dfcb3c"
+    ]
+  },
+  "pendingArtifactCleanup": []
+}

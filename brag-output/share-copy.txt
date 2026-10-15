@@ -1,0 +1,4 @@
+Introducing HushLoop: An active Pomodoro desktop timer for Windows 11 with automated distraction silencing, zero-asset 432Hz procedural soundscapes, and an epoch-based zero-drift engine.
+
+Deep work, uninterrupted. Built with React 18 & Electron 33.
+Explore & download: https://ronaldgosso.github.io/hushloop_site/

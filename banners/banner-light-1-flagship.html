@@ -1,0 +1,594 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>HushLoop — Light & Eco-Print Flagship Portrait Banner (9:16)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-base: #ffffff;
+        --bg-card: #f8fafc;
+        --border-card: #e2e8f0;
+        --border-accent: #0284c7;
+        --color-blue: #0284c7;
+        --color-teal: #0d9488;
+        --color-coral: #e11d48;
+        --text-primary: #0f172a;
+        --text-secondary: #475569;
+        --text-muted: #64748b;
+        --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      @page {
+        size: 1080px 1920px;
+        margin: 0;
+      }
+
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background-color: var(--bg-base);
+        font-family: var(--font-sans);
+        color: var(--text-primary);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 80px 75px 75px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      /* Ultra-subtle print grid dots for technical precision without wasting ink */
+      .print-grid {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1.5px, transparent 1.5px);
+        background-size: 32px 32px;
+        pointer-events: none;
+      }
+
+      /* Content Stack */
+      .banner-content {
+        position: relative;
+        z-index: 10;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      /* Header */
+      .header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: 2px solid #f1f5f9;
+        padding-bottom: 28px;
+      }
+
+      .brand-lockup {
+        display: flex;
+        align-items: center;
+        gap: 20px;
+      }
+
+      .brand-icon {
+        width: 60px;
+        height: 60px;
+      }
+
+      .brand-text {
+        font-size: 40px;
+        font-weight: 900;
+        letter-spacing: -0.03em;
+        color: var(--text-primary);
+      }
+
+      .brand-text span {
+        color: var(--color-blue);
+      }
+
+      .header-badges {
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+
+      .eco-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 8px 18px;
+        border-radius: 9999px;
+        background: #f0fdf4;
+        border: 1px solid #bbf7d0;
+        font-size: 13px;
+        font-weight: 700;
+        color: #166534;
+        letter-spacing: 0.05em;
+        text-transform: uppercase;
+      }
+
+      .os-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 22px;
+        border-radius: 9999px;
+        background: #f8fafc;
+        border: 1px solid #cbd5e1;
+        font-size: 14px;
+        font-weight: 700;
+        color: var(--text-primary);
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+      }
+
+      .os-pill .dot {
+        width: 9px;
+        height: 9px;
+        border-radius: 50%;
+        background-color: var(--color-blue);
+      }
+
+      /* Hero Section */
+      .hero-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .kicker-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 7px 20px;
+        border-radius: 9999px;
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        color: var(--color-blue);
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.14em;
+        text-transform: uppercase;
+        margin-bottom: 24px;
+      }
+
+      .main-headline {
+        font-size: 64px;
+        line-height: 1.05;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        color: var(--text-primary);
+        max-width: 900px;
+        margin-bottom: 20px;
+      }
+
+      .main-headline .highlight {
+        color: var(--color-blue);
+        position: relative;
+        display: inline-block;
+      }
+
+      .hero-subhead {
+        font-size: 22px;
+        line-height: 1.5;
+        color: var(--text-secondary);
+        max-width: 820px;
+        font-weight: 500;
+      }
+
+      /* Interactive Visual: Minimalist Timer Ring */
+      .timer-showcase {
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 30px 0;
+      }
+
+      .timer-card {
+        background: #ffffff;
+        border: 2px solid #e2e8f0;
+        border-radius: 36px;
+        padding: 40px 60px;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        box-shadow: 0 16px 40px -10px rgba(15, 23, 42, 0.08);
+      }
+
+      .timer-dial-wrap {
+        position: relative;
+        width: 380px;
+        height: 380px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .timer-svg {
+        width: 100%;
+        height: 100%;
+        transform: rotate(-90deg);
+      }
+
+      .timer-circle-bg {
+        fill: none;
+        stroke: #f1f5f9;
+        stroke-width: 16;
+      }
+
+      .timer-circle-progress {
+        fill: none;
+        stroke: var(--color-blue);
+        stroke-width: 16;
+        stroke-linecap: round;
+        stroke-dasharray: 1068;
+        stroke-dashoffset: 267; /* 75% complete */
+      }
+
+      .timer-center-info {
+        position: absolute;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .timer-status-badge {
+        font-size: 13px;
+        font-weight: 800;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--color-teal);
+        background: #f0fdfa;
+        padding: 6px 16px;
+        border-radius: 9999px;
+        border: 1px solid #99f6e4;
+        margin-bottom: 12px;
+      }
+
+      .timer-digits {
+        font-family: var(--font-mono);
+        font-size: 78px;
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        color: var(--text-primary);
+        line-height: 1;
+      }
+
+      .timer-caption {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-muted);
+        margin-top: 10px;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
+
+      /* Key Specs Trio (Thin Line Grid) */
+      .specs-grid {
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 18px;
+        width: 100%;
+      }
+
+      .spec-card {
+        background: var(--bg-card);
+        border: 1.5px solid var(--border-card);
+        border-radius: 20px;
+        padding: 24px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .spec-header {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .spec-icon-box {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: #eff6ff;
+        border: 1px solid #bfdbfe;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-blue);
+      }
+
+      .spec-title {
+        font-size: 16px;
+        font-weight: 800;
+        color: var(--text-primary);
+        letter-spacing: -0.01em;
+      }
+
+      .spec-desc {
+        font-size: 13px;
+        line-height: 1.45;
+        color: var(--text-secondary);
+        font-weight: 500;
+      }
+
+      /* Call To Action & High Contrast QR Code */
+      .cta-card {
+        background: #ffffff;
+        border: 2px solid #0284c7;
+        border-radius: 28px;
+        padding: 32px 42px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 36px;
+        box-shadow: 0 12px 30px -8px rgba(2, 132, 199, 0.12);
+        margin-top: 10px;
+      }
+
+      .cta-info {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        flex: 1;
+      }
+
+      .cta-heading {
+        font-size: 32px;
+        font-weight: 900;
+        color: var(--text-primary);
+        letter-spacing: -0.02em;
+        line-height: 1.15;
+      }
+
+      .cta-heading span {
+        color: var(--color-blue);
+      }
+
+      .cta-subtext {
+        font-size: 16px;
+        color: var(--text-secondary);
+        line-height: 1.45;
+        font-weight: 500;
+      }
+
+      .url-box {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 9px 18px;
+        background: #f8fafc;
+        border: 1.5px solid #cbd5e1;
+        border-radius: 12px;
+        font-family: var(--font-mono);
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-primary);
+        width: fit-content;
+      }
+
+      .qr-holder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 8px;
+        background: #ffffff;
+        padding: 16px;
+        border-radius: 20px;
+        border: 1.5px solid #e2e8f0;
+      }
+
+      .qr-image {
+        width: 155px;
+        height: 155px;
+        display: block;
+      }
+
+      .qr-prompt {
+        font-size: 12px;
+        font-weight: 700;
+        color: var(--text-muted);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      /* Footer */
+      .banner-footer {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-top: 1.5px solid #f1f5f9;
+        padding-top: 22px;
+        font-size: 13px;
+        color: var(--text-muted);
+        font-weight: 600;
+      }
+
+      .author-credit span {
+        color: var(--color-blue);
+        font-weight: 700;
+      }
+
+      .meta-tag {
+        font-family: var(--font-mono);
+        font-size: 12px;
+        background: #f1f5f9;
+        padding: 5px 12px;
+        border-radius: 6px;
+        color: var(--text-secondary);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="print-grid"></div>
+
+    <div class="banner-content">
+      <!-- Header Row -->
+      <header class="header-row">
+        <div class="brand-lockup">
+          <svg class="brand-icon" viewBox="0 0 100 100" fill="none" xmlns="http://www.w3.org/2000/svg">
+            <circle cx="50" cy="50" r="46" fill="#0284C7" />
+            <circle cx="50" cy="50" r="42" fill="#FFFFFF" />
+            <circle cx="50" cy="50" r="38" fill="#F8FAFC" />
+            <rect x="36" y="32" width="7" height="36" rx="3.5" fill="#0284C7" />
+            <rect x="47" y="24" width="7" height="52" rx="3.5" fill="#0284C7" />
+            <rect x="58" y="38" width="7" height="24" rx="3.5" fill="#0284C7" />
+          </svg>
+          <div class="brand-text">Hush<span>Loop</span></div>
+        </div>
+        <div class="header-badges">
+          <div class="eco-badge">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+            </svg>
+            Eco-Print Friendly
+          </div>
+          <div class="os-pill">
+            <span class="dot"></span>
+            Windows 11 Native
+          </div>
+        </div>
+      </header>
+
+      <!-- Hero Statement -->
+      <section class="hero-section">
+        <div class="kicker-pill">Active Pomodoro Desktop Timer</div>
+        <h1 class="main-headline">
+          Deep Work, <span class="highlight">Uninterrupted.</span>
+        </h1>
+        <p class="hero-subhead">
+          Zero clock drift. Autonomous background noise silencing. Procedural ambient soundscapes engineered natively for Windows 11.
+        </p>
+      </section>
+
+      <!-- Minimalist Timer Showcase -->
+      <section class="timer-showcase">
+        <div class="timer-card">
+          <div class="timer-dial-wrap">
+            <svg class="timer-svg" viewBox="0 0 380 380">
+              <circle class="timer-circle-bg" cx="190" cy="190" r="170" />
+              <circle class="timer-circle-progress" cx="190" cy="190" r="170" />
+            </svg>
+            <div class="timer-center-info">
+              <span class="timer-status-badge">● Focus Active</span>
+              <div class="timer-digits">25:00</div>
+              <div class="timer-caption">
+                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                  <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                  <line x1="23" y1="9" x2="17" y2="15"/>
+                  <line x1="17" y1="9" x2="23" y2="15"/>
+                </svg>
+                Master Audio Silenced (-70%)
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- Key Specs Trio (Thin Line Grid) -->
+      <section class="specs-grid">
+        <div class="spec-card">
+          <div class="spec-header">
+            <div class="spec-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <circle cx="12" cy="12" r="10"/>
+                <polyline points="12 6 12 12 16 14"/>
+              </svg>
+            </div>
+            <div class="spec-title">Zero Clock Drift</div>
+          </div>
+          <div class="spec-desc">
+            Epoch-anchored delta clock. Never skips a beat during laptop sleep or battery throttling.
+          </div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-header">
+            <div class="spec-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M11 5L6 9H2v6h4l5 4V5z"/>
+                <path d="M15.54 8.46a5 5 0 0 1 0 7.07"/>
+              </svg>
+            </div>
+            <div class="spec-title">Active Silencing</div>
+          </div>
+          <div class="spec-desc">
+            WinMM system automation ducks distracting notification chimes seamlessly during sprints.
+          </div>
+        </div>
+
+        <div class="spec-card">
+          <div class="spec-header">
+            <div class="spec-icon-box">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M2 10s3-3 5-3 4 6 7 6 7-6 7-6"/>
+                <path d="M2 15s3-3 5-3 4 6 7 6 7-6 7-6"/>
+              </svg>
+            </div>
+            <div class="spec-title">432Hz Audio Synth</div>
+          </div>
+          <div class="spec-desc">
+            Procedural Brownian noise & binaural tones generated locally. Zero bandwidth or MP3s.
+          </div>
+        </div>
+      </section>
+
+      <!-- Call To Action & High Contrast QR Code -->
+      <section class="cta-card">
+        <div class="cta-info">
+          <h2 class="cta-heading">Scan to Experience <span>HushLoop</span></h2>
+          <p class="cta-subtext">
+            Test the live interactive showcase or install the lightweight Windows 11 executable.
+          </p>
+          <div class="url-box">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="10"/>
+              <line x1="2" y1="12" x2="22" y2="12"/>
+              <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+            </svg>
+            https://ronaldgosso.github.io/hushloop_site
+          </div>
+        </div>
+        <div class="qr-holder">
+          <img
+            class="qr-image"
+            src="assets/qr_code_hushloop.svg"
+            alt="QR Code redirecting to https://ronaldgosso.github.io/hushloop_site"
+          />
+          <span class="qr-prompt">Scan with Camera</span>
+        </div>
+      </section>
+
+      <!-- Footer -->
+      <footer class="banner-footer">
+        <div class="author-credit">
+          Conceived & Engineered by <span>Ronald Gosso</span> • Open Source on GitHub
+        </div>
+        <div class="meta-tag">Ink-Saver Print Edition • 1080×1920 (9:16)</div>
+      </footer>
+    </div>
+  </body>
+</html>

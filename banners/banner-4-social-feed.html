@@ -1,0 +1,429 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1350" />
+    <title>HushLoop — Social Feed Portrait Banner (4:5)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-base: #06090e;
+        --color-cyan: #00f2fe;
+        --color-cyan-mint: #4eedde;
+        --text-primary: #f0f6fc;
+        --text-secondary: #94a3b8;
+        --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 1080px;
+        height: 1350px;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 12%, #141e2e 0%, #0a0d14 60%, #05070a 100%);
+        font-family: var(--font-sans);
+        color: var(--text-primary);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 55px 60px 45px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .aurora-mesh {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1.5px, transparent 1.5px);
+        background-size: 34px 34px;
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
+      .glow-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(140px);
+        mix-blend-mode: screen;
+        pointer-events: none;
+      }
+
+      .orb-1 {
+        width: 700px;
+        height: 700px;
+        top: -150px;
+        left: 20%;
+        background: radial-gradient(circle, rgba(0, 242, 254, 0.38) 0%, transparent 70%);
+      }
+
+      .banner-content {
+        position: relative;
+        z-index: 10;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .brand-lockup {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .brand-icon {
+        width: 48px;
+        height: 48px;
+        filter: drop-shadow(0 0 16px rgba(0, 242, 254, 0.75));
+      }
+
+      .brand-text {
+        font-size: 32px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: #ffffff;
+      }
+
+      .brand-text span {
+        color: var(--color-cyan);
+      }
+
+      .os-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 22px;
+        border-radius: 9999px;
+        background: rgba(0, 242, 254, 0.12);
+        border: 1px solid rgba(0, 242, 254, 0.4);
+        font-size: 15px;
+        font-weight: 800;
+        color: var(--color-cyan);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .pulse-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--color-cyan);
+        box-shadow: 0 0 12px var(--color-cyan);
+      }
+
+      .hero-text {
+        text-align: center;
+        margin-top: 10px;
+      }
+
+      .kicker {
+        font-size: 16px;
+        font-weight: 800;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--color-cyan);
+        margin-bottom: 10px;
+        display: inline-block;
+      }
+
+      .headline {
+        font-size: 64px;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: 1.08;
+        margin-bottom: 12px;
+        background: linear-gradient(135deg, #ffffff 45%, var(--color-cyan-mint) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .subhead {
+        font-size: 21px;
+        color: var(--text-secondary);
+        max-width: 800px;
+        margin: 0 auto;
+        line-height: 1.45;
+        font-weight: 500;
+      }
+
+      /* Center Split Layout (Gauge on left, Features on right) */
+      .center-split {
+        display: grid;
+        grid-template-columns: 1fr 1.15fr;
+        gap: 36px;
+        align-items: center;
+        margin: 10px 0;
+      }
+
+      .gauge-box {
+        position: relative;
+        width: 360px;
+        height: 360px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto;
+      }
+
+      .gauge-svg {
+        position: absolute;
+        inset: 0;
+        transform: rotate(-90deg);
+      }
+
+      .timer-num {
+        font-family: var(--font-mono);
+        font-size: 80px;
+        font-weight: 700;
+        color: #ffffff;
+        text-shadow: 0 0 35px rgba(0, 242, 254, 0.5);
+      }
+
+      .features-column {
+        display: flex;
+        flex-direction: column;
+        gap: 14px;
+      }
+
+      .mini-feature-card {
+        padding: 16px 20px;
+        border-radius: 16px;
+        background: rgba(22, 27, 34, 0.82);
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+      }
+
+      .f-check-icon {
+        width: 36px;
+        height: 36px;
+        border-radius: 10px;
+        background: rgba(0, 242, 254, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: var(--color-cyan);
+        flex-shrink: 0;
+      }
+
+      .f-text-title {
+        font-size: 18px;
+        font-weight: 700;
+        color: #fff;
+      }
+
+      .f-text-desc {
+        font-size: 14px;
+        color: var(--text-secondary);
+      }
+
+      /* Footer CTA Card */
+      .footer-card {
+        background: rgba(18, 23, 33, 0.9);
+        backdrop-filter: blur(32px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 28px;
+        padding: 24px 36px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 28px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.75), 0 0 35px rgba(0, 242, 254, 0.18);
+      }
+
+      .cta-title {
+        font-size: 28px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+        margin-bottom: 6px;
+      }
+
+      .cta-title span {
+        color: var(--color-cyan);
+      }
+
+      .cta-desc {
+        font-size: 17px;
+        color: var(--text-secondary);
+        font-weight: 500;
+        line-height: 1.4;
+        margin-bottom: 10px;
+      }
+
+      .cta-url {
+        font-family: var(--font-mono);
+        font-size: 15px;
+        color: var(--color-cyan-mint);
+        background: rgba(0, 0, 0, 0.55);
+        padding: 6px 14px;
+        border-radius: 8px;
+        display: inline-block;
+        border: 1px solid rgba(0, 242, 254, 0.3);
+      }
+
+      .qr-housing {
+        position: relative;
+        background: #ffffff;
+        padding: 12px;
+        border-radius: 18px;
+        box-shadow: 0 0 35px rgba(0, 242, 254, 0.55);
+        flex-shrink: 0;
+      }
+
+      .qr-img {
+        width: 130px;
+        height: 130px;
+        display: block;
+      }
+
+      .author-note {
+        text-align: center;
+        font-size: 15px;
+        color: var(--text-secondary);
+        margin-top: 14px;
+        font-weight: 500;
+      }
+
+      .author-note strong {
+        color: var(--color-cyan);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="aurora-mesh"></div>
+    <div class="glow-orb orb-1"></div>
+
+    <div class="banner-content">
+      <!-- Header -->
+      <div class="header-row">
+        <div class="brand-lockup">
+          <svg class="brand-icon" viewBox="0 0 256 256">
+            <path fill-rule="evenodd" d="M 128 32 C 74.98 32 32 74.98 32 128 C 32 181.02 74.98 224 128 224 C 181.02 224 224 181.02 224 128 C 224 74.98 181.02 32 128 32 Z M 128 60 C 165.55 60 196 90.45 196 128 C 196 165.55 165.55 196 128 196 C 90.45 196 60 165.55 60 128 C 60 90.45 90.45 60 128 60 Z" fill="#ffffff"/>
+            <rect x="96" y="96" width="18" height="64" rx="9" fill="#00F2FE"/>
+            <rect x="122" y="80" width="18" height="96" rx="9" fill="#4EEDDE"/>
+            <rect x="148" y="104" width="18" height="48" rx="9" fill="#00F2FE"/>
+          </svg>
+          <div class="brand-text">Hush<span>Loop</span></div>
+        </div>
+        <div class="os-pill">
+          <span class="pulse-dot"></span>
+          <span>Windows 11 Native</span>
+        </div>
+      </div>
+
+      <!-- Hero Headlines -->
+      <div class="hero-text">
+        <span class="kicker">Active Pomodoro Desktop Timer</span>
+        <h1 class="headline">DEEP FOCUS, SILENCED.</h1>
+        <p class="subhead">
+          Zero clock drift. Procedural audio synthesis. Automated distraction silencing engineered for Windows 11.
+        </p>
+      </div>
+
+      <!-- Center Split Area -->
+      <div class="center-split">
+        <!-- Gauge UI -->
+        <div class="gauge-box">
+          <svg class="gauge-svg" viewBox="0 0 380 380" width="100%" height="100%">
+            <defs>
+              <linearGradient id="cyanArcGrad45" x1="0%" y1="0%" x2="100%" y2="100%">
+                <stop offset="0%" stop-color="#00F2FE" />
+                <stop offset="100%" stop-color="#4EEDDE" />
+              </linearGradient>
+            </defs>
+            <circle cx="190" cy="190" r="165" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="14" />
+            <circle cx="190" cy="190" r="165" fill="none" stroke="url(#cyanArcGrad45)" stroke-width="14" stroke-linecap="round" stroke-dasharray="1036.7" stroke-dashoffset="340" />
+          </svg>
+          <div style="text-align: center; position: relative; z-index: 5;">
+            <div class="timer-num">25:00</div>
+            <div style="font-size: 15px; font-weight: 800; color: var(--color-cyan); letter-spacing: 0.16em;">FOCUS ACTIVE</div>
+          </div>
+        </div>
+
+        <!-- Features Column -->
+        <div class="features-column">
+          <div class="mini-feature-card">
+            <div class="f-check-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div>
+              <div class="f-text-title">Zero-Drift Epoch Engine</div>
+              <div class="f-text-desc">Immune to Windows power-save suspend or minimization.</div>
+            </div>
+          </div>
+
+          <div class="mini-feature-card">
+            <div class="f-check-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div>
+              <div class="f-text-title">WinMM Audio Silencing</div>
+              <div class="f-text-desc">Ducks master volume (-70%) during focus to stop alert chimes.</div>
+            </div>
+          </div>
+
+          <div class="mini-feature-card">
+            <div class="f-check-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div>
+              <div class="f-text-title">Write-Ahead Crash Ledger</div>
+              <div class="f-text-desc">State saved before changes. Never stuck on mute after crash.</div>
+            </div>
+          </div>
+
+          <div class="mini-feature-card">
+            <div class="f-check-icon">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="20 6 9 17 4 12"></polyline></svg>
+            </div>
+            <div>
+              <div class="f-text-title">432Hz Procedural Audio</div>
+              <div class="f-text-desc">Pure Web Audio API math. Zero MP3 downloads.</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Footer CTA Card -->
+      <div>
+        <div class="footer-card">
+          <div>
+            <h2 class="cta-title">Scan to Experience <span>HushLoop</span></h2>
+            <p class="cta-desc">Launch the official live showcase or download Windows 11 binaries.</p>
+            <div>
+              <span class="cta-url">https://ronaldgosso.github.io/hushloop_site</span>
+            </div>
+          </div>
+
+          <div class="qr-housing">
+            <img src="assets/qr_code_hushloop.svg" alt="HushLoop QR Code" class="qr-img" />
+          </div>
+        </div>
+
+        <div class="author-note">
+          Conceived & Engineered by <strong>Ronald Gosso</strong> • Open Source on GitHub • v2.0.0
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

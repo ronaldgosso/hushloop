@@ -1,0 +1,546 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1080, height=1920" />
+    <title>HushLoop — Active Silencer & Power User Banner (9:16)</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <style>
+      :root {
+        --bg-base: #06090e;
+        --color-cyan: #00f2fe;
+        --color-cyan-mint: #4eedde;
+        --color-coral: #ff4b72;
+        --color-coral-soft: #ff6584;
+        --text-primary: #f0f6fc;
+        --text-secondary: #94a3b8;
+        --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        width: 1080px;
+        height: 1920px;
+        overflow: hidden;
+        background: radial-gradient(circle at 50% 12%, #1a162b 0%, #0a0d14 60%, #05070a 100%);
+        font-family: var(--font-sans);
+        color: var(--text-primary);
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 80px 70px 70px;
+        -webkit-font-smoothing: antialiased;
+      }
+
+      .aurora-mesh {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1.5px, transparent 1.5px);
+        background-size: 36px 36px;
+        opacity: 0.7;
+        pointer-events: none;
+      }
+
+      .glow-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(140px);
+        mix-blend-mode: screen;
+        pointer-events: none;
+      }
+
+      .orb-1 {
+        width: 850px;
+        height: 850px;
+        top: -150px;
+        left: 10%;
+        background: radial-gradient(circle, rgba(255, 75, 114, 0.3) 0%, transparent 70%);
+      }
+
+      .orb-2 {
+        width: 700px;
+        height: 700px;
+        bottom: 120px;
+        right: -100px;
+        background: radial-gradient(circle, rgba(0, 242, 254, 0.28) 0%, transparent 70%);
+      }
+
+      .banner-content {
+        position: relative;
+        z-index: 10;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .header-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .brand-lockup {
+        display: flex;
+        align-items: center;
+        gap: 18px;
+      }
+
+      .brand-icon {
+        width: 58px;
+        height: 58px;
+        filter: drop-shadow(0 0 16px rgba(0, 242, 254, 0.75));
+      }
+
+      .brand-text {
+        font-size: 38px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: #ffffff;
+      }
+
+      .brand-text span {
+        color: var(--color-cyan);
+      }
+
+      .os-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 12px;
+        padding: 12px 26px;
+        border-radius: 9999px;
+        background: rgba(255, 75, 114, 0.12);
+        border: 1px solid rgba(255, 75, 114, 0.4);
+        font-size: 18px;
+        font-weight: 800;
+        color: var(--color-coral);
+        text-transform: uppercase;
+        letter-spacing: 0.1em;
+      }
+
+      .pulse-dot-coral {
+        width: 12px;
+        height: 12px;
+        border-radius: 50%;
+        background: var(--color-coral);
+        box-shadow: 0 0 14px var(--color-coral);
+      }
+
+      .hero-text {
+        text-align: center;
+        margin-top: 25px;
+      }
+
+      .kicker {
+        font-size: 20px;
+        font-weight: 800;
+        letter-spacing: 0.22em;
+        text-transform: uppercase;
+        color: var(--color-coral);
+        margin-bottom: 18px;
+        display: inline-block;
+      }
+
+      .headline {
+        font-size: 76px;
+        font-weight: 900;
+        letter-spacing: -0.04em;
+        line-height: 1.08;
+        margin-bottom: 22px;
+        background: linear-gradient(135deg, #ffffff 40%, var(--color-cyan-mint) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .subhead {
+        font-size: 26px;
+        color: var(--text-secondary);
+        max-width: 880px;
+        margin: 0 auto;
+        line-height: 1.5;
+        font-weight: 500;
+      }
+
+      /* Architecture Grid Cards */
+      .feature-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        width: 100%;
+        margin: 15px 0;
+      }
+
+      .f-card {
+        padding: 34px 30px;
+        border-radius: 26px;
+        background: rgba(22, 27, 34, 0.82);
+        backdrop-filter: blur(28px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .f-icon-box {
+        width: 60px;
+        height: 60px;
+        border-radius: 18px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin-bottom: 18px;
+      }
+
+      .f-icon-cyan {
+        background: rgba(0, 242, 254, 0.14);
+        border: 1px solid rgba(0, 242, 254, 0.4);
+        color: var(--color-cyan);
+      }
+
+      .f-icon-coral {
+        background: rgba(255, 75, 114, 0.14);
+        border: 1px solid rgba(255, 75, 114, 0.4);
+        color: var(--color-coral);
+      }
+
+      .f-title {
+        font-size: 26px;
+        font-weight: 800;
+        color: #ffffff;
+        margin-bottom: 8px;
+      }
+
+      .f-desc {
+        font-size: 17px;
+        color: var(--text-secondary);
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+
+      .f-badge {
+        font-family: var(--font-mono);
+        font-size: 14px;
+        padding: 8px 16px;
+        border-radius: 10px;
+        background: rgba(0, 0, 0, 0.5);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: var(--color-cyan-mint);
+        display: inline-block;
+      }
+
+      .f-badge.coral {
+        color: var(--color-coral-soft);
+        border-color: rgba(255, 75, 114, 0.3);
+      }
+
+      /* Big Telemetry Strip */
+      .telemetry-strip {
+        padding: 24px 34px;
+        border-radius: 22px;
+        background: rgba(22, 27, 34, 0.82);
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+      }
+
+      .streak-val {
+        font-family: var(--font-mono);
+        font-size: 44px;
+        font-weight: 800;
+        color: #ffffff;
+      }
+
+      .streak-val span {
+        color: var(--color-cyan);
+      }
+
+      /* Chips Row */
+      .chips-row {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin: 15px 0;
+      }
+
+      .chip {
+        padding: 12px 26px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.14);
+        font-size: 17px;
+        font-weight: 700;
+        color: #ffffff;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .chip.coral {
+        background: rgba(255, 75, 114, 0.12);
+        border-color: rgba(255, 75, 114, 0.4);
+        color: var(--color-coral);
+      }
+
+      /* Footer CTA Card */
+      .footer-card {
+        background: rgba(18, 23, 33, 0.9);
+        backdrop-filter: blur(32px);
+        border: 1px solid rgba(255, 255, 255, 0.18);
+        border-radius: 32px;
+        padding: 34px 44px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 36px;
+        box-shadow: 0 24px 70px rgba(0, 0, 0, 0.75), 0 0 35px rgba(0, 242, 254, 0.18);
+      }
+
+      .footer-cta-col {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+      }
+
+      .cta-title {
+        font-size: 34px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+      }
+
+      .cta-title span {
+        color: var(--color-cyan);
+      }
+
+      .cta-desc {
+        font-size: 20px;
+        color: var(--text-secondary);
+        font-weight: 500;
+        line-height: 1.45;
+      }
+
+      .cta-url {
+        font-family: var(--font-mono);
+        font-size: 16px;
+        color: var(--color-cyan-mint);
+        background: rgba(0, 0, 0, 0.55);
+        padding: 8px 18px;
+        border-radius: 10px;
+        display: inline-block;
+        border: 1px solid rgba(0, 242, 254, 0.3);
+      }
+
+      .qr-housing {
+        position: relative;
+        background: #ffffff;
+        padding: 16px;
+        border-radius: 22px;
+        box-shadow: 0 0 40px rgba(0, 242, 254, 0.55);
+        flex-shrink: 0;
+      }
+
+      .qr-img {
+        width: 155px;
+        height: 155px;
+        display: block;
+      }
+
+      .qr-bracket {
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        border-color: var(--color-cyan);
+        border-style: solid;
+        pointer-events: none;
+      }
+
+      .b-tl {
+        top: -6px;
+        left: -6px;
+        border-width: 4px 0 0 4px;
+        border-top-left-radius: 8px;
+      }
+
+      .b-tr {
+        top: -6px;
+        right: -6px;
+        border-width: 4px 4px 0 0;
+        border-top-right-radius: 8px;
+      }
+
+      .b-bl {
+        bottom: -6px;
+        left: -6px;
+        border-width: 0 0 4px 4px;
+        border-bottom-left-radius: 8px;
+      }
+
+      .b-br {
+        bottom: -6px;
+        right: -6px;
+        border-width: 0 4px 4px 0;
+        border-bottom-right-radius: 8px;
+      }
+
+      .author-note {
+        text-align: center;
+        font-size: 18px;
+        color: var(--text-secondary);
+        margin-top: 22px;
+        font-weight: 500;
+      }
+
+      .author-note strong {
+        color: var(--color-cyan);
+      }
+    </style>
+  </head>
+  <body>
+    <div class="aurora-mesh"></div>
+    <div class="glow-orb orb-1"></div>
+    <div class="glow-orb orb-2"></div>
+
+    <div class="banner-content">
+      <!-- Header -->
+      <div class="header-row">
+        <div class="brand-lockup">
+          <svg class="brand-icon" viewBox="0 0 256 256">
+            <path fill-rule="evenodd" d="M 128 32 C 74.98 32 32 74.98 32 128 C 32 181.02 74.98 224 128 224 C 181.02 224 224 181.02 224 128 C 224 74.98 181.02 32 128 32 Z M 128 60 C 165.55 60 196 90.45 196 128 C 196 165.55 165.55 196 128 196 C 90.45 196 60 165.55 60 128 C 60 90.45 90.45 60 128 60 Z" fill="#ffffff"/>
+            <rect x="96" y="96" width="18" height="64" rx="9" fill="#00F2FE"/>
+            <rect x="122" y="80" width="18" height="96" rx="9" fill="#4EEDDE"/>
+            <rect x="148" y="104" width="18" height="48" rx="9" fill="#00F2FE"/>
+          </svg>
+          <div class="brand-text">Hush<span>Loop</span></div>
+        </div>
+        <div class="os-pill">
+          <span class="pulse-dot-coral"></span>
+          <span>Crash-Proof Silencing</span>
+        </div>
+      </div>
+
+      <!-- Hero Headlines -->
+      <div class="hero-text">
+        <span class="kicker">Windows 11 Native Architecture</span>
+        <h1 class="headline">IMMUNE TO NOISE<br/>& SLEEP DRIFT.</h1>
+        <p class="subhead">
+          Native winmm.dll audio ducking backed by an atomic write-ahead crash ledger. Your system volume is always safe.
+        </p>
+      </div>
+
+      <!-- Features Grid -->
+      <div class="feature-grid">
+        <!-- Feature 1: System Silencing -->
+        <div class="f-card">
+          <div>
+            <div class="f-icon-box f-icon-cyan">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                <line x1="23" y1="9" x2="17" y2="15"></line>
+                <line x1="17" y1="9" x2="23" y2="15"></line>
+              </svg>
+            </div>
+            <div class="f-title">Audio Silencing</div>
+            <div class="f-desc">Ducks master output (-70%) during focus to suppress system alerts and notification bells.</div>
+          </div>
+          <span class="f-badge">WinMMAudioDriver::Duck()</span>
+        </div>
+
+        <!-- Feature 2: Crash Ledger -->
+        <div class="f-card">
+          <div>
+            <div class="f-icon-box f-icon-coral">
+              <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+              </svg>
+            </div>
+            <div class="f-title">Write-Ahead Ledger</div>
+            <div class="f-desc">Pre-session volume is preserved on disk before changes. Never get stuck on mute after a reboot.</div>
+          </div>
+          <span class="f-badge coral">silencer-session.json</span>
+        </div>
+      </div>
+
+      <!-- Telemetry Strip -->
+      <div class="telemetry-strip">
+        <div>
+          <div style="font-size: 15px; font-weight: 700; color: var(--text-secondary); text-transform: uppercase; letter-spacing: 0.1em; margin-bottom: 4px;">Zero-Drift Telemetry</div>
+          <div class="streak-val"><span>5</span> DAYS STREAK • 125 MINS</div>
+        </div>
+        <div style="text-align: right;">
+          <div style="font-size: 14px; color: var(--color-cyan); font-weight: 700;">GLOBAL HOTKEY</div>
+          <span class="f-badge" style="margin-top: 6px;">Ctrl + Alt + F</span>
+        </div>
+      </div>
+
+      <!-- Feature Highlights -->
+      <div class="chips-row">
+        <div class="chip coral">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          99.8% Test Coverage
+        </div>
+        <div class="chip">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          100% Offline-First
+        </div>
+        <div class="chip">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Native Tray Tooltip
+        </div>
+        <div class="chip coral">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+            <polyline points="20 6 9 17 4 12"></polyline>
+          </svg>
+          Sleep-Drift Immune
+        </div>
+      </div>
+
+      <!-- Footer CTA & Scannable QR Code -->
+      <div>
+        <div class="footer-card">
+          <div class="footer-cta-col">
+            <h2 class="cta-title">Scan to Download <span>HushLoop</span></h2>
+            <p class="cta-desc">Download ready-to-run Windows 11 NSIS installers, portable EXE, and view source code.</p>
+            <div>
+              <span class="cta-url">https://ronaldgosso.github.io/hushloop_site</span>
+            </div>
+          </div>
+
+          <!-- High-Contrast Scannable QR Code Housing -->
+          <div class="qr-housing">
+            <div class="qr-bracket b-tl"></div>
+            <div class="qr-bracket b-tr"></div>
+            <div class="qr-bracket b-bl"></div>
+            <div class="qr-bracket b-br"></div>
+            <img src="assets/qr_code_hushloop.svg" alt="HushLoop QR Code" class="qr-img" />
+          </div>
+        </div>
+
+        <div class="author-note">
+          Conceived and Engineered by <strong>Ronald Gosso</strong> • Open Source on GitHub • Release v2.0.0
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

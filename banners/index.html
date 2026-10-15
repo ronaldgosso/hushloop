@@ -1,0 +1,1491 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>HushLoop — Advertising Banner Studio (Portrait)</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap"
+      rel="stylesheet"
+    />
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    <style>
+      :root {
+        --bg-base: #06090e;
+        --bg-surface: rgba(18, 23, 33, 0.76);
+        --bg-surface-elevated: rgba(24, 31, 44, 0.92);
+        --border-subtle: rgba(255, 255, 255, 0.12);
+        --border-focus: rgba(0, 242, 254, 0.45);
+        --color-cyan: #00f2fe;
+        --color-cyan-mint: #4eedde;
+        --color-coral: #ff4b72;
+        --color-coral-soft: #ff6584;
+        --text-primary: #f0f6fc;
+        --text-secondary: #94a3b8;
+        --text-muted: #64748b;
+        --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+        --font-mono: 'JetBrains Mono', monospace;
+      }
+
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: var(--font-sans);
+        background-color: var(--bg-base);
+        color: var(--text-primary);
+        min-height: 100vh;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        overflow-x: hidden;
+      }
+
+      /* Studio Header & Control Bar */
+      .studio-header {
+        width: 100%;
+        max-width: 1400px;
+        padding: 30px 40px 20px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .studio-brand-row {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        flex-wrap: wrap;
+        gap: 16px;
+      }
+
+      .studio-logo {
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        text-decoration: none;
+        color: #fff;
+      }
+
+      .studio-logo-icon {
+        width: 38px;
+        height: 38px;
+        filter: drop-shadow(0 0 10px rgba(0, 242, 254, 0.6));
+      }
+
+      .studio-title {
+        font-size: 24px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+      }
+
+      .studio-title span {
+        color: var(--color-cyan);
+      }
+
+      .studio-badge {
+        font-size: 12px;
+        font-weight: 700;
+        letter-spacing: 0.1em;
+        padding: 6px 14px;
+        border-radius: 9999px;
+        background: rgba(0, 242, 254, 0.1);
+        border: 1px solid rgba(0, 242, 254, 0.3);
+        color: var(--color-cyan);
+        text-transform: uppercase;
+      }
+
+      /* Control Deck */
+      .control-deck {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        flex-wrap: wrap;
+        gap: 16px;
+        background: var(--bg-surface);
+        backdrop-filter: blur(20px);
+        border: 1px solid var(--border-subtle);
+        border-radius: 18px;
+        padding: 16px 24px;
+        box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+      }
+
+      .control-group {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+      }
+
+      .control-label {
+        font-size: 13px;
+        font-weight: 700;
+        color: var(--text-secondary);
+        text-transform: uppercase;
+        letter-spacing: 0.05em;
+      }
+
+      .segmented-control {
+        display: inline-flex;
+        background: rgba(0, 0, 0, 0.4);
+        padding: 4px;
+        border-radius: 12px;
+        border: 1px solid var(--border-subtle);
+      }
+
+      .seg-btn {
+        padding: 8px 16px;
+        border-radius: 8px;
+        border: none;
+        background: transparent;
+        color: var(--text-secondary);
+        font-family: var(--font-sans);
+        font-size: 13px;
+        font-weight: 600;
+        cursor: pointer;
+        transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+      }
+
+      .seg-btn:hover {
+        color: #fff;
+      }
+
+      .seg-btn.active {
+        background: var(--color-cyan);
+        color: #06090e;
+        box-shadow: 0 0 15px rgba(0, 242, 254, 0.4);
+      }
+
+      .action-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 10px 22px;
+        border-radius: 12px;
+        font-family: var(--font-sans);
+        font-size: 14px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.2s ease;
+      }
+
+      .btn-primary {
+        background: linear-gradient(135deg, var(--color-cyan) 0%, var(--color-cyan-mint) 100%);
+        border: none;
+        color: #06090e;
+        box-shadow: 0 0 20px rgba(0, 242, 254, 0.35);
+      }
+
+      .btn-primary:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 0 28px rgba(0, 242, 254, 0.55);
+      }
+
+      .btn-secondary {
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid var(--border-subtle);
+        color: #fff;
+      }
+
+      .btn-secondary:hover {
+        background: rgba(255, 255, 255, 0.14);
+      }
+
+      /* Stage Area */
+      .stage-wrapper {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        padding: 20px 20px 60px;
+        width: 100%;
+      }
+
+      /* =========================================================================
+         BANNER COMPONENT (Render target for PNG export)
+         Base coordinate system: 1080px wide (scaled down for viewing via CSS)
+         ========================================================================= */
+      .banner-viewport-wrapper {
+        box-shadow: 0 30px 90px rgba(0, 0, 0, 0.8), 0 0 40px rgba(0, 242, 254, 0.15);
+        border-radius: 36px;
+        overflow: hidden;
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        background: #0a0d14;
+        transition: all 0.3s ease;
+      }
+
+      .banner-root {
+        position: relative;
+        background: radial-gradient(circle at 50% 15%, #131c2a 0%, #0a0d14 65%, #05070a 100%);
+        color: #ffffff;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      /* Formats */
+      .format-9-16 {
+        width: 1080px;
+        height: 1920px;
+        transform-origin: top center;
+      }
+
+      .format-4-5 {
+        width: 1080px;
+        height: 1350px;
+        transform-origin: top center;
+      }
+
+      .format-1-2 {
+        width: 600px;
+        height: 1200px;
+        transform-origin: top center;
+      }
+
+      /* Ambient Aurora Mesh */
+      .banner-aurora {
+        position: absolute;
+        inset: 0;
+        pointer-events: none;
+        overflow: hidden;
+        z-index: 0;
+      }
+
+      .banner-mesh-grid {
+        position: absolute;
+        inset: 0;
+        background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1.5px, transparent 1.5px);
+        background-size: 36px 36px;
+        opacity: 0.6;
+      }
+
+      .banner-glow-orb {
+        position: absolute;
+        border-radius: 50%;
+        filter: blur(140px);
+        mix-blend-mode: screen;
+      }
+
+      .b-orb-1 {
+        width: 800px;
+        height: 800px;
+        top: -200px;
+        left: 15%;
+        background: radial-gradient(circle, rgba(0, 242, 254, 0.35) 0%, transparent 70%);
+      }
+
+      .b-orb-2 {
+        width: 650px;
+        height: 650px;
+        bottom: 100px;
+        right: -100px;
+        background: radial-gradient(circle, rgba(78, 237, 222, 0.25) 0%, transparent 70%);
+      }
+
+      .b-orb-3 {
+        width: 600px;
+        height: 600px;
+        top: 40%;
+        left: -150px;
+        background: radial-gradient(circle, rgba(255, 75, 114, 0.18) 0%, transparent 70%);
+      }
+
+      /* Banner Content Shell */
+      .banner-content-shell {
+        position: relative;
+        z-index: 10;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        padding: 70px 60px 60px;
+      }
+
+      .format-1-2 .banner-content-shell {
+        padding: 50px 40px 40px;
+      }
+
+      /* Top Bar */
+      .banner-top-bar {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        width: 100%;
+      }
+
+      .banner-brand-lockup {
+        display: flex;
+        align-items: center;
+        gap: 16px;
+      }
+
+      .banner-brand-symbol {
+        width: 52px;
+        height: 52px;
+        filter: drop-shadow(0 0 16px rgba(0, 242, 254, 0.7));
+      }
+
+      .format-1-2 .banner-brand-symbol {
+        width: 40px;
+        height: 40px;
+      }
+
+      .banner-brand-title {
+        font-size: 34px;
+        font-weight: 800;
+        letter-spacing: -0.03em;
+        color: #ffffff;
+      }
+
+      .format-1-2 .banner-brand-title {
+        font-size: 26px;
+      }
+
+      .banner-brand-title span {
+        color: var(--color-cyan);
+      }
+
+      .banner-os-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        padding: 10px 22px;
+        border-radius: 9999px;
+        background: rgba(0, 242, 254, 0.12);
+        border: 1px solid rgba(0, 242, 254, 0.35);
+        font-size: 16px;
+        font-weight: 700;
+        color: var(--color-cyan);
+        text-transform: uppercase;
+        letter-spacing: 0.08em;
+      }
+
+      .format-1-2 .banner-os-badge {
+        padding: 6px 14px;
+        font-size: 12px;
+      }
+
+      .pulse-dot {
+        width: 10px;
+        height: 10px;
+        border-radius: 50%;
+        background: var(--color-cyan);
+        box-shadow: 0 0 12px var(--color-cyan);
+      }
+
+      /* Hero Typography Section */
+      .banner-hero-text {
+        text-align: center;
+        margin: 20px 0 10px;
+      }
+
+      .banner-kicker {
+        display: inline-block;
+        font-size: 18px;
+        font-weight: 800;
+        text-transform: uppercase;
+        letter-spacing: 0.22em;
+        color: var(--color-cyan);
+        margin-bottom: 16px;
+      }
+
+      .format-1-2 .banner-kicker {
+        font-size: 13px;
+        margin-bottom: 10px;
+      }
+
+      .banner-headline {
+        font-size: 68px;
+        font-weight: 900;
+        line-height: 1.08;
+        letter-spacing: -0.04em;
+        margin-bottom: 18px;
+        background: linear-gradient(135deg, #ffffff 40%, var(--color-cyan-mint) 100%);
+        -webkit-background-clip: text;
+        -webkit-text-fill-color: transparent;
+      }
+
+      .format-4-5 .banner-headline {
+        font-size: 58px;
+        margin-bottom: 12px;
+      }
+
+      .format-1-2 .banner-headline {
+        font-size: 42px;
+        margin-bottom: 12px;
+      }
+
+      .banner-subhead {
+        font-size: 24px;
+        color: var(--text-secondary);
+        font-weight: 500;
+        max-width: 820px;
+        margin: 0 auto;
+        line-height: 1.45;
+      }
+
+      .format-4-5 .banner-subhead {
+        font-size: 20px;
+        max-width: 760px;
+      }
+
+      .format-1-2 .banner-subhead {
+        font-size: 16px;
+        line-height: 1.35;
+      }
+
+      /* =========================================================================
+         HERO VISUAL CENTERPIECES
+         ========================================================================= */
+      .banner-center-stage {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        margin: 20px 0;
+        width: 100%;
+      }
+
+      /* --- Visual 1: Glowing Timer Gauge --- */
+      .banner-gauge-box {
+        position: relative;
+        width: 440px;
+        height: 440px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .format-4-5 .banner-gauge-box {
+        width: 360px;
+        height: 360px;
+      }
+
+      .format-1-2 .banner-gauge-box {
+        width: 280px;
+        height: 280px;
+      }
+
+      .gauge-svg-banner {
+        position: absolute;
+        inset: 0;
+        transform: rotate(-90deg);
+      }
+
+      .gauge-inner-stats {
+        position: relative;
+        z-index: 5;
+        text-align: center;
+      }
+
+      .gauge-big-num {
+        font-family: var(--font-mono);
+        font-size: 92px;
+        font-weight: 700;
+        letter-spacing: 0.02em;
+        color: #ffffff;
+        text-shadow: 0 0 40px rgba(0, 242, 254, 0.45);
+      }
+
+      .format-4-5 .gauge-big-num {
+        font-size: 76px;
+      }
+
+      .format-1-2 .gauge-big-num {
+        font-size: 56px;
+      }
+
+      .gauge-state-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        padding: 6px 16px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.08);
+        border: 1px solid rgba(255, 255, 255, 0.15);
+        font-size: 15px;
+        font-weight: 700;
+        color: var(--text-primary);
+        margin-top: 8px;
+      }
+
+      /* Floating Dock Mockup */
+      .banner-dock-pill {
+        display: inline-flex;
+        align-items: center;
+        gap: 24px;
+        padding: 14px 34px;
+        border-radius: 9999px;
+        background: rgba(22, 27, 34, 0.88);
+        backdrop-filter: blur(28px);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        box-shadow: 0 20px 50px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 242, 254, 0.2);
+        margin-top: 26px;
+      }
+
+      .format-1-2 .banner-dock-pill {
+        padding: 10px 22px;
+        gap: 16px;
+        margin-top: 16px;
+      }
+
+      .dock-icon-circle {
+        width: 52px;
+        height: 52px;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        color: #fff;
+      }
+
+      .format-1-2 .dock-icon-circle {
+        width: 38px;
+        height: 38px;
+      }
+
+      .dock-icon-primary {
+        width: 64px;
+        height: 64px;
+        background: linear-gradient(135deg, var(--color-cyan) 0%, var(--color-cyan-mint) 100%);
+        border: none;
+        color: #0a0d14;
+        box-shadow: 0 0 28px rgba(0, 242, 254, 0.55);
+      }
+
+      .format-1-2 .dock-icon-primary {
+        width: 48px;
+        height: 48px;
+      }
+
+      /* --- Visual 2: Procedural Soundscape Matrix --- */
+      .banner-soundscape-matrix {
+        width: 100%;
+        max-width: 860px;
+        display: flex;
+        flex-direction: column;
+        gap: 20px;
+      }
+
+      .format-1-2 .banner-soundscape-matrix {
+        max-width: 500px;
+        gap: 14px;
+      }
+
+      .sound-card-glass {
+        padding: 24px 30px;
+        border-radius: 20px;
+        background: rgba(22, 27, 34, 0.75);
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+      }
+
+      .format-1-2 .sound-card-glass {
+        padding: 16px 20px;
+        border-radius: 16px;
+      }
+
+      .sound-card-glass.active-sound {
+        background: rgba(0, 242, 254, 0.14);
+        border: 1px solid rgba(0, 242, 254, 0.5);
+        box-shadow: 0 0 25px rgba(0, 242, 254, 0.2);
+      }
+
+      .spectrum-bar-group {
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        height: 50px;
+      }
+
+      .spec-bar {
+        width: 6px;
+        border-radius: 3px;
+        background: linear-gradient(to top, var(--color-cyan), var(--color-cyan-mint));
+      }
+
+      /* --- Visual 3: Silencer & Telemetry Cards --- */
+      .banner-silencer-matrix {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        width: 100%;
+        max-width: 860px;
+      }
+
+      .format-1-2 .banner-silencer-matrix {
+        grid-template-columns: 1fr;
+        gap: 14px;
+        max-width: 500px;
+      }
+
+      .feature-box-glass {
+        padding: 28px;
+        border-radius: 22px;
+        background: rgba(22, 27, 34, 0.75);
+        backdrop-filter: blur(24px);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+      }
+
+      .format-1-2 .feature-box-glass {
+        padding: 18px;
+        border-radius: 16px;
+      }
+
+      /* Highlight Pills Bar */
+      .banner-highlights-row {
+        display: flex;
+        justify-content: center;
+        flex-wrap: wrap;
+        gap: 16px;
+        margin: 20px 0;
+      }
+
+      .format-1-2 .banner-highlights-row {
+        gap: 8px;
+        margin: 12px 0;
+      }
+
+      .feature-chip {
+        padding: 10px 22px;
+        border-radius: 9999px;
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.12);
+        font-size: 16px;
+        font-weight: 700;
+        color: #ffffff;
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .format-1-2 .feature-chip {
+        padding: 6px 14px;
+        font-size: 12px;
+      }
+
+      .feature-chip.cyan {
+        background: rgba(0, 242, 254, 0.1);
+        border-color: rgba(0, 242, 254, 0.35);
+        color: var(--color-cyan);
+      }
+
+      /* =========================================================================
+         BANNER FOOTER & QR CODE CALL TO ACTION
+         ========================================================================= */
+      .banner-footer-card {
+        background: rgba(18, 23, 33, 0.88);
+        backdrop-filter: blur(32px);
+        border: 1px solid rgba(255, 255, 255, 0.16);
+        border-radius: 28px;
+        padding: 30px 40px;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        gap: 30px;
+        box-shadow: 0 20px 60px rgba(0, 0, 0, 0.7), 0 0 30px rgba(0, 242, 254, 0.15);
+      }
+
+      .format-1-2 .banner-footer-card {
+        padding: 20px 24px;
+        gap: 16px;
+        border-radius: 20px;
+      }
+
+      .footer-info-col {
+        display: flex;
+        flex-direction: column;
+        gap: 10px;
+      }
+
+      .cta-heading {
+        font-size: 30px;
+        font-weight: 800;
+        letter-spacing: -0.02em;
+        color: #ffffff;
+      }
+
+      .format-1-2 .cta-heading {
+        font-size: 20px;
+      }
+
+      .cta-heading span {
+        color: var(--color-cyan);
+      }
+
+      .cta-desc {
+        font-size: 18px;
+        color: var(--text-secondary);
+        font-weight: 500;
+        line-height: 1.4;
+      }
+
+      .format-1-2 .cta-desc {
+        font-size: 13px;
+      }
+
+      .cta-url-tag {
+        font-family: var(--font-mono);
+        font-size: 15px;
+        color: var(--color-cyan-mint);
+        background: rgba(0, 0, 0, 0.5);
+        padding: 6px 14px;
+        border-radius: 8px;
+        display: inline-block;
+        border: 1px solid rgba(0, 242, 254, 0.25);
+      }
+
+      .format-1-2 .cta-url-tag {
+        font-size: 11px;
+        padding: 4px 10px;
+      }
+
+      /* QR Box with targeting reticle */
+      .qr-code-housing {
+        position: relative;
+        background: #ffffff;
+        padding: 16px;
+        border-radius: 20px;
+        box-shadow: 0 0 35px rgba(0, 242, 254, 0.5);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-shrink: 0;
+      }
+
+      .format-1-2 .qr-code-housing {
+        padding: 10px;
+        border-radius: 14px;
+      }
+
+      .qr-image-display {
+        width: 150px;
+        height: 150px;
+        display: block;
+      }
+
+      .format-4-5 .qr-image-display {
+        width: 130px;
+        height: 130px;
+      }
+
+      .format-1-2 .qr-image-display {
+        width: 90px;
+        height: 90px;
+      }
+
+      .qr-corner-bracket {
+        position: absolute;
+        width: 18px;
+        height: 18px;
+        border-color: var(--color-cyan);
+        border-style: solid;
+        pointer-events: none;
+      }
+
+      .bracket-tl {
+        top: -6px;
+        left: -6px;
+        border-width: 4px 0 0 4px;
+        border-top-left-radius: 8px;
+      }
+
+      .bracket-tr {
+        top: -6px;
+        right: -6px;
+        border-width: 4px 4px 0 0;
+        border-top-right-radius: 8px;
+      }
+
+      .bracket-bl {
+        bottom: -6px;
+        left: -6px;
+        border-width: 0 0 4px 4px;
+        border-bottom-left-radius: 8px;
+      }
+
+      .bracket-br {
+        bottom: -6px;
+        right: -6px;
+        border-width: 0 4px 4px 0;
+        border-bottom-right-radius: 8px;
+      }
+
+      /* Author Credit Bar */
+      .banner-author-footnote {
+        text-align: center;
+        font-size: 16px;
+        color: var(--text-muted);
+        margin-top: 18px;
+        font-weight: 500;
+      }
+
+      .format-1-2 .banner-author-footnote {
+        font-size: 11px;
+        margin-top: 10px;
+      }
+
+      .banner-author-footnote strong {
+        color: var(--color-cyan);
+      }
+
+      /* =========================================================================
+         LIGHT & ECO-PRINT THEME OVERRIDES (Zero Ink Waste)
+         ========================================================================= */
+      .banner-root.theme-light-print {
+        background: #ffffff !important;
+        color: #0f172a !important;
+      }
+
+      .banner-root.theme-light-print .banner-aurora {
+        display: none !important;
+      }
+
+      .banner-root.theme-light-print .banner-mesh-grid {
+        background-image: radial-gradient(rgba(15, 23, 42, 0.04) 1.5px, transparent 1.5px) !important;
+        opacity: 1 !important;
+      }
+
+      .banner-root.theme-light-print .banner-top-badge {
+        background: #f8fafc !important;
+        border-color: #cbd5e1 !important;
+        color: #0f172a !important;
+      }
+
+      .banner-root.theme-light-print .banner-brand-text {
+        color: #0f172a !important;
+      }
+
+      .banner-root.theme-light-print .banner-brand-text span {
+        color: #0284c7 !important;
+      }
+
+      .banner-root.theme-light-print .kicker-pill {
+        background: #eff6ff !important;
+        border-color: #bfdbfe !important;
+        color: #0284c7 !important;
+      }
+
+      .banner-root.theme-light-print .banner-title {
+        color: #0f172a !important;
+      }
+
+      .banner-root.theme-light-print .cyan-glow {
+        color: #0284c7 !important;
+        text-shadow: none !important;
+      }
+
+      .banner-root.theme-light-print .banner-subtitle {
+        color: #475569 !important;
+      }
+
+      .banner-root.theme-light-print .glass-panel,
+      .banner-root.theme-light-print .sound-card-glass,
+      .banner-root.theme-light-print .feature-box-glass,
+      .banner-root.theme-light-print .banner-qr-container {
+        background: #f8fafc !important;
+        border: 1.5px solid #e2e8f0 !important;
+        box-shadow: 0 10px 25px -8px rgba(15, 23, 42, 0.06) !important;
+        color: #0f172a !important;
+      }
+
+      .banner-root.theme-light-print .banner-qr-container {
+        border-color: #0284c7 !important;
+        background: #ffffff !important;
+      }
+
+      .banner-root.theme-light-print .banner-qr-code-box {
+        background: #ffffff !important;
+        border-color: #e2e8f0 !important;
+      }
+
+      .banner-root.theme-light-print .qr-scan-label {
+        color: #64748b !important;
+      }
+
+      .banner-root.theme-light-print .banner-url-pill {
+        background: #f1f5f9 !important;
+        border-color: #cbd5e1 !important;
+        color: #0f172a !important;
+      }
+
+      .banner-root.theme-light-print .banner-qr-title {
+        color: #0f172a !important;
+      }
+
+      .banner-root.theme-light-print .banner-qr-title span {
+        color: #0284c7 !important;
+      }
+
+      .banner-root.theme-light-print .banner-qr-subtitle {
+        color: #475569 !important;
+      }
+
+      .banner-root.theme-light-print .time-digits {
+        color: #0f172a !important;
+        text-shadow: none !important;
+      }
+
+      .banner-root.theme-light-print .gauge-circle-track {
+        stroke: #f1f5f9 !important;
+      }
+
+      .banner-root.theme-light-print .gauge-circle-accent {
+        stroke: #0284c7 !important;
+        filter: none !important;
+      }
+
+      .banner-root.theme-light-print .gauge-state-badge {
+        background: #f0fdfa !important;
+        border-color: #99f6e4 !important;
+        color: #0d9488 !important;
+      }
+
+      .banner-root.theme-light-print .banner-dock-pill {
+        background: #ffffff !important;
+        border-color: #e2e8f0 !important;
+        box-shadow: 0 12px 30px -10px rgba(15, 23, 42, 0.08) !important;
+      }
+
+      .banner-root.theme-light-print .dock-icon-circle {
+        background: #f1f5f9 !important;
+        border-color: #e2e8f0 !important;
+        color: #0f172a !important;
+      }
+
+      .banner-root.theme-light-print .dock-icon-primary {
+        background: #0284c7 !important;
+        color: #ffffff !important;
+        box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35) !important;
+      }
+
+      .banner-root.theme-light-print .banner-author-footnote {
+        color: #64748b !important;
+      }
+
+      .banner-root.theme-light-print .banner-author-footnote strong {
+        color: #0284c7 !important;
+      }
+
+      /* Standalone banner quick links drawer */
+      .quick-links-drawer {
+        width: 100%;
+        max-width: 1400px;
+        padding: 0 40px 10px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+        flex-wrap: wrap;
+        font-size: 13px;
+        color: var(--text-muted);
+      }
+
+      .quick-link-chip {
+        display: inline-flex;
+        align-items: center;
+        gap: 6px;
+        padding: 6px 14px;
+        background: rgba(255, 255, 255, 0.05);
+        border: 1px solid var(--border-subtle);
+        border-radius: 8px;
+        color: var(--text-secondary);
+        text-decoration: none;
+        transition: all 0.2s ease;
+      }
+
+      .quick-link-chip:hover {
+        background: rgba(255, 255, 255, 0.12);
+        color: #ffffff;
+        border-color: var(--color-cyan);
+      }
+
+      .quick-link-chip.eco-chip {
+        border-color: rgba(78, 237, 222, 0.3);
+        color: var(--color-cyan-mint);
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Studio Header & Controls -->
+    <header class="studio-header">
+      <div class="studio-brand-row">
+        <a href="#" class="studio-logo">
+          <svg class="studio-logo-icon" viewBox="0 0 256 256">
+            <path fill-rule="evenodd" d="M 128 32 C 74.98 32 32 74.98 32 128 C 32 181.02 74.98 224 128 224 C 181.02 224 224 181.02 224 128 C 224 74.98 181.02 32 128 32 Z M 128 60 C 165.55 60 196 90.45 196 128 C 196 165.55 165.55 196 128 196 C 90.45 196 60 165.55 60 128 C 60 90.45 90.45 60 128 60 Z" fill="#00F2FE"/>
+            <rect x="96" y="96" width="18" height="64" rx="9" fill="#00F2FE"/>
+            <rect x="122" y="80" width="18" height="96" rx="9" fill="#4EEDDE"/>
+            <rect x="148" y="104" width="18" height="48" rx="9" fill="#00F2FE"/>
+          </svg>
+          <div class="studio-title">Hush<span>Loop</span> Advertising Studio</div>
+        </a>
+        <div class="studio-badge">UI/UX Pro Max • Advertising Banners</div>
+      </div>
+
+      <!-- Control Deck -->
+      <div class="control-deck">
+        <!-- Concept Switcher -->
+        <div class="control-group">
+          <span class="control-label">Concept:</span>
+          <div class="segmented-control" id="conceptSeg">
+            <button class="seg-btn active" data-concept="flagship">1. Flagship Focus</button>
+            <button class="seg-btn" data-concept="soundscape">2. Web Audio Math</button>
+            <button class="seg-btn" data-concept="silencer">3. Active Silencing</button>
+          </div>
+        </div>
+
+        <!-- Theme Switcher (OLED vs Eco-Print) -->
+        <div class="control-group">
+          <span class="control-label">Theme:</span>
+          <div class="segmented-control" id="themeSeg">
+            <button class="seg-btn active" data-theme="dark">🌙 Dark OLED</button>
+            <button class="seg-btn" data-theme="light">☀️ Light Eco-Print</button>
+          </div>
+        </div>
+
+        <!-- Format Switcher -->
+        <div class="control-group">
+          <span class="control-label">Format:</span>
+          <div class="segmented-control" id="formatSeg">
+            <button class="seg-btn active" data-format="format-9-16" data-scale="0.45">9:16 Story (1080×1920)</button>
+            <button class="seg-btn" data-format="format-4-5" data-scale="0.55">4:5 Feed (1080×1350)</button>
+            <button class="seg-btn" data-format="format-1-2" data-scale="0.65">1:2 Display (600×1200)</button>
+          </div>
+        </div>
+
+        <!-- Action Export Buttons -->
+        <div class="control-group">
+          <button class="action-btn btn-primary" id="downloadPngBtn">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+              <polyline points="7 10 12 15 17 10"></polyline>
+              <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Download Banner (PNG)
+          </button>
+          <button class="action-btn btn-secondary" onclick="window.print()">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <polyline points="6 9 6 2 18 2 18 9"></polyline>
+              <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+              <rect x="6" y="14" width="12" height="8"></rect>
+            </svg>
+            Print / PDF
+          </button>
+        </div>
+      </div>
+
+      <!-- Quick Links to Standalone Production Files -->
+      <div class="quick-links-drawer">
+        <span>Standalone Files:</span>
+        <a class="quick-link-chip eco-chip" href="banner-light-1-flagship.html" target="_blank">🌿 Light Flagship (9:16)</a>
+        <a class="quick-link-chip eco-chip" href="banner-light-2-soundscape.html" target="_blank">🌿 Light Soundscapes (9:16)</a>
+        <a class="quick-link-chip eco-chip" href="banner-light-3-silencer.html" target="_blank">🌿 Light Silencer (9:16)</a>
+        <a class="quick-link-chip eco-chip" href="banner-light-4-flyer.html" target="_blank">🌿 Light Flyer (4:5 / A4)</a>
+        <span style="opacity: 0.4">|</span>
+        <a class="quick-link-chip" href="banner-1-flagship.html" target="_blank">🌙 Dark Flagship</a>
+        <a class="quick-link-chip" href="banner-2-soundscape.html" target="_blank">🌙 Dark Audio</a>
+        <a class="quick-link-chip" href="banner-3-silencer.html" target="_blank">🌙 Dark Silencer</a>
+        <a class="quick-link-chip" href="banner-4-social-feed.html" target="_blank">🌙 Dark 4:5 Feed</a>
+      </div>
+    </header>
+
+    <!-- Stage Area -->
+    <main class="stage-wrapper">
+      <div id="bannerScaleWrapper" style="transform: scale(0.45); transform-origin: top center;">
+        <div class="banner-viewport-wrapper">
+          <div id="bannerCanvas" class="banner-root format-9-16">
+            <!-- Ambient Aurora Backdrop -->
+            <div class="banner-aurora">
+              <div class="banner-mesh-grid"></div>
+              <div class="banner-glow-orb b-orb-1"></div>
+              <div class="banner-glow-orb b-orb-2"></div>
+              <div class="banner-glow-orb b-orb-3"></div>
+            </div>
+
+            <!-- Content Container -->
+            <div class="banner-content-shell">
+              <!-- Top Header -->
+              <div class="banner-top-bar">
+                <div class="banner-brand-lockup">
+                  <svg class="banner-brand-symbol" viewBox="0 0 256 256">
+                    <path fill-rule="evenodd" d="M 128 32 C 74.98 32 32 74.98 32 128 C 32 181.02 74.98 224 128 224 C 181.02 224 224 181.02 224 128 C 224 74.98 181.02 32 128 32 Z M 128 60 C 165.55 60 196 90.45 196 128 C 196 165.55 165.55 196 128 196 C 90.45 196 60 165.55 60 128 C 60 90.45 90.45 60 128 60 Z" fill="#ffffff"/>
+                    <rect x="96" y="96" width="18" height="64" rx="9" fill="#00F2FE"/>
+                    <rect x="122" y="80" width="18" height="96" rx="9" fill="#4EEDDE"/>
+                    <rect x="148" y="104" width="18" height="48" rx="9" fill="#00F2FE"/>
+                  </svg>
+                  <div class="banner-brand-title">Hush<span>Loop</span></div>
+                </div>
+                <div class="banner-os-badge">
+                  <span class="pulse-dot"></span>
+                  <span id="badgeText">Windows 11 Native</span>
+                </div>
+              </div>
+
+              <!-- Hero Copy Area -->
+              <div class="banner-hero-text">
+                <span class="banner-kicker" id="heroKicker">Active Pomodoro Desktop Timer</span>
+                <h1 class="banner-headline" id="heroHeadline">DEEP FOCUS,<br/>SILENCED.</h1>
+                <p class="banner-subhead" id="heroSubhead">
+                  Zero timer drift. Procedural audio synthesis. Automated distraction silencing for Windows 11.
+                </p>
+              </div>
+
+              <!-- Center Stage (Swappable Concept Visuals) -->
+              <div class="banner-center-stage" id="centerStage">
+                <!-- Concept 1: Timer Gauge Visual (Default) -->
+                <div id="visualConcept1" class="concept-visual" style="display: flex; flex-direction: column; align-items: center;">
+                  <div class="banner-gauge-box">
+                    <svg class="gauge-svg-banner" viewBox="0 0 380 380" width="100%" height="100%">
+                      <defs>
+                        <linearGradient id="cyanArcGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+                          <stop offset="0%" stop-color="#00F2FE" />
+                          <stop offset="100%" stop-color="#4EEDDE" />
+                        </linearGradient>
+                        <filter id="neonBloom" x="-20%" y="-20%" width="140%" height="140%">
+                          <feGaussianBlur stdDeviation="9" result="blur" />
+                          <feMerge>
+                            <feMergeNode in="blur" />
+                            <feMergeNode in="SourceGraphic" />
+                          </feMerge>
+                        </filter>
+                      </defs>
+                      <circle cx="190" cy="190" r="165" fill="none" stroke="rgba(255,255,255,0.06)" stroke-width="14" />
+                      <circle cx="190" cy="190" r="165" fill="none" stroke="url(#cyanArcGrad)" stroke-width="14" stroke-linecap="round" stroke-dasharray="1036.7" stroke-dashoffset="360" filter="url(#neonBloom)" />
+                    </svg>
+                    <div class="gauge-inner-stats">
+                      <div class="gauge-big-num">25:00</div>
+                      <div style="font-size: 16px; font-weight: 800; color: var(--color-cyan); letter-spacing: 0.16em;">FOCUS SESSION</div>
+                      <div class="gauge-state-badge">
+                        <span class="pulse-dot"></span>
+                        <span>Deep Focus Active</span>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Floating Dock -->
+                  <div class="banner-dock-pill">
+                    <div class="dock-icon-circle">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="11 19 2 12 11 5 11 19"></polygon>
+                        <polygon points="22 19 13 12 22 5 22 19"></polygon>
+                      </svg>
+                    </div>
+                    <div class="dock-icon-circle dock-icon-primary">
+                      <svg width="26" height="26" viewBox="0 0 24 24" fill="currentColor">
+                        <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                      </svg>
+                    </div>
+                    <div class="dock-icon-circle">
+                      <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                        <polygon points="13 19 22 12 13 5 13 19"></polygon>
+                        <polygon points="2 19 11 12 2 5 2 19"></polygon>
+                      </svg>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Concept 2: Procedural Soundscapes (Hidden by default) -->
+                <div id="visualConcept2" class="concept-visual" style="display: none; width: 100%;">
+                  <div class="banner-soundscape-matrix">
+                    <div class="sound-card-glass active-sound">
+                      <div style="display: flex; align-items: center; gap: 18px;">
+                        <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(0, 242, 254, 0.15); display: flex; align-items: center; justify-content: center; color: var(--color-cyan);">
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M2 12c.6 0 1.2-.4 1.4-1 1.2-3 3.6-5 6.6-5 3.3 0 6 2.7 6 6 0 1.7 1.3 3 3 3s3-1.3 3-3"></path>
+                          </svg>
+                        </div>
+                        <div>
+                          <div style="font-size: 24px; font-weight: 800; color: #fff;">Alpha Waves (432Hz)</div>
+                          <div style="font-size: 16px; color: var(--text-secondary);">Dual binaural sine synthesis • Flow state</div>
+                        </div>
+                      </div>
+                      <div class="spectrum-bar-group">
+                        <div class="spec-bar" style="height: 20px;"></div>
+                        <div class="spec-bar" style="height: 38px;"></div>
+                        <div class="spec-bar" style="height: 48px;"></div>
+                        <div class="spec-bar" style="height: 32px;"></div>
+                        <div class="spec-bar" style="height: 44px;"></div>
+                      </div>
+                    </div>
+
+                    <div class="sound-card-glass">
+                      <div style="display: flex; align-items: center; gap: 18px;">
+                        <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; color: var(--color-cyan-mint);">
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M20 16.2A4.5 4.5 0 0 0 17.5 8h-1.8A7 7 0 1 0 4 14.9"></path>
+                            <path d="M16 14v6"></path>
+                            <path d="M8 14v6"></path>
+                            <path d="M12 16v6"></path>
+                          </svg>
+                        </div>
+                        <div>
+                          <div style="font-size: 24px; font-weight: 800; color: #fff;">Rain Ambience</div>
+                          <div style="font-size: 16px; color: var(--text-secondary);">Pink noise filtered with dual resonant biquad</div>
+                        </div>
+                      </div>
+                      <span class="cta-url-tag">Strict CSP Math</span>
+                    </div>
+
+                    <div class="sound-card-glass">
+                      <div style="display: flex; align-items: center; gap: 18px;">
+                        <div style="width: 52px; height: 52px; border-radius: 14px; background: rgba(255, 255, 255, 0.08); display: flex; align-items: center; justify-content: center; color: var(--color-cyan);">
+                          <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <circle cx="12" cy="12" r="10"></circle>
+                            <circle cx="12" cy="12" r="3"></circle>
+                          </svg>
+                        </div>
+                        <div>
+                          <div style="font-size: 24px; font-weight: 800; color: #fff;">Zero MP3 Downloads</div>
+                          <div style="font-size: 16px; color: var(--text-secondary);">Pure Web Audio API math • 0 KB asset footprint</div>
+                        </div>
+                      </div>
+                      <span class="cta-url-tag">Instant Audio</span>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Concept 3: Active Silencer & Power User (Hidden by default) -->
+                <div id="visualConcept3" class="concept-visual" style="display: none; width: 100%;">
+                  <div class="banner-silencer-matrix">
+                    <div class="feature-box-glass">
+                      <div>
+                        <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(0, 242, 254, 0.12); display: flex; align-items: center; justify-content: center; color: var(--color-cyan); margin-bottom: 16px;">
+                          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M11 5L6 9H2v6h4l5 4V5z"></path>
+                            <line x1="23" y1="9" x2="17" y2="15"></line>
+                            <line x1="17" y1="9" x2="23" y2="15"></line>
+                          </svg>
+                        </div>
+                        <h3 style="font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 8px;">System Audio Silencing</h3>
+                        <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.5;">Native winmm.dll volume ducking suppresses intrusive notification chimes during focus.</p>
+                      </div>
+                      <div class="cta-url-tag" style="margin-top: 20px;">Ducked -70% on Session Start</div>
+                    </div>
+
+                    <div class="feature-box-glass">
+                      <div>
+                        <div style="width: 50px; height: 50px; border-radius: 14px; background: rgba(255, 75, 114, 0.12); display: flex; align-items: center; justify-content: center; color: var(--color-coral); margin-bottom: 16px;">
+                          <svg width="26" height="26" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+                          </svg>
+                        </div>
+                        <h3 style="font-size: 22px; font-weight: 800; color: #fff; margin-bottom: 8px;">Write-Ahead Crash Ledger</h3>
+                        <p style="font-size: 15px; color: var(--text-secondary); line-height: 1.5;">Original volume state is recorded to disk before alterations. Never left on mute after a crash.</p>
+                      </div>
+                      <div class="cta-url-tag" style="margin-top: 20px; color: var(--color-coral-soft);">Protected %APPDATA% Ledger</div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Highlights Row -->
+              <div class="banner-highlights-row" id="highlightsRow">
+                <div class="feature-chip cyan">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Zero Clock Drift
+                </div>
+                <div class="feature-chip">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  Automated Silencing
+                </div>
+                <div class="feature-chip">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  432Hz Soundscapes
+                </div>
+                <div class="feature-chip cyan">
+                  <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                    <polyline points="20 6 9 17 4 12"></polyline>
+                  </svg>
+                  99.8% Test Coverage
+                </div>
+              </div>
+
+              <!-- Footer CTA & Scannable QR Code -->
+              <div>
+                <div class="banner-footer-card">
+                  <div class="footer-info-col">
+                    <h2 class="cta-heading">Scan to Experience <span>HushLoop</span></h2>
+                    <p class="cta-desc">Launch the official live showcase, explore features, or download Windows 11 binaries.</p>
+                    <div>
+                      <span class="cta-url-tag">ronaldgosso.github.io/hushloop_site</span>
+                    </div>
+                  </div>
+
+                  <!-- High-Contrast Scannable QR Code Housing -->
+                  <div class="qr-code-housing">
+                    <div class="qr-corner-bracket bracket-tl"></div>
+                    <div class="qr-corner-bracket bracket-tr"></div>
+                    <div class="qr-corner-bracket bracket-bl"></div>
+                    <div class="qr-corner-bracket bracket-br"></div>
+                    <img src="assets/qr_code_hushloop.svg" alt="HushLoop QR Code" class="qr-image-display" />
+                  </div>
+                </div>
+
+                <div class="banner-author-footnote">
+                  Conceived and Engineered by <strong>Ronald Gosso</strong> • Open Source on GitHub • v2.0.0
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </main>
+
+    <!-- Interactive Scripting -->
+    <script>
+      // Concepts configuration
+      const concepts = {
+        flagship: {
+          badge: "Windows 11 Native",
+          kicker: "Active Pomodoro Desktop Timer",
+          headline: "DEEP FOCUS,<br/>SILENCED.",
+          subhead: "Zero timer drift. Procedural audio synthesis. Automated distraction silencing for Windows 11.",
+          showVisual: "visualConcept1"
+        },
+        soundscape: {
+          badge: "Web Audio API Math",
+          kicker: "Zero-Asset Acoustic Synthesis",
+          headline: "NO MP3s.<br/>PURE ACOUSTIC MATH.",
+          subhead: "Dual binaural 432 Hz sine waves and pink-noise rain generated in real-time under strict CSP.",
+          showVisual: "visualConcept2"
+        },
+        silencer: {
+          badge: "winmm.dll Driver Architecture",
+          kicker: "Active Distraction Silencing",
+          headline: "IMMUNE TO NOISE<br/>& SLEEP DRIFT.",
+          subhead: "Automated master volume ducking with write-ahead crash ledger guarantees peace of mind.",
+          showVisual: "visualConcept3"
+        }
+      };
+
+      // Concept switching
+      const conceptBtns = document.querySelectorAll("#conceptSeg .seg-btn");
+      conceptBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          conceptBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const cKey = btn.dataset.concept;
+          const conf = concepts[cKey];
+
+          document.getElementById("badgeText").innerText = conf.badge;
+          document.getElementById("heroKicker").innerText = conf.kicker;
+          document.getElementById("heroHeadline").innerHTML = conf.headline;
+          document.getElementById("heroSubhead").innerText = conf.subhead;
+
+          document.querySelectorAll(".concept-visual").forEach(el => el.style.display = "none");
+          document.getElementById(conf.showVisual).style.display = "flex";
+        });
+      });
+
+      // Format switching
+      const formatBtns = document.querySelectorAll("#formatSeg .seg-btn");
+      const bannerCanvas = document.getElementById("bannerCanvas");
+      const scaleWrapper = document.getElementById("bannerScaleWrapper");
+
+      formatBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          formatBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const fmt = btn.dataset.format;
+          const scale = btn.dataset.scale;
+
+          bannerCanvas.classList.remove("format-9-16", "format-4-5", "format-1-2");
+          bannerCanvas.classList.add(fmt);
+          scaleWrapper.style.transform = `scale(${scale})`;
+        });
+      });
+
+      // Theme switching (Dark OLED vs Light Eco-Print)
+      const themeBtns = document.querySelectorAll("#themeSeg .seg-btn");
+      themeBtns.forEach(btn => {
+        btn.addEventListener("click", () => {
+          themeBtns.forEach(b => b.classList.remove("active"));
+          btn.classList.add("active");
+          const theme = btn.dataset.theme;
+
+          if (theme === "light") {
+            bannerCanvas.classList.add("theme-light-print");
+          } else {
+            bannerCanvas.classList.remove("theme-light-print");
+          }
+        });
+      });
+
+      // High-Res PNG Download using HTML2Canvas
+      const downloadBtn = document.getElementById("downloadPngBtn");
+      downloadBtn.addEventListener("click", async () => {
+        downloadBtn.innerText = "Rasterizing High-Res PNG...";
+        downloadBtn.style.opacity = "0.7";
+
+        try {
+          const isLight = bannerCanvas.classList.contains("theme-light-print");
+
+          // Temporarily reset scale on canvas to render at 1:1 true resolution
+          const curTransform = scaleWrapper.style.transform;
+          scaleWrapper.style.transform = "none";
+
+          const canvas = await html2canvas(bannerCanvas, {
+            scale: 2, // 2x retina crispness
+            useCORS: true,
+            allowTaint: true,
+            backgroundColor: isLight ? "#ffffff" : "#06090e"
+          });
+
+          // Restore preview scale
+          scaleWrapper.style.transform = curTransform;
+
+          const dataUrl = canvas.toDataURL("image/png");
+          const activeConcept = document.querySelector("#conceptSeg .seg-btn.active").dataset.concept;
+          const activeFormat = document.querySelector("#formatSeg .seg-btn.active").dataset.format;
+          const activeTheme = isLight ? "light-print" : "dark-oled";
+
+          const a = document.createElement("a");
+          a.href = dataUrl;
+          a.download = `hushloop-banner-${activeTheme}-${activeConcept}-${activeFormat}.png`;
+          document.body.appendChild(a);
+          a.click();
+          document.body.removeChild(a);
+
+          downloadBtn.innerHTML = `
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <polyline points="20 6 9 17 4 12"></polyline>
+            </svg> Downloaded!
+          `;
+          setTimeout(() => {
+            downloadBtn.innerHTML = `
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg> Download Banner (PNG)
+            `;
+            downloadBtn.style.opacity = "1";
+          }, 2000);
+        } catch (err) {
+          console.error("Export error:", err);
+          alert("Error generating PNG. Please use the Print/PDF button as fallback.");
+          downloadBtn.innerText = "Download Banner (PNG)";
+          downloadBtn.style.opacity = "1";
+        }
+      });
+    </script>
+  </body>
+</html>
